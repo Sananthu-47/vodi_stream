@@ -1,0 +1,18 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root
+{
+    --primary-color : #0c0e17;
+    --background-color : #131722;
+    --logo-font : 'Titan One', cursive;
+}
+
+.full-size{
+    width: 100vw;
+    height: 100vh;
+    background: var(--background-color);
+}
