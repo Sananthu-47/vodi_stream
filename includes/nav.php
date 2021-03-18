@@ -4,7 +4,6 @@
             <i class='fa fa-bars pr-3'></i>
             <div id="logo">vodi</div>
         </div><!---left-side-nav-first-->
-        <!-- <div class=""> -->
             <ul class='nav left-side-nav-second col-lg-8 d-flex justify-content-around align-items-center'>
                 <li class='nav-item'>Browse</li>
                 <li class='nav-item'>Home</li>
@@ -25,7 +24,34 @@
     </div><!---right-side-nav-first--->
     <div class="right-side-nav-second d-flex justify-content-between align-items-center">
         <i id='search-icon' class='fa fa-search d-none px-3'></i>
-        <div id='profile-img-small' class='d-flex justify-content-center align-items-center'><i id='search-icon' class='fa fa-user fa-2x'></i></div>
+        <div class='d-flex align-items-center dropdown'>
+            <div id='profile-img-small' class='d-flex justify-content-center align-items-center'><i id='search-icon' class='fa fa-user fa-2x'></i></div>
+            <i class='fa fa-angle-down arrow-down'></i>
+            
+        </div>
     </div><!---right-side-nav-second--->
     </div><!--nav-right-side-->
 </div>
+
+        <ul class="sub-menu dropdown-menu text-center">
+            <li class='list-item'><a href="#" class='text-dark'>Sign in</a></li>
+            <li class='list-item'><a href="#" class='text-dark'>Register</a></li>
+        </ul>
+
+<script>
+    $('.dropdown').on('click',function(){
+        $('.sub-menu').toggle();
+    });
+    $('.sub-menu').on('mouseenter',function(){
+        $('.sub-menu').show();
+    });
+    $('.sub-menu').on('mouseleave',function(){
+        $('.sub-menu').hide();
+    });
+    $('.dropdown').on('mouseenter',function(){
+        $('.sub-menu').show();
+    });
+    $('.dropdown').on('mouseleave',function(){
+        $('.sub-menu').hide();
+    });
+</script>

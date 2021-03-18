@@ -71,6 +71,28 @@
     font-weight: 100 !important;
 }
 
+.arrow-down{
+    font-weight: 100 !important;
+    padding: 0 5px;
+    color: #838386;
+}
+
+.dropdown{
+    cursor: pointer;
+}
+
+.sub-menu{
+    position: absolute;
+    top: 10px;
+    left: 95%;
+    transform: translate(-100%,100%);
+    z-index: 9 !important;
+}
+
+.list-item a{
+    cursor: pointer;
+    text-decoration: none;
+}
 
 @media only screen and (max-width: 1440px) {
     .custom-navbar{
@@ -94,5 +116,15 @@
         position: relative;
         left: 5%;
         transform: translateX(-5%);
+    }
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .dropdown-menu{
+        min-width: 100vw !important;
+        left: 100% !important;
+        transform: translate(-100%,70%) !important;
+        text-align: start !important;
+        padding-left: 15px;
     }
   }
