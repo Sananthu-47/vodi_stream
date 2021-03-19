@@ -1,3 +1,7 @@
+<?php include "Classes/Category.php";
+            $Category = new Category();
+?>
+
 <footer class="site-footer dark" role="contentinfo">
 <div class="container-fluid">
     <div class="footer-top-bar">
@@ -29,12 +33,9 @@
         <div class="col-5 d-flex flex-column justify-content-center">
             <span class='m-auto footer-headings'>Movie Categories</span>
             <ul class="list-group d-flex flex-row flex-wrap text-center">
-                <li  class="list-item w-50 ">Alerts</li>
-                <li  class="list-item w-50 ">Alerts</li>
-                <li  class="list-item w-50 ">Alerts</li>
-                <li  class="list-item w-50 ">Alerts</li>
-                <li  class="list-item w-50 ">Alerts</li>
-                <li  class="list-item w-50 ">Alerts</li>
+                <?php 
+                $Category->get_all_category();
+                ?>
             </ul>
         </div>
         <div class="col-5 d-flex flex-column justify-content-center">
