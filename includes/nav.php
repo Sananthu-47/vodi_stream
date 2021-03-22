@@ -12,6 +12,7 @@
                 <li class='nav-item'>Blog</li>
                 <li class='nav-item'>Movies</li>
                 <li class='nav-item'>Tv</li>
+                <li class='nav-item' id='planings'>Plan</li>
             </ul><!--left-side-nav-second- -->
     </div><!---nav-left-side-->
     <div class="nav-right-side d-flex justify-content-end col-lg-4">
@@ -110,18 +111,53 @@
     $('#register').on('click',function(e){
         e.preventDefault();
         let email = $('#email-register').val();
-        let modile_number = $('#mobile-number-register').val();
+        let mobile_number = $('#mobile-number-register').val();
         let password = $('#password-register').val();
 
         $.ajax({
             url : "process/login.php",
             type : "POST",
-            data : {email,modile_number,password},
+            data : {email,mobile_number,password},
             success : function(data)
             {
-                console.log(data);
+                if(data == 3)
+                {
+                    alert('User already registered');
+                }else if(data == 4)
+                {
+                    $('#plans').css('display','flex');
+                    $('#plans').html(`<?php include "pricing.php"; ?>`);
+                }else{
+                    register_validation(data);
+                }
             }
         });
-        
     });
+
+    function register_validation(data){
+        let data_array = JSON.parse(data);
+        const element_array = [$('#email-register'),$('#mobile-number-register'),$('#password-register')];
+
+        element_array.forEach(ele=>{
+            ele.css('border-bottom-color','#b9b9b9');
+        });
+        
+        data_array.forEach((ele)=>{
+            element_array[ele].css('border-bottom-color','red');
+        });
+    }
+
+
+$('#planings').on('click',()=>{
+    $('#plans').css('display','flex');
+    $('#plans').html(`<?php include "pricing.php";  ?>`);
+});
+
+
+$(document).on('click','#close-plans',()=>{
+    $('#plans').css('display','none');
+});
+
+
+
 </script>

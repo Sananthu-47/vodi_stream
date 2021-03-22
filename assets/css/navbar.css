@@ -16,6 +16,10 @@
     color: rgb(214, 214, 214);
 }
 
+.nav-item{
+    cursor: pointer;
+}
+
 #logo{
     font-family: var(--logo-font);
     font-size: 45px;
