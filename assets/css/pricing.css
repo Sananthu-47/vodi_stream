@@ -19,6 +19,7 @@
     display: none;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 .snip1265 {
   font-family: 'Raleway', Arial, sans-serif;
@@ -60,7 +61,6 @@
   font-size: 56px;
   margin: 0 15px;
   color: #f39c12;
-  display: inline-block;
   float: left;
 }
 .snip1265 .plan-title {
@@ -126,6 +126,18 @@
 }
 .snip1265 .featured .plan-select a {
   margin: 30px 20px;
+}
+#skip-plan{
+  background-color: #fbff00;
+  padding: 8px 25px;
+  border-radius: 20px;
+  font-size: 22px;
+  cursor: pointer;
+  margin: 50px 0;
+  color: black;
+}
+#skip-plan:hover{
+  box-shadow: 1px 1px 10px #daff53;
 }
 @media only screen and (max-width: 767px) {
   .snip1265 .plan {

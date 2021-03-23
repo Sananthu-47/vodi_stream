@@ -1,15 +1,16 @@
+<?php 
+echo "
 <i class='fa fa-close' id='close-plans'></i>
-<div class="snip1265">
-
+<div class='snip1265'>
 <header class='text-center h2'>Pricing plans</header>
-  <div class="plan">
-    <header><i class="ion-ios-navigate-outline"></i>
-      <h4 class="plan-title">
+  <div class='plan'>
+    <header><i class='ion-ios-navigate-outline'></i>
+      <h4 class='plan-title'>
         Starter
       </h4>
-      <div class="plan-cost"><span class="plan-price">$19</span><span class="plan-type">/month</span></div>
+      <div class='plan-cost'><span class='plan-price'>$19</span><span class='plan-type'>/month</span></div>
     </header>
-    <ul class="plan-features">
+    <ul class='plan-features'>
       <li>5GB Linux Web Space
       </li>
       <li>5 MySQL Databases
@@ -23,16 +24,16 @@
       <li>Daily Backups
       </li>
     </ul>
-    <div class="plan-select"><a href="">Select Plan</a></div>
+    <div class='plan-select'><a href=''>Select Plan</a></div>
   </div>
-  <div class="plan">
-    <header><i class="ion-ios-world"></i>
-      <h4 class="plan-title">
+  <div class='plan'>
+    <header><i class='ion-ios-world'></i>
+      <h4 class='plan-title'>
         Basic
       </h4>
-      <div class="plan-cost"><span class="plan-price">$29</span><span class="plan-type">/month</span></div>
+      <div class='plan-cost'><span class='plan-price'>$29</span><span class='plan-type'>/month</span></div>
     </header>
-    <ul class="plan-features">
+    <ul class='plan-features'>
       <li>10GB Linux Web Space
       </li>
       <li>10 MySQL Databases
@@ -46,16 +47,16 @@
       <li>Daily Backups
       </li>
     </ul>
-    <div class="plan-select"><a href="">Select Plan</a></div>
+    <div class='plan-select'><a href=''>Select Plan</a></div>
   </div>
-  <div class="plan featured">
-    <header><i class="ion-ios-people"></i>
-      <h4 class="plan-title">
+  <div class='plan featured'>
+    <header><i class='ion-ios-people'></i>
+      <h4 class='plan-title'>
         Professional
       </h4>
-      <div class="plan-cost"><span class="plan-price">$49</span><span class="plan-type">/month</span></div>
+      <div class='plan-cost'><span class='plan-price'>$49</span><span class='plan-type'>/month</span></div>
     </header>
-    <ul class="plan-features">
+    <ul class='plan-features'>
       <li>25GB Linux Web Space
       </li>
       <li>25 MySQL Databases
@@ -69,16 +70,16 @@
       <li>Daily Backups
       </li>
     </ul>
-    <div class="plan-select"><a href="">Select Plan</a></div>
+    <div class='plan-select'><a href=''>Select Plan</a></div>
   </div>
-  <div class="plan">
-    <header><i class="ion-ios-speedometer"></i>
-      <h4 class="plan-title">
+  <div class='plan'>
+    <header><i class='ion-ios-speedometer'></i>
+      <h4 class='plan-title'>
         Ultra
       </h4>
-      <div class="plan-cost"><span class="plan-price">$99</span><span class="plan-type">/month</span></div>
+      <div class='plan-cost'><span class='plan-price'>$99</span><span class='plan-type'>/month</span></div>
     </header>
-    <ul class="plan-features">
+    <ul class='plan-features'>
       <li>100GB Linux Web Space
       </li>
       <li>Unlimited MySQL Databases
@@ -92,6 +93,8 @@
       <li>Daily Backups
       </li>
     </ul>
-    <div class="plan-select"><a href="">Select Plan</a></div>
+    <div class='plan-select'><a href=''>Select Plan</a></div>
   </div>
 </div>
+<div id='skip-plan'>Skip</div>
+";

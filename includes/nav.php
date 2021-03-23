@@ -1,4 +1,8 @@
-<?php include "side-nav.php"; ?>
+<?php
+include "side-nav.php"; 
+include 'Classes/User.php';
+$User = new User($connection);
+?>
 
 <div class="custom-navbar text-white d-flex flex-row">
     <div class="nav-left-side d-flex col-lg-8">
@@ -12,7 +16,12 @@
                 <li class='nav-item'>Blog</li>
                 <li class='nav-item'>Movies</li>
                 <li class='nav-item'>Tv</li>
-                <li class='nav-item' id='planings'>Plan</li>
+                <?php 
+                if($User->check_account_is_premium($USER_LOGIN_ID))
+                    {
+                    echo "<li class='nav-item' id='planings'>Upgrade</li>";
+                    }
+                ?>
             </ul><!--left-side-nav-second- -->
     </div><!---nav-left-side-->
     <div class="nav-right-side d-flex justify-content-end col-lg-4">
@@ -23,7 +32,12 @@
         <i id='search-icon-desktop' class='fa fa-search text-secondary'></i>
         </div>
     </div>
-        <button class="btn btn-none text-white d-flex align-items-center" id='admin-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></button>
+    <?php if(isset($USER_LOGIN_ID))
+    {
+        echo "<div class='text-white d-flex align-items-center upload-button modal-pop'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
+    }else{
+        echo "<div class='btn btn-none text-white d-flex align-items-center upload-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
+    } ?>
     </div><!---right-side-nav-first--->
     <div class="right-side-nav-second d-flex justify-content-between align-items-center">
         <i id='search-icon-mobile' class='fa fa-search d-none px-3'></i>
@@ -46,8 +60,15 @@
 
     <!-- Drop down to get signin and register -->
         <ul class="sub-menu dropdown-menu text-center" style='display:none;'>
-            <li class='list-item modal-pop-login'>Sign In</li>
-            <li class='list-item modal-pop-login'>Register</li>
+        <?php if($USER_LOGIN_ID == ''){
+            echo "<li class='list-item modal-pop-login modal-pop'>Sign In</li>
+            <li class='list-item modal-pop-login modal-pop'>Register</li>";
+            }else{
+                $username = 'User'.$USER_LOGIN_ID;
+                echo "<li class='list-item modal-pop-login'><i class='fa fa-user px-1'></i>$username</li>
+                <li class='list-item modal-pop-login' id='logout'><a href='includes/logout.php'><i class='fa fa-sign-out px-1'></i>Logout</a></li>";
+            }
+        ?>
         </ul>
 
         <!---Modal for register and login-->
@@ -68,96 +89,15 @@
             </div>
             <div class="col-12 col-lg-6 col-xl-6 modal-right-side">
             <span class='my-2 h3'>Login</span>
-                <form action="#" class='d-flex flex-column justify-content-between my-3'>
+                <form action="#" id='login-form' class='d-flex flex-column justify-content-between my-3'>
                     <label for="email-register">Email or Mobile number*</label>
-                    <input type="email" name='email-number-register' id='email-register' class='input-modal mb-3'>
+                    <input type="email" name='email-number-register' id='email-number-login' class='input-modal mb-3'>
                     <label for="passowrd-login">Password*</label>
                     <input type="password" name='password-login' id='password-login' class='input-modal mb-3'>
-                    <button class="btn btn-info py-2 my-3"><span class='h5'>Login</span></button>
+                    <button class="btn btn-info py-2 my-3" id='login'><span class='h5'>Login</span></button>
                 </form>
             </div>
         </div>
     </div>
 
-<script>
-    $('.sub-menu').on('mouseenter',function(){
-        $('.sub-menu').show();
-    });
-    $('.sub-menu').on('mouseleave',function(){
-        $('.sub-menu').hide();
-    });
-    $('.dropdown').on('mouseenter',function(){
-        $('.sub-menu').show();
-    });
-    $('.dropdown').on('mouseleave',function(){
-        $('.sub-menu').hide();
-    });
-    $('.modal-pop-login').on('click',function(){
-        $('#modal-register').fadeIn();
-    });
-    $('#close-modal').on('click',()=>{
-        $('.modal-background').fadeOut();
-    });
-    $('#hamburger-menu').on('click',()=>{
-        $('#sidenav').fadeIn();
-    });
-    $('#sidenav').on('click',()=>{
-        $('#sidenav').fadeOut('fast');
-    });
-    $('#search-icon-mobile').on('click',function(){
-        $('.search-in-mobile-mode').toggle();
-    });
-
-    $('#register').on('click',function(e){
-        e.preventDefault();
-        let email = $('#email-register').val();
-        let mobile_number = $('#mobile-number-register').val();
-        let password = $('#password-register').val();
-
-        $.ajax({
-            url : "process/login.php",
-            type : "POST",
-            data : {email,mobile_number,password},
-            success : function(data)
-            {
-                if(data == 3)
-                {
-                    alert('User already registered');
-                }else if(data == 4)
-                {
-                    $('#plans').css('display','flex');
-                    $('#plans').html(`<?php include "pricing.php"; ?>`);
-                }else{
-                    register_validation(data);
-                }
-            }
-        });
-    });
-
-    function register_validation(data){
-        let data_array = JSON.parse(data);
-        const element_array = [$('#email-register'),$('#mobile-number-register'),$('#password-register')];
-
-        element_array.forEach(ele=>{
-            ele.css('border-bottom-color','#b9b9b9');
-        });
-        
-        data_array.forEach((ele)=>{
-            element_array[ele].css('border-bottom-color','red');
-        });
-    }
-
-
-$('#planings').on('click',()=>{
-    $('#plans').css('display','flex');
-    $('#plans').html(`<?php include "pricing.php";  ?>`);
-});
-
-
-$(document).on('click','#close-plans',()=>{
-    $('#plans').css('display','none');
-});
-
-
-
-</script>
+<script src='assets/js/navbar.js'></script>

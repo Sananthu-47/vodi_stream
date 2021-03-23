@@ -1,34 +1,38 @@
 <?php
+include_once "../includes/db.php";
 include "../Classes/User.php";
-$User = new User();
+$User = new User($connection);
 
-$email = $_POST['email'];
-$mobile_number = $_POST['mobile_number'];
+$error = [];
+$email_number = $_POST['email_number'];
 $password = $_POST['password'];
-$erorr_array = [];
 
-if($email=='' || !$User->valid_email($email))
+$vaild = $User->valid_email($email_number);
+if($vaild)
 {
-    array_push($erorr_array,0);
+    $type = 'email';
+}else{
+    $type = 'number';
 }
-if($mobile_number=='') 
+
+if($email_number=='')
 {
-    array_push($erorr_array,1);
+   array_push($error,['1' => 'You have not entered email/number']);
 }
 if($password=='')
 {
-    array_push($erorr_array,2);
+    array_push($error,['2' => 'You have not entered password']);
+}
+if(count($error)==0)
+{
+    if($data = $User->login_user($email_number,$password,$type))
+    {
+        session_start();
+        $_SESSION['user_id'] = $data['id'];
+        array_push($error,['3' => 'Successfully logged in']);
+    }else{
+        array_push($error,['4'=>"Your email/password doesn't match"]);
+    }
 }
 
-if(count($erorr_array)>0)
-{
-    echo json_encode($erorr_array);
-}else{
-if($User->check_user_exists($email,$mobile_number))
-{
-    echo 3;
-}else{
-    $User->add_user($email,$mobile_number,$password);
-    echo 4;
-}
-}
+echo json_encode($error);

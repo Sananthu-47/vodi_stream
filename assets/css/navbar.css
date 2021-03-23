@@ -20,6 +20,12 @@
     cursor: pointer;
 }
 
+#planings{
+    background: #5757ff;
+    padding: 5px;
+    border-radius: 10px;
+}
+
 #logo{
     font-family: var(--logo-font);
     font-size: 45px;
@@ -84,9 +90,11 @@
     color: white;
 }
 
-#admin-button{
+.upload-button{
     font-size: 22px;
     font-weight: 100 !important;
+    cursor: pointer;
+    padding: 5px;
 }
 
 .arrow-down{

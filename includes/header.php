@@ -1,4 +1,12 @@
-<?php include "db.php";  ?>
+<?php include "db.php";  
+global $connection;
+$USER_LOGIN_ID = '';
+session_start();
+if(isset($_SESSION['user_id']))
+{
+    $USER_LOGIN_ID = $_SESSION['user_id'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
