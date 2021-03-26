@@ -17,16 +17,10 @@ if(isset($_SESSION['user_id']))
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"></link>
     <script src="assets/jQuery/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/home-glider.css">
-    <link rel="stylesheet" href="assets/css/movie-web.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
-    <link rel="stylesheet" href="assets/css/pricing.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Archivo+Black&family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <link rel="stylesheet" href="assets/css/pricing.css">
 
-</head>
-<body>
-    
-    <div id="plans"></div>

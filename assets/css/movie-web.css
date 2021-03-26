@@ -7,6 +7,27 @@
     padding: 0;
 }
 
+#watch-movies-div{
+    padding-top: 20px;
+}
+
+#watch-movie{
+    background: #24baef;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 5px;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    text-transform: uppercase;
+    outline: none;
+}
+
+#watch-movie:hover{
+    background: #0d9fd4;
+    box-shadow: 1px 1px 15px #24baef;
+}
+
 .movie-details{
     padding: 25px 60px;
     display: flex;
@@ -402,6 +423,13 @@
 
     .description-reviews{
         padding: 2rem 1rem;
+    }
+
+    #watch-movie{
+        padding: 10px 20px;
+        margin: 10px 0;
+        font-size: 20px;
+        font-weight: 600;
     }
 
 }

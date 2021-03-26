@@ -29,6 +29,7 @@
     font-weight: 800;
     color: white;
     text-transform: uppercase;
+    outline: none;
 }
 
 #watch-movie:hover{
@@ -85,6 +86,8 @@
     #watch-movie{
         padding: 10px 20px;
         margin: 10px 0;
+        font-size: 20px;
+        font-weight: 600;
     }
     .image-card-movies{
         width: 100px;
