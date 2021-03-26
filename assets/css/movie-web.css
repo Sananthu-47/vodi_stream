@@ -1,0 +1,407 @@
+#movie-single-banner{
+    background-image: url('../../images/movie-banner.jpg');
+    max-width: 100%;
+    height: calc(100vh - 58vh);
+    background-position: top;
+    background-size: cover;
+    padding: 0;
+}
+
+.movie-details{
+    padding: 25px 60px;
+    display: flex;
+}
+
+.left-side{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 50%;
+}
+
+.rating-div , .playlist-div{
+    display: flex;
+    align-items: center;
+}
+.rating-div .fa-star{
+    font-size: 50px;
+    color: rgb(0, 174, 255);
+}
+
+
+.playlist-div .fa-heart{
+    color: transparent;
+    font-size: 30px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: rgb(212, 212, 212);
+  }
+ .fa.fa-stroke{
+    -webkit-text-stroke-color: rgb(212, 212, 212);
+    color:transparent;
+ }
+
+ .playlist-div span{
+     font-size: 15px;
+     padding: 0 1em;
+     color: white;
+ }
+
+ .short-details{
+     font-size: 18px;
+     padding: 1.5rem 0;
+ }
+
+ .short-details span:nth-child(odd){
+    color: white;
+ }
+ .short-details span:nth-child(even){
+    color: rgb(104, 104, 104);
+    padding: 0 20px;
+ }
+
+
+.rating-div .ratings-wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 0 5px;
+}
+
+.rating-div .ratings-wrapper span:nth-child(odd){
+    color: rgb(0, 174, 255);
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.rating-div .ratings-wrapper span:nth-child(even){
+    color: rgb(104, 104, 104);
+    font-size: 16px;
+}
+
+.movie-name{
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.movie-production{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 2rem 0;
+}
+
+.movie-production span{
+    font-weight: 600;
+    font-size: 20px;
+    color: white;
+}
+
+.movie-production span p{
+    font-weight: 200;
+    font-size: 16px;
+    color: white;
+}
+
+.side-extra{
+    display: block;
+}
+
+.right-side{
+    max-width: 100%;
+    display: flex;
+    margin: 0 auto;
+}
+
+.movie-inside-wrapper{
+    border-bottom: 1px solid rgb(95, 95, 95);
+    display: flex;
+}
+
+.stars-wrapper{
+    width: 100%;
+    display: flex;
+}
+
+.stars-wrapper .stars{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.stars-wrapper .stars span{
+    font-size: 30px;
+    color: white;
+    font-weight: 200;
+    padding: 1rem;
+}
+
+.stars-wrapper .stars .stars-glider{
+    position: relative;
+    width: 90%;
+    overflow-x: hidden;
+    padding: 1rem 0;
+    overflow-x: scroll;
+    display: flex;
+}
+
+/* .stars-wrapper .stars .stars-glider::-webkit-scrollbar {
+    display: none;
+  } */
+
+.stars-wrapper .stars .stars-glider .stars-image-card{
+    min-width: 250px;
+    min-height: 380px;
+    display: flex;
+    margin: 0px 2em;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.stars-wrapper .stars .stars-glider .stars-image-card img{
+    width: 100%;
+    height: 80%;
+    position: absolute;
+}
+
+.stars-wrapper .stars .stars-glider .stars-image-card .star-detail{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 100%;
+    transform: translateY(-110%);
+}
+
+
+.stars-wrapper .stars .stars-glider .stars-image-card .star-detail .star-name{
+    font-size: 22px;
+    color: white;
+    padding: 0;
+}
+
+.stars-wrapper .stars .stars-glider .stars-image-card .star-detail .star-role{
+    font-size: 12px;
+    color: white;
+    padding: 0;
+}
+
+.web-navigation{
+    padding: 2rem 7rem;
+}
+
+.web-navigation span{
+    color: white;
+}
+
+.web-navigation span i{
+    font-size: 18px;
+    padding: 5px;
+}
+
+.web-details{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 7rem;
+}
+
+.left-part-web{
+    width: 55%;
+    display: flex;
+    flex-direction: column;
+}
+
+.web-views span{
+    color: rgb(156, 156, 156);
+    padding: 0 10px 0 0;
+    font-size: 18px;
+}
+
+.web-views span i{
+    padding: 0 5px;
+}
+
+.web-details-more{
+    background: #1C212E;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 7rem;
+}
+
+.seasons-row{
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.seasons-row::-webkit-scrollbar{
+    display: none;
+}
+
+.season-badge{
+    padding: 0.4em 1.4em;
+    background: #2d3549;
+    color: #24BAEF;
+    font-size: 18px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+.active-season-badge{
+    color: black;
+    background: #24BAEF;
+}
+
+.all-episode{
+    display: flex;
+}
+
+.season-episode-card{
+    min-width: 250px;
+    min-height: 380px;
+    display: flex;
+    margin: 0px 2em;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.season-episode-card img{
+    width: 100%;
+    height: 80%;
+    position: absolute;
+}
+
+.season-episode-card .episode-details{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 100%;
+    transform: translateY(-110%);
+    color: white;
+}
+
+.episode-details .episode-number{
+    font-size: 16px;
+    color: rgb(160, 159, 159);
+    padding: 0;
+}
+
+.episode-details .episode-name{
+    font-size: 22px;
+    color: white;
+    padding: 0;
+}
+
+.description-reviews{
+    padding: 2rem 7rem;
+}
+
+.header-desp-review{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-desp-review span{
+    padding: 0.5em 1em;
+    color: #969696;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.active-tab{
+    color: #24BAEF !important;
+    border-bottom: 4px solid #24BAEF;
+}
+
+.inner-content{
+    width: 100%;
+    padding: 2em 0;
+    color: #969696;
+    border-top: 0.3px solid #5c5c5c;
+    font-size: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .movie-details{
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .movie-details{
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .side-extra{
+        display: none;
+    }
+
+    .left-side{
+        max-width: 100%;
+    }
+
+    .movie-inside-wrapper{
+        display: block;
+    }
+
+    .short-details{
+        font-size: 12px;
+        padding: 0.5em 0;
+    }
+
+    .web-navigation{
+        padding: 2rem 1rem;
+    }
+
+    .web-details{
+        padding: 2rem;
+        display: grid;
+        justify-content: center;
+    }
+
+    .left-part-web{
+        width: 100%;
+    }
+
+    .rating-div .fa-star{
+        font-size: 30px;
+    }
+
+    .playlist-div .fa-heart{
+        font-size: 25px;
+      }
+
+      .rating-div .ratings-wrapper span:nth-child(odd){
+        font-size: 22px;
+    }
+
+    .ratings-of-movie{
+        padding: 10px 0;
+    }
+
+    .season-badge{
+        padding: 0.3em 1em;
+        font-size: 16px;
+        border-radius: 5px;
+        margin: 0 0.5em;
+    }
+
+    .web-details-more{
+        padding: 2rem 1rem;
+    }
+
+    .description-reviews{
+        padding: 2rem 1rem;
+    }
+
+}

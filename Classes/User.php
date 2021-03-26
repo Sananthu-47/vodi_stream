@@ -23,7 +23,7 @@ class User{
     //Add new user to the db
     function add_user($email,$mobile_number,$password){
         // global $connection;
-        $result = mysqli_query($this->connection,"INSERT INTO users (email,mobile_number,password,pricing,payed,status) VALUES ('$email','$mobile_number','$password','free',0,'user')");
+        $result = mysqli_query($this->connection,"INSERT INTO users (email,mobile_number,password,pricing,payed,role) VALUES ('$email','$mobile_number','$password','free',0,'user')");
         if($result)
         {
             return true;
@@ -68,5 +68,21 @@ class User{
             }
         }
         return true;
+    }
+
+    // Check the user is admin or not
+    function check_admin_or_not($id){
+        if(!$id == '')
+        {
+            $result = mysqli_query($this->connection,"SELECT role FROM users WHERE id = '$id'");
+            $row = mysqli_fetch_assoc($result);
+            if($row['role'] == 'admin')
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
     }
 }

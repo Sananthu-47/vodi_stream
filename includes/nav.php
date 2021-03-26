@@ -1,7 +1,8 @@
 <?php
-include "side-nav.php"; 
+
 include 'Classes/User.php';
 $User = new User($connection);
+include "side-nav.php"; 
 ?>
 
 <div class="custom-navbar text-white d-flex flex-row">
@@ -14,12 +15,16 @@ $User = new User($connection);
                 <li class='nav-item'>Browse</li>
                 <li class='nav-item'>Home</li>
                 <li class='nav-item'>Blog</li>
-                <li class='nav-item'>Movies</li>
-                <li class='nav-item'>Tv</li>
+                <a href='movie.php'><li class='nav-item'>Movies</li></a>
+                <a href='webseries.php'><li class='nav-item'>Web series</li></a>
                 <?php 
                 if($User->check_account_is_premium($USER_LOGIN_ID))
                     {
-                    echo "<li class='nav-item' id='planings'>Upgrade</li>";
+                    echo "<li class='nav-item planings'>Upgrade</li>";
+                    }
+                if($User->check_admin_or_not($USER_LOGIN_ID))
+                    {
+                    echo "<li class='nav-item admin-login'>Admin</li>";
                     }
                 ?>
             </ul><!--left-side-nav-second- -->

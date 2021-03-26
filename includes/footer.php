@@ -3,7 +3,7 @@
 ?>
 
 <footer class='site-footer dark' role='contentinfo'>
-<div class='container-fluid'>
+<div class='footer-holder'>
     <div class='footer-top-bar'>
         <div class='footer-logo'>
             <a href='#' rel='home'> <div id='logo'>vodi</div></a>
@@ -28,25 +28,25 @@
             </ul>
         </div>
     </div> 
-<div class='footer-widgets'>
+    <div class='footer-widgets'>
     <div class='footer-widgets-inner row'> 
         <div class='col-5 d-flex flex-column justify-content-center'>
-            <span class='m-auto footer-headings'>Movie Categories</span>
-            <ul class='list-group d-flex flex-row flex-wrap text-center'>
+            <span class='py-4 footer-headings'>Movie Categories</span>
+            <ul class='list-group d-flex flex-row flex-wrap text-start'>
                 <?php 
                 $Category->get_all_category();
                 ?>
             </ul>
         </div>
         <div class='col-5 d-flex flex-column justify-content-center'>
-            <span class='m-auto footer-headings'>Web series Categories</span>
-            <ul class='list-group d-flex flex-row flex-wrap text-center'>
-                <li  class='list-item w-50 '>Alerts</li>
-                <li  class='list-item w-50 '>Alerts</li>
-                <li  class='list-item w-50 '>Alerts</li>
-                <li  class='list-item w-50 '>Alerts</li>
-                <li  class='list-item w-50 '>Alerts</li>
-                <li  class='list-item w-50 '>Alerts</li>
+            <span class='py-4 footer-headings'>Web series Categories</span>
+            <ul class='list-group d-flex flex-row flex-wrap text-start'>
+                <li  class='list-item w-50 py-2'>Alerts</li>
+                <li  class='list-item w-50 py-2'>Alerts</li>
+                <li  class='list-item w-50 py-2'>Alerts</li>
+                <li  class='list-item w-50 py-2'>Alerts</li>
+                <li  class='list-item w-50 py-2'>Alerts</li>
+                <li  class='list-item w-50 py-2'>Alerts</li>
             </ul>
         </div>
         <div class='col-2 d-flex flex-column justify-content-start support-tab-footer'>

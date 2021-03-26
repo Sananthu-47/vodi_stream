@@ -3,11 +3,12 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:800);
 #close-plans{
   position: absolute;
-  top: 5%;
+  top: 3%;
   left: 90%;
   color: white;
   font-size: 40px;
   cursor: pointer;
+  z-index: 1000;
 }
 #plans{
   position: absolute;

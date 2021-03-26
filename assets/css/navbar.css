@@ -18,12 +18,24 @@
 
 .nav-item{
     cursor: pointer;
+    color: rgb(214, 214, 214);
 }
 
-#planings{
+.nav a{
+    text-decoration: none;
+}
+
+.planings{
     background: #5757ff;
     padding: 5px;
     border-radius: 10px;
+}
+
+.admin-login{
+    background: #ffd209;
+    padding: 5px;
+    border-radius: 10px;
+    color: var(--primary-color);
 }
 
 #logo{
@@ -223,13 +235,10 @@
     border: none;
 }
 
-@media only screen and (min-width: 1440px) {
+@media only screen and (max-width: 1440px) {
     .search-in-mobile-mode{
         display: none;
     }
-}
-
-@media only screen and (max-width: 1440px) {
     .custom-navbar{
         padding: 0px 0;
     }

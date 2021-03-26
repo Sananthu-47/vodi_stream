@@ -114,6 +114,7 @@ $('#login').on('click',function(e){
                                 $('#password-login').css('border-bottom-color','#b9b9b9');
                                 $('#email-number-login').css('border-bottom-color','#b9b9b9');
                                 alert(value);
+                                window.location.href='index.php';
                                 break;
                         case '4':
                                 alert(value);
@@ -128,7 +129,7 @@ $('#login').on('click',function(e){
 });
 
 
-$('#planings').on('click',()=>{
+$('.planings').on('click',()=>{
 $('#plans').css('display','flex');
  get_pricing();
 });
