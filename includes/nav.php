@@ -24,7 +24,7 @@ include "side-nav.php";
                     }
                 if($User->check_admin_or_not($USER_LOGIN_ID))
                     {
-                    echo "<li class='nav-item admin-login'>Admin</li>";
+                    echo "<a href='admin/pages/index.php'><li class='nav-item admin-login'>Admin</li></a>";
                     }
                 ?>
             </ul><!--left-side-nav-second- -->
