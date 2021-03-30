@@ -26,13 +26,40 @@
     background: #1C212E;
     padding: 0 1em;
     max-width: 400px;
-    min-width: 280px;
+    min-width: 320px;
     height: max-content;
 }
 
 .filters-wrapper{
     display: flex;
     flex-direction: column;
+}
+
+.search-input-movies{
+    background: #373C49;
+    color: white;
+    margin: 10px 0;
+    border: none;
+    border-radius: 0;
+}
+
+.search-input-movies:focus{
+    background: #373C49;
+    outline: #24baef;
+    color: white;
+}
+
+.search-inside-input-movies{
+    width: 48px;
+    height: 48px;
+    border-radius: 50px;
+    position: absolute;
+    right: 0px;
+    transform: translate(-10px,25px);
+    padding: 0 15px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 5;
 }
 
 .filters-wrapper span:first-child{
@@ -89,7 +116,7 @@
     flex-wrap: wrap;
 }
 
-.years-badge{
+.filter-badge{
     padding: 10px 1em;
     background-color: #161b25;
     margin: 5px 10px;
@@ -97,7 +124,7 @@
     cursor: pointer;
 }
 
-.years-badge:hover{
+.filter-badge:hover{
     color: black;
     background: var(--primary-color-movies);
 }
@@ -188,7 +215,7 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    justify-content: flex-start;
+    justify-content: center;
     border-bottom: 0.1px solid #696969;
 }
 
@@ -260,5 +287,9 @@
 
     .wrapper-movies{
         padding: 2rem 1rem;
+    }
+
+    .filters{
+        display: none;
     }
 }

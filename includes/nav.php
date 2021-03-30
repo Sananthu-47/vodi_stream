@@ -16,7 +16,7 @@ include "side-nav.php";
                 <li class='nav-item'>Home</li>
                 <li class='nav-item'>Blog</li>
                 <a href='all-movies.php'><li class='nav-item'>Movies</li></a>
-                <a href='webseries.php'><li class='nav-item'>Web series</li></a>
+                <a href='all-webseries.php'><li class='nav-item'>Web series</li></a>
                 <?php 
                 if($User->check_account_is_premium($USER_LOGIN_ID))
                     {

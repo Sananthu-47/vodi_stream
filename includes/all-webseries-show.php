@@ -57,18 +57,18 @@
         <div class="filters-wrapper">
             <span>Movies by Year</span>
             <div class="all-years">
-                    <div class="filter-badge years-badge">2021</div>
-                    <div class="filter-badge years-badge">2020</div>
-                    <div class="filter-badge years-badge">2019</div>
-                    <div class="filter-badge years-badge">2018</div>
-                    <div class="filter-badge years-badge">2017</div>
-                    <div class="filter-badge years-badge">2016</div>
-                    <div class="filter-badge years-badge">2015</div>
-                    <div class="filter-badge years-badge">2014</div>
-                    <div class="filter-badge years-badge">2013</div>
-                    <div class="filter-badge years-badge">2012</div>
-                    <div class="filter-badge years-badge">2011</div>
-                    <div class="filter-badge years-badge">2010</div>
+                <div class="filter-badge years-badge">2021</div>
+                <div class="filter-badge years-badge">2020</div>
+                <div class="filter-badge years-badge">2019</div>
+                <div class="filter-badge years-badge">2018</div>
+                <div class="filter-badge years-badge">2017</div>
+                <div class="filter-badge years-badge">2016</div>
+                <div class="filter-badge years-badge">2015</div>
+                <div class="filter-badge years-badge">2014</div>
+                <div class="filter-badge years-badge">2013</div>
+                <div class="filter-badge years-badge">2012</div>
+                <div class="filter-badge years-badge">2011</div>
+                <div class="filter-badge years-badge">2010</div>
             </div>
         </div><!---filters-by-year--->
         <div class="filters-wrapper">
@@ -130,7 +130,7 @@
     </div><!--filters--->
 
     <div class="all-movies">
-        <div class="sub-title"><span class='page-name'>Movies</span></div>
+        <div class="sub-title"><span class='page-name'>Webseries</span></div>
         <div class="filters-and-latest-div">
             <span class='filter-icon'><i class="fa fa-sliders"></i>Filters</span>
             <select class='dropdown-movies'>
