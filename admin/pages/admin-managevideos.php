@@ -10,38 +10,26 @@
 
         <!--Components-->
         <div class = "content">
-            <div class="content-nav">
-                    <div class="content-nav-left">
-                        <a href="admin-managevideos.php" class="content-nav-badges" style="background-color: #D2DFEA;">Video List</a>
-                        <a href="admin-addmovie.php" class="content-nav-badges">Add Movie</a>
-                        <a href="admin-livemovie.php" class="content-nav-badges">Live Movies</a>
-                        <a href="admin-addwebseries.php" class="content-nav-badges">Add Web-Series</a>
-                        <a href="admin-livewebseries.php" class="content-nav-badges">Live Web-Series</a>  
-                    </div>
-                    <div class="content-nav-right">
-                        <input type="search" placeholder="Search" class='content-search-bar'>
-                        <a href="#"><img src="../../images/star-1.jpg" class='profile-image'></a>
-                    </div>
-            </div>
-                <hr>
-                    <div class="content-table-wrapper">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Title</th>
-                                    <th>Type</th>
-                                    <th>Category</th>
-                                    <th>Part / Episode</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-        </div>
-    </div>
-</div>
+                <div class="content-nav">
+                        <div class="content-nav-left">
+                            <div class="content-nav-badges active-background" id='video-list'>Video List</div>
+                            <div class="content-nav-badges" id='add-movie'>Add Movie</div>
+                            <div class="content-nav-badges" id='live-movie'>Live Movies</div>
+                            <div class="content-nav-badges" id='add-webseries'>Add Web-Series</div>
+                            <div class="content-nav-badges" id='live-webseries'>Live Web-Series</div>  
+                        </div>
+                        <div class="content-nav-right">
+                            <input type="search" placeholder="Search" class='content-search-bar'>
+                            <a href="#"><img src="../../images/star-1.jpg" class='profile-image'></a>
+                        </div>
+                </div>
+            <hr>
+                <div class="admin-main-content">
+                    <?php include "../proccess/admin-all-videos.php"; ?>
+                </div>
+        </div><!--content-->
+    </div><!--inner-wrapper-->
+</div><!--admin-wrapper--->
 
     
 <?php include "../includes/admin-footer.php";  ?>

@@ -8,20 +8,10 @@
 <div class="navbar">
     <div class="logo-holder"><span class="logo">Vodi</span><br></div>
     <ul class="side-nav">
-        <a href="index.php"><li class="nav-list active_sec"><i class='fa fa-tachometer'></i><span>Dashboard</span></li></a>
+        <a href="index.php"><li class="nav-list"><i class='fa fa-tachometer'></i><span>Dashboard</span></li></a>
         <a href ="admin-manageuser.php"><li class="nav-list"><i class='fa fa-users'></i><span>Manage User</span></li></a>
         <a href="admin-managevideos.php"><li class="nav-list"><i class='fa fa-video-camera'></i><span>Manage Videos</span></li></a>
         <a href="admin-advertisement.php"><li class="nav-list"><i class='fa fa-file-o'></i><span>Advertisement</span></li></a>
         <a href="admin-payment.php"><li class="nav-list"><i class='fa fa-credit-card'></i><span>Payment</span></li></a>
     </ul>
 </div>
-
-<script>
-    let path = window.location.pathname;
-    console.log(path);
-
-    $('#menubar').on('click',function(){
-        $('.navbar').toggle();
-    });
-    
-</script>

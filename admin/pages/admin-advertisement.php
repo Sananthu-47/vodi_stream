@@ -12,7 +12,8 @@
         <div class = "content">
                 <div class="content-nav">
                     <div class="content-nav-left">
-                        <a href="admin-advertisement.php" class="content-nav-badges">Advertisments</a> 
+                        <div id='advertisement-list' class="content-nav-badges active-background">List of Ad's</div> 
+                        <div id='add-advertisement' class="content-nav-badges">Add advertisement</div> 
                     </div>
                     <div class="content-nav-right">
                         <input type="search" placeholder="Search" class='content-search-bar'>
@@ -20,9 +21,10 @@
                     </div>
                 </div>
                 <hr>
-                    <div class='main-content'>
-                        
-                    </form>
+
+                <div class="admin-main-content">
+                    <?php include "../proccess/admin-list-of-advertisement.php"; ?>
+                </div>
 
         </div>
 
