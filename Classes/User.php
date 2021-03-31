@@ -9,6 +9,13 @@ class User{
         $this->connection = $connection;
     }
 
+    // Get data of all users
+    function get_all_users()
+    {
+        $result = mysqli_query($this->connection,"SELECT * FROM users");
+        return $result;
+    }
+
     //Check whether user already exists in db or not
     function check_user_exists($email,$mobile_number){
         // global $connection;
@@ -21,9 +28,9 @@ class User{
         }
     }
     //Add new user to the db
-    function add_user($email,$mobile_number,$password){
+    function add_user($username,$email,$mobile_number,$password,$role){
         // global $connection;
-        $result = mysqli_query($this->connection,"INSERT INTO users (email,mobile_number,password,pricing,payed,role) VALUES ('$email','$mobile_number','$password','free',0,'user')");
+        $result = mysqli_query($this->connection,"INSERT INTO users (username,email,mobile_number,password,pricing,payed,role) VALUES ('$username','$email','$mobile_number','$password','free',0,'$role')");
         if($result)
         {
             return true;

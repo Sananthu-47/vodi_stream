@@ -149,6 +149,40 @@ body{
     padding: 5px 20px;
     font-size: 18px;
 }
+.selected-categories{
+    display: none;
+    background: rgb(221 221 221);
+    padding: 20px 10px;
+    margin: 10px 0 0 0;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+.category-tags{
+    display: flex;
+    padding: 5px;
+    margin: 5px;
+    background: #696969;
+    color: white;
+    align-items: center;
+    text-transform: capitalize;
+}
+.delete-category{
+    margin-left: 10px;
+    cursor: pointer;
+}
+#category-select{
+    text-transform: capitalize;
+}
+.link-add-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5px;
+    background: #eeeded;
+}
+.current-link{
+    border-bottom: 3px solid #0044ff;
+}
 
 
 

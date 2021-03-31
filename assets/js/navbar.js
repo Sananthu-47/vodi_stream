@@ -30,20 +30,22 @@ $('#search-icon-mobile').on('click',function(){
 
 $('#register').on('click',function(e){
     e.preventDefault();
+    let username = $('#username-register').val();
     let email = $('#email-register').val();
     let mobile_number = $('#mobile-number-register').val();
     let password = $('#password-register').val();
+    let role = 'user';
 
     $.ajax({
         url : "process/register.php",
         type : "POST",
-        data : {email,mobile_number,password},
+        data : {username,email,mobile_number,password,role},
         success : function(data)
         {
-            if(data == 3)
+            if(data == 4)
             {
                 alert('User already registered');
-            }else if(data == 4)
+            }else if(data == 5)
             {
                 $('.modal-right-side').append("<div class='alert alert-success'>Login to your account</div>")
                 $('#plans').css('display','flex');
@@ -71,7 +73,7 @@ function get_pricing()
 
 function register_validation(data){
     let data_array = JSON.parse(data);
-    const element_array = [$('#email-register'),$('#mobile-number-register'),$('#password-register')];
+    const element_array = [$('#username-register'),$('#email-register'),$('#mobile-number-register'),$('#password-register')];
 
     element_array.forEach(ele=>{
         ele.css('border-bottom-color','#b9b9b9');

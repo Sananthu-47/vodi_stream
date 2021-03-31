@@ -83,6 +83,8 @@ include "side-nav.php";
             <div class="col-12 col-lg-6 col-xl-6 modal-left-side">
                 <span class='my-2 h3'>Register</span>
                 <form action="#" id='register-form' class='d-flex flex-column justify-content-between my-3 left-form'>
+                    <label for="username-register">Username*</label>
+                    <input type="text" name='username-register' id='username-register' class='input-modal mb-3'>
                     <label for="email-register">Email*</label>
                     <input type="email" name='email-register' id='email-register' class='input-modal mb-3'>
                     <label for="mobile-number-register">Mobile number*</label>
@@ -95,8 +97,8 @@ include "side-nav.php";
             <div class="col-12 col-lg-6 col-xl-6 modal-right-side">
             <span class='my-2 h3'>Login</span>
                 <form action="#" id='login-form' class='d-flex flex-column justify-content-between my-3'>
-                    <label for="email-register">Email or Mobile number*</label>
-                    <input type="email" name='email-number-register' id='email-number-login' class='input-modal mb-3'>
+                    <label for="email-number-login">Email or Mobile number*</label>
+                    <input type="email" name='email-number-login' id='email-number-login' class='input-modal mb-3'>
                     <label for="passowrd-login">Password*</label>
                     <input type="password" name='password-login' id='password-login' class='input-modal mb-3'>
                     <button class="btn btn-info py-2 my-3" id='login'><span class='h5'>Login</span></button>
