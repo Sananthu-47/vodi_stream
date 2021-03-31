@@ -17,4 +17,9 @@ class Movie
             return $last_id;
         }
     }
+
+    function get_all_movies(){
+        $result = mysqli_query($this->connection,"SELECT * FROM movies");
+        return $result;
+    }
 }

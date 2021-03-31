@@ -21,7 +21,6 @@ class Category
     }
 
     function get_all_category_admin(){
-        $output = '';
         $result = mysqli_query($this->connection,"SELECT * FROM category");
         return $result;
     }
@@ -31,10 +30,20 @@ class Category
         return mysqli_fetch_assoc($result);
     }
 
-    function selected_categories($categories,$movie_id){
+    function add_selected_categories($categories,$movie_id){
         foreach ($categories as $key => $value) {
             mysqli_query($this->connection,"INSERT INTO category_selected (category_id,movie_series_id) VALUES ('$value','$movie_id')");
         }
         return true;
+    }
+
+    function selected_categories($movie_id){
+        $result = mysqli_query($this->connection,"SELECT category_id FROM category_selected WHERE movie_series_id = '$movie_id'");
+        return $result;
+    }
+
+    function get_category_by_id($category_id){
+        $result = mysqli_query($this->connection,"SELECT category FROM category WHERE id = '$category_id'");
+        return $result;
     }
 }

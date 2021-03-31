@@ -183,7 +183,9 @@ body{
 .current-link{
     border-bottom: 3px solid #0044ff;
 }
-
+.link-add-wrapper span{
+    cursor: pointer;
+}
 
 
 
