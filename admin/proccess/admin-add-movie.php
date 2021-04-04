@@ -1,6 +1,6 @@
 <?php
 include_once "../includes/db.php";
-include "../../Classes/Category.php";
+include_once "../../Classes/Category.php";
 $Category = new Category($connection);
 $categories = $Category->get_all_category_admin();
 
@@ -34,12 +34,12 @@ $output.="<form action='' class='form-wrapper'>
         $output.="</select>
         <div class='btn btn-success' id='add-category'>Add</div>
         </div>
-        <div class='selected-categories'></div>
+        <div class='input-selected-tags selected-categories'></div>
         <br>
         <input type='number' id='movie-age' class='form-control' placeholder='Enter age'>
         <br>
-            <select id='movie-status' class='form-control' placeholder='Select part number'>
-                <option value='paid'>Paid</option>
+            <select id='movie-status' class='form-control'>
+                <option value='paid' selected>Paid</option>
                 <option value='free'>Free</option>
             </select>
     </div>
@@ -48,8 +48,8 @@ $output.="<form action='' class='form-wrapper'>
         <br>
         <div class='link-add-wrapper'>
         <div class='d-flex justify-content-around my-2'><span class='current-link' id='video-link'>Video link</span><span id='video-iframe'>Iframe</span></div>
-            <input type='text' id='movie-link' class='form-control movie-link-input' placeholder='Enter link'>
-            <textarea type='text' id='movie-iframe' class='form-control d-none movie-link-input' placeholder='Enter Embeded code'></textarea>
+            <input type='text' id='movie-link' class='form-control movie-link-input vedio-link-tab' placeholder='Enter link'>
+            <textarea type='text' id='movie-iframe' class='form-control d-none movie-link-input vedio-iframe-tab' placeholder='Enter Embeded code'></textarea>
         </div>
         <br>
         <input type='number' id='movie-year' class='form-control' placeholder='Released year'>
@@ -67,5 +67,6 @@ $output.="<form action='' class='form-wrapper'>
 </div>
 <button class='btn btn-primary' id='publish-movie'>Publish</button>
 </form>";
+// $output.="<script type='text/javascript' src='../assets/js/add-movies.js' async></script>";
 
 echo $output;

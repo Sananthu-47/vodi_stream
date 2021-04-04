@@ -22,7 +22,7 @@
                     </div>
                     <hr>
                         <div class="main-content">
-                            <?php include "../proccess/admin-user-list.php"; ?>
+                            <?php include_once "../proccess/admin-user-list.php"; ?>
                         </div>
                 </div>
             </div>

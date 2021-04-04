@@ -1,5 +1,5 @@
 <?php include 'Classes/Category.php';
-            $Category = new Category();
+            $Category = new Category($connection);
 ?>
 
 <footer class='site-footer dark' role='contentinfo'>

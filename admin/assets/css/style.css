@@ -149,7 +149,7 @@ body{
     padding: 5px 20px;
     font-size: 18px;
 }
-.selected-categories{
+.input-selected-tags{
     display: none;
     background: rgb(221 221 221);
     padding: 20px 10px;
@@ -166,7 +166,7 @@ body{
     align-items: center;
     text-transform: capitalize;
 }
-.delete-category{
+.delete-category , .delete-episode{
     margin-left: 10px;
     cursor: pointer;
 }
@@ -185,6 +185,12 @@ body{
 }
 .link-add-wrapper span{
     cursor: pointer;
+}
+.responsive-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -275,6 +281,7 @@ body{
     }
     .content{
         border-radius: 20px;
+        padding: 5px;
     }
     .logo{
         font-size: 28px;
@@ -311,6 +318,10 @@ body{
     .main-content-left , .main-content-right{
         width: 100%;
         padding: 10px;
+    }
+    #add-episode{
+        margin: 10px 5px;
+        padding: 5px 30px;
     }
 }
 
@@ -354,9 +365,6 @@ body{
     .navbar-small{
         display: block;
     }
-    /* th{
-        min-width: 100px;
-    } */
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

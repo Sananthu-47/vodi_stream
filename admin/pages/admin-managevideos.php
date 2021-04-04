@@ -16,6 +16,7 @@
                             <div class="content-nav-badges" id='add-movie'>Add Movie</div>
                             <div class="content-nav-badges" id='live-movie'>Live Movies</div>
                             <div class="content-nav-badges" id='add-webseries'>Add Web-Series</div>
+                            <div class="content-nav-badges" id='add-episodes'>Add Episode</div>
                             <div class="content-nav-badges" id='live-webseries'>Live Web-Series</div>  
                         </div>
                         <div class="content-nav-right">
@@ -25,7 +26,7 @@
                 </div>
             <hr>
                 <div class="admin-main-content">
-                    <?php include "../proccess/admin-all-videos.php"; ?>
+                    <?php include_once "../proccess/admin-all-videos.php"; ?>
                 </div>
         </div><!--content-->
     </div><!--inner-wrapper-->

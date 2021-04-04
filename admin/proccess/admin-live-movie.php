@@ -16,8 +16,8 @@ $output.="<div class='content-table-wrapper'>
         <th>Title</th>
         <th>Category</th>
         <th>Part / Episode</th>
-        <th>Type</th>
         <th>Status</th>
+        <th>Current Status</th>
         <th>Age</th>
         <th>Duration</th>
         <th>Language</th>
@@ -34,7 +34,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>
                         ";
 
-                        $all_categories = $Category->selected_categories($row['id']);
+                        $all_categories = $Category->selected_categories_movies($row['id']);
                             while($categories = mysqli_fetch_assoc($all_categories))
                             {
                                 $category = mysqli_fetch_assoc($Category->get_category_by_id($categories['category_id']));

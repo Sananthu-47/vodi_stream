@@ -30,15 +30,27 @@ class Category
         return mysqli_fetch_assoc($result);
     }
 
-    function add_selected_categories($categories,$movie_id){
+    function add_selected_categories_movie($categories,$movie_id){
         foreach ($categories as $key => $value) {
-            mysqli_query($this->connection,"INSERT INTO category_selected (category_id,movie_series_id) VALUES ('$value','$movie_id')");
+            mysqli_query($this->connection,"INSERT INTO category_selected (category_id,movie_id) VALUES ('$value','$movie_id')");
         }
         return true;
     }
 
-    function selected_categories($movie_id){
-        $result = mysqli_query($this->connection,"SELECT category_id FROM category_selected WHERE movie_series_id = '$movie_id'");
+    function add_selected_categories_webseries($categories,$webseries_id){
+        foreach ($categories as $key => $value) {
+            mysqli_query($this->connection,"INSERT INTO category_selected (category_id,webseries_id) VALUES ('$value','$webseries_id')");
+        }
+        return true;
+    }
+
+    function selected_categories_movies($movie_id){
+        $result = mysqli_query($this->connection,"SELECT category_id FROM category_selected WHERE movie_id = '$movie_id'");
+        return $result;
+    }
+
+    function selected_categories_webseries($webseries_id){
+        $result = mysqli_query($this->connection,"SELECT category_id FROM category_selected WHERE webseries_id = '$webseries_id'");
         return $result;
     }
 

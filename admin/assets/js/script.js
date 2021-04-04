@@ -42,7 +42,7 @@ $('#add-user').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-add-user.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.main-content').html(data);
         }
@@ -56,7 +56,7 @@ $('#user-list').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-user-list.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.main-content').html(data);
         }
@@ -70,7 +70,7 @@ $('#video-list').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-all-videos.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -84,8 +84,12 @@ $('#add-movie').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-add-movie.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
+            category_array = [];
+            category_array_db = [];
+            episode_array = [];
+            episode_array_db = [];
             $('.admin-main-content').html(data);
         }
     });
@@ -98,7 +102,7 @@ $('#live-movie').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-live-movie.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -112,7 +116,25 @@ $('#add-webseries').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-add-webseries.php",
-        type : "POST",
+        type : "GET",
+        success : function(data){
+            category_array = [];
+            category_array_db = [];
+            episode_array = [];
+            episode_array_db = [];
+            $('.admin-main-content').html(data);
+        }
+    });
+});
+
+// Get Add episode page with a ajax call
+$('#add-episodes').on('click',function(e){
+    clearActiveNav();
+    $(this).addClass('active-background');
+
+    $.ajax({
+        url : "../proccess/admin-add-episode.php",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -126,7 +148,7 @@ $('#live-webseries').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-live-webseries.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -154,7 +176,7 @@ $('#add-advertisement').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-add-advertisement.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -168,7 +190,7 @@ $('#payment-list').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-list-of-payment.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -182,7 +204,7 @@ $('#update-payment').on('click',function(e){
 
     $.ajax({
         url : "../proccess/admin-update-payments.php",
-        type : "POST",
+        type : "GET",
         success : function(data){
             $('.admin-main-content').html(data);
         }
@@ -281,7 +303,7 @@ $(document).on('click','.delete-category',function(e){
                 });
             if(category_array.length<1)
                 {
-                    $('.selected-categories').css('display','none');
+                    $('.input-selected-tags').css('display','none');
                 }
 });
 
@@ -321,7 +343,7 @@ $(document).on('click','#publish-movie',function(e){
 // Validate the data to check any empty form fields
 function check_add_movies(data){
     let data_array = JSON.parse(data);
-    const element_array = [$('#movie-title'),$('#movie-age'),$('#movie-thumbnail'),$('#movie-description'),$('#movie-status'),$('#movie-year'),$('#movie-part'),$('.movie-link-input'),$('#movie-duration'),$('#movie-language'),$('#category-select')];
+    const element_array = [$('#movie-title'),$('#movie-age'),$('#movie-thumbnail'),$('#movie-description'),$('#movie-status'),$('#movie-year'),$('#movie-part'),$('#movie-link'),$('#movie-iframe'),$('#movie-duration'),$('#movie-language'),$('#category-select')];
 
     element_array.forEach(ele=>{
         ele.css('border','1px solid #b9b9b9');
@@ -335,15 +357,171 @@ function check_add_movies(data){
 $(document).on('click','#video-link',function(){
     $('#video-iframe').removeClass('current-link');
     $(this).addClass('current-link');
-    $('#movie-link').removeClass('d-none');
-    $('#movie-iframe').addClass('d-none');
-    $('#movie-iframe').val('');
+    $('.vedio-link-tab').removeClass('d-none');
+    $('.vedio-iframe-tab').addClass('d-none');
 });
 
 $(document).on('click','#video-iframe',function(){
     $('#video-link').removeClass('current-link');
     $(this).addClass('current-link');
-    $('#movie-link').addClass('d-none');
-    $('#movie-iframe').removeClass('d-none');
-    $('#movie-link').val('');
+    $('.vedio-link-tab').addClass('d-none');
+    $('.vedio-iframe-tab').removeClass('d-none');
 });
+
+
+//Add episode to the UI
+let episode_array = [];
+let episode_array_db = [];
+$(document).on('click','#add-episode',function(e){
+    let output = '';
+    e.preventDefault();
+    let link = $('#webseries-link').val();
+    let iframe = $('#webseries-iframe').val();
+    let title = $('#episode-title').val();
+    let episode = $('#webseries-episode').val();
+    let description = $('#episode-description').val();
+    let thumbnail = $('#episode-thumbnail').val();
+    let year = $('#episode-year').val();
+    let duration = $('#episode-duration').val();
+    let season = $('#webseries-season').val();
+    
+    if(!episode_array.includes(episode))
+    {
+        if(check_before_episode_add(link,iframe,title,episode,description,thumbnail,year,duration))
+        {
+            episode_array.push(episode);
+            episode_array_db.push({'episode':episode,'link':link,'iframe':iframe,'title':title,'description':description,'thumbnail':thumbnail,'year':year,'duration':duration,'season':season});
+            $('.added-episodes').css('display','flex');
+            episode_array.forEach((ele,i)=>{
+                output += "<div class='category-tags'><span>Episode "+ele+"</span><i class='fa fa-times delete-episode' data-episode-id='";
+                output += episode_array_db[i].episode;
+                output+="'></i></div>";
+            });
+            $('.added-episodes').html(output);
+            $('#webseries-episode').val(0);
+            $('#webseries-link').val('');
+            $('#webseries-iframe').val('');
+            $('#episode-title').val('');
+            $('#episode-description').val('');
+            $('#episode-thumbnail').val('');
+            $('#episode-year').val('');
+            $('#episode-duration').val('');
+        }
+    }else{
+        alert('Episode '+episode+" is already added");
+    }
+});
+
+function check_before_episode_add(link,iframe,title,episode,description,thumbnail,year,duration) {
+    const element_array = [$('#webseries-link'),$('#webseries-iframe'),$('#episode-title'),$('#webseries-episode'),$('#episode-description'),$('#episode-thumbnail'),$('#episode-year'),$('#episode-duration')];
+    let count = 0;
+
+    element_array.forEach(ele=>{
+        ele.css('border-color','#b9b9b9');
+    });
+
+    if(link=='' && iframe=='')
+    {
+        element_array[0].css('border-color','red');
+        element_array[1].css('border-color','red');
+        count++;
+    }
+    if(title==''){
+        element_array[2].css('border-color','red');
+        count++;
+    }
+    if(episode==0){
+        element_array[3].css('border-color','red');
+        count++;
+    }
+    if(description==''){
+        element_array[4].css('border-color','red');
+        count++;
+    }
+    if(thumbnail==''){
+        element_array[5].css('border-color','red');
+        count++;
+    }
+    if(year==''){
+        element_array[6].css('border-color','red');
+        count++;
+    }
+    if(duration==''){
+        element_array[7].css('border-color','red');
+        count++;
+    }
+    if(count<1)
+    {
+        return true;
+    }
+}
+
+// Remove selected categories from array and UI
+$(document).on('click','.delete-episode',function(e){
+    $(this).parent().remove();
+        let removeItemDb = $(this).data('episode-id');
+                episode_array_db = $.grep(episode_array_db, function(value) {                    
+                return value.episode != removeItemDb;
+                });
+
+        let removeItem = $(this).data('episode-id');
+                episode_array = $.grep(episode_array, function(value) {
+                return value != removeItem;
+                });
+            if(episode_array.length<1)
+                {
+                    $('.input-selected-tags').css('display','none');
+                }
+});
+
+// Add webseries to db
+$(document).on('click','#publish-webseries',function(e){
+    e.preventDefault();
+    let title = $('#webseries-title').val();
+    let age = $('#webseries-age').val();
+    let thumbnail = $('#webseries-thumbnail').val();
+    let description = $('#webseries-description').val();
+    let status = $('#webseries-status').val();
+    let year = $('#webseries-year').val();
+    // let season = $('#webseries-season').val();
+    let language = $('#webseries-language').val();
+    let season_1 = 0;
+    let episodes = JSON.stringify(episode_array_db);
+
+    $.ajax({
+        url : "../proccess/publish-webseries.php",
+        type : "POST",
+        data : {title,age,thumbnail,description,status,year,language,category_array_db,episodes},
+        success : function(data)
+        {
+            if(data=="episode")
+            {
+                const element_array = [$('#webseries-link'),$('#webseries-iframe'),$('#webseries-episode'),$('#episode-description'),$('#episode-thumbnail'),$('#episode-year'),$('#episode-duration')];
+                element_array.forEach(ele=>{
+                    ele.css('border-color','red');
+                });
+                alert('Add atleast 1 episode before publishing');
+            }else
+            if(data=="success")
+            {
+                $('#live-webseries').click();
+            }else{
+                check_add_webseries(data);
+            }
+        }
+    });
+});
+
+// Validate the data to check any empty form fields
+function check_add_webseries(data){
+    let data_array = JSON.parse(data);
+    const element_array = [$('#webseries-title'),$('#webseries-age'),$('#webseries-thumbnail'),$('#webseries-description'),$('#webseries-status'),$('#webseries-year'),$('#webseries-language'),$('#category-select')];
+
+    element_array.forEach(ele=>{
+        ele.css('border','1px solid #b9b9b9');
+    });
+    
+    data_array.forEach((ele)=>{
+        element_array[ele].css('border','1px solid red');
+    });
+}

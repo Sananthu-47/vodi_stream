@@ -55,25 +55,42 @@ if($part=='')
 {
     array_push($erorr_array,6);
 }
-if($movie_link=='' && $movie_iframe=='')
+if($movie_link=='')
 {
     array_push($erorr_array,7);
 }
-if($duration=='')
+if($movie_iframe=='')
 {
     array_push($erorr_array,8);
 }
-if($language=='')
+if($duration=='')
 {
     array_push($erorr_array,9);
 }
-if($category_error===0)
+if($language=='')
 {
     array_push($erorr_array,10);
 }
-if($part_1=='') 
+if($category_error===0)
 {
     array_push($erorr_array,11);
+}
+if($part_1=='') 
+{
+    array_push($erorr_array,12);
+}
+if($movie_link!=='')
+{
+    $erorr_array = array_values(search_in_array($erorr_array,[8]));
+}
+if($movie_iframe!=='')
+{
+    $erorr_array = array_values(search_in_array($erorr_array,[7]));
+}
+
+function search_in_array($array,$key)
+{
+    return array_diff($array,$key);
 }
 
 if(count($erorr_array)>0)
