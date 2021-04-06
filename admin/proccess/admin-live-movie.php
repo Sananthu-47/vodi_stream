@@ -17,7 +17,6 @@ $output.="<div class='content-table-wrapper'>
         <th>Category</th>
         <th>Part / Episode</th>
         <th>Status</th>
-        <th>Current Status</th>
         <th>Age</th>
         <th>Duration</th>
         <th>Language</th>
@@ -44,7 +43,6 @@ $output.="<div class='content-table-wrapper'>
                         $output.="</td>
                         <td>{$row['part']}</td>
                         <td>{$row['status']}</td>
-                        <td>{$row['watchable']}</td>
                         <td>{$row['age']}+</td>
                         <td>{$row['duration']} minutes</td>
                         <td>{$row['language']}</td>
@@ -52,8 +50,12 @@ $output.="<div class='content-table-wrapper'>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
                             <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
-                            <button class='btn btn-success' data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
-                            <button class='btn btn-danger mx-2' data-id='{$row['id']}'><i class='fa fa-ban text-white'></i></button>
+                            <button class='btn btn-success make-movie-active'";
+                            if($row['watchable'] == 'active') $output.='disabled';
+                            $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
+                            <button class='btn btn-danger mx-2 make-movie-blocked'";
+                            if($row['watchable'] == 'blocked') $output.='disabled';
+                            $output.=" data-id='{$row['id']}'><i class='fa fa-ban text-white'></i></button>
                         </td>
                         </tr>";
                         $count++;

@@ -192,6 +192,9 @@ body{
     align-items: center;
     justify-content: center;
 }
+#sub-nav a{
+    text-decoration: none;
+}
 
 
 
