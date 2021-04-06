@@ -98,3 +98,22 @@ $(document).on('click','.make-user-blocked',function(){
         }
     });
 });
+
+// Make the user deleted
+$(document).on('click','.make-user-delete',function(){
+    let id = $(this).data('id');
+    let current_element = $(this);
+    let action = 'user-delete';
+    if(confirm("Do you want to delete this user?"))
+    {
+        $.ajax({
+            url : "../proccess/make-action.php",
+            type : "POST",
+            data : {id,action},
+            success : function()
+            {
+                current_element.parent().parent().remove();
+            }
+        });
+    }
+});

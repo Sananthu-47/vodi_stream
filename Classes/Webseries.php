@@ -30,7 +30,7 @@ class Webseries
     }
 
     function get_all_webseries_seasons(){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted'");
         return $result;
     }
 

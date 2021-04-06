@@ -22,6 +22,15 @@ switch ($action) {
     case 'user-block':
         $result = mysqli_query($connection,"UPDATE users SET status = 'blocked' WHERE id = '$id'");
         break;
+    case 'movie-delete':
+        $result = mysqli_query($connection,"UPDATE movies SET watchable = 'deleted' WHERE id = '$id'");
+        break;
+    case 'webseries-delete':
+        $result = mysqli_query($connection,"UPDATE webseries_seasons SET watchable = 'deleted' WHERE id = '$id'");
+        break;
+    case 'user-delete':
+        $result = mysqli_query($connection,"UPDATE users SET status = 'deleted' WHERE id = '$id'");
+        break;
     
     default:
         echo false;

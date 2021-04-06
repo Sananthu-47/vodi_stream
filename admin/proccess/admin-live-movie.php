@@ -48,7 +48,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>{$row['language']}</td>
                         <td>{$row['release_year']}</td>
                         <td class='d-flex justify-content-around'>
-                            <button class='btn btn-info ml-2' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
+                            <button class='btn btn-info ml-2 make-movie-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
                             <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
                             <button class='btn btn-success make-movie-active'";
                             if($row['watchable'] == 'active') $output.='disabled';

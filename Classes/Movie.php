@@ -19,7 +19,7 @@ class Movie
     }
 
     function get_all_movies(){
-        $result = mysqli_query($this->connection,"SELECT * FROM movies");
+        $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE watchable != 'deleted'");
         return $result;
     }
 }

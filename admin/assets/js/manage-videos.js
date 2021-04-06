@@ -358,3 +358,40 @@ $(document).on('click','.make-webseries-blocked',function(){
         }
     });
 });
+
+// Make the movie deleted
+$(document).on('click','.make-movie-delete',function(){
+    let id = $(this).data('id');
+    let current_element = $(this);
+    let action = 'movie-delete';
+    if(confirm("Do you want to delete this movie?"))
+    {
+        $.ajax({
+            url : "../proccess/make-action.php",
+            type : "POST",
+            data : {id,action},
+            success : function()
+            {
+                current_element.parent().parent().remove();
+            }
+        });
+    }
+});
+// Make the webseries episode deleted
+$(document).on('click','.make-webseries-delete',function(){
+    let id = $(this).data('id');
+    let current_element = $(this);
+    let action = 'webseries-delete';
+    if(confirm("Do you want to delete this episode?"))
+    {
+        $.ajax({
+            url : "../proccess/make-action.php",
+            type : "POST",
+            data : {id,action},
+            success : function()
+            {
+                current_element.parent().parent().remove();
+            }
+        });
+    }
+});

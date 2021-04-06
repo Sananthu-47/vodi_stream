@@ -28,7 +28,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>{$row['mobile_number']}</td>
                         <td>{$row['pricing']}</td>
                         <td class='d-flex justify-content-around'>
-                            <button class='btn btn-info ml-2' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
+                            <button class='btn btn-info ml-2 make-user-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
                             <button class='btn btn-success make-user-active'";
                             if($row['status'] == 'active') $output.='disabled';
                             $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
