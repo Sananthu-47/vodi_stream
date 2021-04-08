@@ -22,4 +22,30 @@ class Movie
         $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE watchable != 'deleted'");
         return $result;
     }
+
+    function get_all_movies_by_id($id)
+    {
+        $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE id = '$id'");
+        return $result;
+    }
+
+    function get_all_movies_with_query($part,$search,$language)
+    {
+        $db_query = "SELECT * FROM movies WHERE watchable = ('active' OR 'blocked')";
+        if($part != 0)
+        {
+            $db_query .= "AND part = '$part'";
+        }
+        if($language != '0')
+        {
+            $db_query .= "AND language = '$language'";
+        }
+        if($search != '')
+        {
+            $db_query .= "AND title LIKE '$search%'";
+        }
+        $db_query .= " ORDER BY title";
+        $result = mysqli_query($this->connection,$db_query);
+        return $result;
+    }
 }

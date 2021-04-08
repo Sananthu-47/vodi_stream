@@ -98,6 +98,6 @@ if(count($erorr_array)>0)
     echo json_encode($erorr_array);
 }else{
     $movie_id = $Movie->add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language);
-    $Category->add_selected_categories($categories,$movie_id);
+    $Category->add_selected_categories_movie($categories,$movie_id);
     echo "success";
 }

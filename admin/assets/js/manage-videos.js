@@ -80,8 +80,8 @@ $(document).on('click','#publish-movie',function(e){
     let description = $('#movie-description').val();
     let status = $('#movie-status').val();
     let year = $('#movie-year').val();
-    let part = $('#movie-part').val();
-    let part_1 = 0;
+    let part = $('.movie-part:eq(1)').val();
+    let part_1 = $(this).val();
     let movie_link = $('#movie-link').val();
     let movie_iframe = $('#movie-iframe').val();
     let duration = $('#movie-duration').val();
@@ -107,7 +107,7 @@ $(document).on('click','#publish-movie',function(e){
 // Validate the data to check any empty form fields
 function check_add_movies(data){
     let data_array = JSON.parse(data);
-    const element_array = [$('#movie-title'),$('#movie-age'),$('#movie-thumbnail'),$('#movie-description'),$('#movie-status'),$('#movie-year'),$('#movie-part'),$('#movie-link'),$('#movie-iframe'),$('#movie-duration'),$('#movie-language'),$('#category-select')];
+    const element_array = [$('#movie-title'),$('#movie-age'),$('#movie-thumbnail'),$('#movie-description'),$('#movie-status'),$('#movie-year'),$('.movie-part'),$('#movie-link'),$('#movie-iframe'),$('#movie-duration'),$('#movie-language'),$('#category-select')];
 
     element_array.forEach(ele=>{
         ele.css('border','1px solid #b9b9b9');
@@ -131,6 +131,138 @@ $(document).on('click','#video-iframe',function(){
     $('.vedio-link-tab').addClass('d-none');
     $('.vedio-iframe-tab').removeClass('d-none');
 });
+
+// SELECT the part of the movie
+$(document).on('change','.movie-part:eq(1)',function(){
+    let selector = $(this).val();
+    let part = selector - 1;
+    let language = 0;
+    let search = '';
+    if(selector != 1)
+    {
+        $('.part-selection-wrapper').css('display','flex');
+        $.ajax({
+            url : "../proccess/add-next-part-movie.php",
+            type : "POST",
+            data : {part,language,search},
+            success : function(data)
+            {
+                getMoviesOnSearch(part,search,language,data);
+            }
+        });
+    }else{
+        $('#publish-movie').val('0');
+    }
+});
+
+// Change the part of the movie
+$(document).on('click','#search-parts',function(){
+    let part = $('.movie-part:eq(0)').val();
+    let search = $('#search-part-title').val();
+    let language = $('#language').val();
+        $('.part-selection-wrapper').css('display','flex');
+        $.ajax({
+            url : "../proccess/add-next-part-movie.php",
+            type : "POST",
+            data : {part,search,language},
+            success : function(data)
+            {
+                getMoviesOnSearch(part,search,language,data);
+            }
+        });
+});
+
+// Get all movies while on change or search of button and show in UI 
+function getMoviesOnSearch(part,search,language,data){
+        let output = '';
+        let response = JSON.parse(data);
+        $('#part-number').text(`'${(part==0)? 'Any':part}' > search '${(search==0)? ' ':search}' > language '${(language==0)? 'All':language}'`);
+        $('.movie-part:eq(0)').val(part);
+        
+        if(response.length > 0)
+        {
+            response.forEach((element,index) => {
+                let data_id = (element.part_1_id==0)? element.id : element.part_1_id;
+                output += `<div class='movie-card' data-id='${data_id}'>
+                        <div class='movie-image'>
+                            <img src='${element.thumbnail}'>
+                        </div>
+                        <div class='movie-info'>
+                            <span>${element.language}</span>
+                            <span>${element.title} (part ${element.part})</span>
+                        </div>
+                    </div><!---movie-card-->`;
+            });
+        }else{
+            output += `<div class='my-auto'>
+            <span class='btn btn-primary'>No search result found</span>
+            </div>`;
+        }
+        $('.all-movies-holder').html(output);
+}
+
+// Close the modal opened for parts
+$(document).on('click','#close-parts',function(){
+    clearFiled();
+});
+
+// Close the modal opened for parts
+$(document).on('click',function(e){
+    if(e.target.classList.contains('part-selection-wrapper'))
+    {
+        clearFiled();
+    }
+});
+// Clear the field after closing movies modal
+function clearFiled() {
+        $('.part-selection-wrapper').css('display','none');
+        $('.movie-part:eq(0)').val('0');
+        $('#search-part-title').val('');
+        $('#language').val('0');
+}
+
+
+$(document).on('click',('.movie-card'),function(){
+    let movie_id = $(this).data('id');
+    $.ajax({
+        url : "../proccess/get-movie-data.php",
+        type : "POST",
+        data : {movie_id},
+        success : function(data)
+        {
+            category_array = [];
+            category_array_db = [];
+            getMovieBasedOnClick(data,movie_id);
+        }
+    });
+});
+
+function getMovieBasedOnClick(data,part_1){
+    let output = '';
+    let response = JSON.parse(data);
+
+    $('#movie-title').val(response[0].title);
+    $('#movie-age').val(response[0].age);
+    $('#movie-thumbnail').val(response[0].thumbnail);
+    $('#movie-description').val(response[0].description);
+    $('#movie-status').val(response[0].status);
+    $('#movie-year').val(response[0].release_year);
+    $('#movie-duration').val(response[0].duration);
+    $('#movie-language').val(response[0].language);
+    $('#publish-movie').val(part_1);
+    response[1].forEach(ele=>{
+        category_array.push(ele.category);
+        category_array_db.push(ele.id);
+    });
+    category_array.forEach((ele,i)=>{
+        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category' data-category-id='";
+        output += category_array_db[i];
+        output+="'></i></div>";
+    });
+    $('.selected-categories').html(output);
+    $('.selected-categories').css('display','flex');
+    clearFiled();
+}
 
 
 //Add episode to the UI
