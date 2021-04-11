@@ -4,8 +4,8 @@
             <li class='list-item'><span>Hello</span><i class='fa fa-plus'></i></li>
             <li class='list-item'><span>HHHUUUHkkkkk</span><i class='fa fa-plus'></i></li>
             <li class='list-item'><span>MNMM</span><i class='fa fa-plus'></i></li>
-            <li class='list-item'><span>Jkkhg</span><i class='fa fa-plus'></i></li>
-            <li class='list-item'><span>Hello</span><i class='fa fa-plus'></i></li>
+            <a href='all-movies.php'><li class='nav-item'>Movies <i class='fa fa-plus'></i></li></a>
+            <a href='all-webseries.php'><li class='nav-item'>Web series <i class='fa fa-plus'></i></li></a>
             <?php 
                 if($User->check_account_is_premium($USER_LOGIN_ID))
                     {
@@ -13,7 +13,7 @@
                     }
                     if($User->check_admin_or_not($USER_LOGIN_ID))
                     {
-                    echo "<li class='nav-item h3 admin-login'>Admin</li>";
+                    echo "<a href='admin/pages/index.php'><li class='nav-item admin-login'>Admin</li></a>";
                     }
                 ?>
         </ul>

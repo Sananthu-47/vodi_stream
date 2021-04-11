@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let search = window.location.search;
+    let search = (window.location.search).split('&')[0];
     if(search == '')
     {
         search = '?videos=all-videos';
@@ -25,7 +25,6 @@ function checkCurrentTabVideos(search){
 
 //Add category to the UI
 let category_array = [];
-let category_array_db = [];
 $(document).on('click','#add-category',function(e){
     let output = '';
     e.preventDefault();
@@ -36,7 +35,6 @@ $(document).on('click','#add-category',function(e){
         if($('#category-select').val() != 0)
         {
             category_array.push(category);
-            category_array_db.push($('#category-select').val());
             $('.selected-categories').css('display','flex');
         }else{
             alert('Select a category before adding');
@@ -45,9 +43,7 @@ $(document).on('click','#add-category',function(e){
         alert('Category '+category+" is already added");
     }
     category_array.forEach((ele,i)=>{
-        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category' data-category-id='";
-        output += category_array_db[i];
-        output+="'></i></div>";
+        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category'></i></div>";
     });
     $('.selected-categories').html(output);
     $('#category-select').val(0);
@@ -56,10 +52,6 @@ $(document).on('click','#add-category',function(e){
 // Remove selected categories from array and UI
 $(document).on('click','.delete-category',function(e){
     $(this).parent().remove();
-        let removeItemDb = $(this).data('category-id');
-                category_array_db = $.grep(category_array_db, function(value) {                    
-                return value != removeItemDb;
-                });
 
         let removeItem = $(this).parent().children()[0].innerText;
                 category_array = $.grep(category_array, function(value) {
@@ -86,11 +78,12 @@ $(document).on('click','#publish-movie',function(e){
     let movie_iframe = $('#movie-iframe').val();
     let duration = $('#movie-duration').val();
     let language = $('#movie-language').val();
+    let action = 'publish';
 
     $.ajax({
         url : "../proccess/publish-movie.php",
         type : "POST",
-        data : {title,age,thumbnail,description,status,year,part,part_1,movie_link,movie_iframe,duration,language,category_array_db},
+        data : {title,age,thumbnail,description,status,year,part,part_1,movie_link,movie_iframe,duration,language,category_array,action},
         success : function(data)
         {
             if(data=="success")
@@ -138,20 +131,22 @@ $(document).on('change','.movie-part:eq(1)',function(){
     let part = selector - 1;
     let language = 0;
     let search = '';
+    let type = $(this).data('type');
+
     if(selector != 1)
     {
         $('.part-selection-wrapper').css('display','flex');
         $.ajax({
             url : "../proccess/add-next-part-movie.php",
             type : "POST",
-            data : {part,language,search},
+            data : {part,language,search,type},
             success : function(data)
             {
-                getMoviesOnSearch(part,search,language,data);
+                getMoviesOnSearch(part,search,language,data,type);
             }
         });
     }else{
-        $('#publish-movie').val('0');
+        $('.add-to-db').val('0');
     }
 });
 
@@ -160,20 +155,21 @@ $(document).on('click','#search-parts',function(){
     let part = $('.movie-part:eq(0)').val();
     let search = $('#search-part-title').val();
     let language = $('#language').val();
+    let type = $(this).data('type');
         $('.part-selection-wrapper').css('display','flex');
         $.ajax({
             url : "../proccess/add-next-part-movie.php",
             type : "POST",
-            data : {part,search,language},
+            data : {part,search,language,type},
             success : function(data)
             {
-                getMoviesOnSearch(part,search,language,data);
+                getMoviesOnSearch(part,search,language,data,type);
             }
         });
 });
 
 // Get all movies while on change or search of button and show in UI 
-function getMoviesOnSearch(part,search,language,data){
+function getMoviesOnSearch(part,search,language,data,type){
         let output = '';
         let response = JSON.parse(data);
         $('#part-number').text(`'${(part==0)? 'Any':part}' > search '${(search==0)? ' ':search}' > language '${(language==0)? 'All':language}'`);
@@ -181,18 +177,35 @@ function getMoviesOnSearch(part,search,language,data){
         
         if(response.length > 0)
         {
-            response.forEach((element,index) => {
-                let data_id = (element.part_1_id==0)? element.id : element.part_1_id;
-                output += `<div class='movie-card' data-id='${data_id}'>
-                        <div class='movie-image'>
-                            <img src='${element.thumbnail}'>
-                        </div>
-                        <div class='movie-info'>
-                            <span>${element.language}</span>
-                            <span>${element.title} (part ${element.part})</span>
-                        </div>
-                    </div><!---movie-card-->`;
-            });
+            if(type == 'movie')
+            {
+                response.forEach((element) => {
+                    let data_id = (element.part_1_id==0)? element.id : element.part_1_id;
+                    output += `<div class='movie-card' data-type='movie' data-id='${data_id}'>
+                            <div class='movie-image'>
+                                <img src='${element.thumbnail}'>
+                            </div>
+                            <div class='movie-info'>
+                                <span>${element.language}</span>
+                                <span>${element.title} (part ${element.part})</span>
+                            </div>
+                        </div><!---movie-card-->`;
+                });
+            }else if(type == 'webseries')
+            {
+                response.forEach((element,index) => {
+                    let data_id = (element.part_1_id==0)? element.id : element.part_1_id;
+                    output += `<div class='movie-card' data-type='webseries' data-id='${data_id}'>
+                            <div class='movie-image'>
+                                <img src='${element.thumbnail}'>
+                            </div>
+                            <div class='movie-info'>
+                                <span>${element.language}</span>
+                                <span>${element.title} (season ${element.season_number})</span>
+                            </div>
+                        </div><!---movie-card-->`;
+                });
+            }
         }else{
             output += `<div class='my-auto'>
             <span class='btn btn-primary'>No search result found</span>
@@ -224,15 +237,21 @@ function clearFiled() {
 
 $(document).on('click',('.movie-card'),function(){
     let movie_id = $(this).data('id');
+    let type = $(this).data('type');
     $.ajax({
         url : "../proccess/get-movie-data.php",
         type : "POST",
-        data : {movie_id},
+        data : {movie_id,type},
         success : function(data)
         {
             category_array = [];
-            category_array_db = [];
-            getMovieBasedOnClick(data,movie_id);
+            if(type == 'movie')
+            {
+                getMovieBasedOnClick(data,movie_id);
+            }else if(type == 'webseries')
+            {
+                getWebseriesBasedOnClick(data,movie_id);
+            }
         }
     });
 });
@@ -252,12 +271,34 @@ function getMovieBasedOnClick(data,part_1){
     $('#publish-movie').val(part_1);
     response[1].forEach(ele=>{
         category_array.push(ele.category);
-        category_array_db.push(ele.id);
     });
     category_array.forEach((ele,i)=>{
-        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category' data-category-id='";
-        output += category_array_db[i];
-        output+="'></i></div>";
+        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category'></i></div>";
+    });
+    $('.selected-categories').html(output);
+    $('.selected-categories').css('display','flex');
+    clearFiled();
+}
+
+
+function getWebseriesBasedOnClick(data,part_1){
+    let output = '';
+    let response = JSON.parse(data);
+
+    $('#webseries-title').val(response[0].title);
+    $('#webseries-age').val(response[0].age);
+    $('#webseries-thumbnail').val(response[0].thumbnail);
+    $('#webseries-description').val(response[0].description);
+    $('#webseries-status').val(response[0].status);
+    $('#webseries-year').val(response[0].release_year);
+    $('#webseries-duration').val(response[0].duration);
+    $('#webseries-language').val(response[0].language);
+    $('#publish-webseries').val(part_1);
+    response[1].forEach(ele=>{
+        category_array.push(ele.category);
+    });
+    category_array.forEach((ele,i)=>{
+        output += "<div class='category-tags'><span>"+ele+"</span><i class='fa fa-times delete-category'></i></div>";
     });
     $('.selected-categories').html(output);
     $('.selected-categories').css('display','flex');
@@ -279,7 +320,7 @@ $(document).on('click','#add-episode',function(e){
     let thumbnail = $('#episode-thumbnail').val();
     let year = $('#episode-year').val();
     let duration = $('#episode-duration').val();
-    let season = $('#webseries-season').val();
+    let season = $('.movie-part:eq(1)').val();
     
     if(!episode_array.includes(episode))
     {
@@ -379,20 +420,20 @@ $(document).on('click','#publish-webseries',function(e){
     let description = $('#webseries-description').val();
     let status = $('#webseries-status').val();
     let year = $('#webseries-year').val();
-    // let season = $('#webseries-season').val();
+    let season = $('.movie-part:eq(1)').val();
     let language = $('#webseries-language').val();
-    let season_1 = 0;
+    let part_1 = $(this).val();
     let episodes = JSON.stringify(episode_array_db);
 
     $.ajax({
         url : "../proccess/publish-webseries.php",
         type : "POST",
-        data : {title,age,thumbnail,description,status,year,language,category_array_db,episodes},
+        data : {title,season,part_1,age,thumbnail,description,status,year,language,category_array,episodes},
         success : function(data)
         {
             if(data=="episode")
             {
-                const element_array = [$('#webseries-link'),$('#webseries-iframe'),$('#webseries-episode'),$('#episode-description'),$('#episode-thumbnail'),$('#episode-year'),$('#episode-duration')];
+                const element_array = [$('#webseries-link'),$('#webseries-iframe'),$('#episode-title'),$('#webseries-episode'),$('#episode-description'),$('#episode-thumbnail'),$('#episode-year'),$('#episode-duration')];
                 element_array.forEach(ele=>{
                     ele.css('border-color','red');
                 });
@@ -527,3 +568,8 @@ $(document).on('click','.make-webseries-delete',function(){
         });
     }
 });
+
+function test(data)
+{
+    $('#movie-thumbnail').val(data);
+}

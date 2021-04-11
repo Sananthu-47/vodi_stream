@@ -29,7 +29,7 @@ $output.="
                                 }
                             $output.="</select>
                         </div>
-                        <button class='btn btn-primary mx-auto my-2' id='search-parts'>Search</button>
+                        <button class='btn btn-primary mx-auto my-2' id='search-parts' data-type='movie'>Search</button>
                     </div>
                     <div class='searched-parts'>
                         <span>Searched results for part <span id='part-number'></span></span>
@@ -46,7 +46,7 @@ $output.="
     <label class='badge badge-dark'>Movie title:</label>
         <div class='d-flex'>
             <input type='text' id='movie-title' class='form-control' placeholder='Enter Movie Title' required>
-            <select class='movie-part'>
+            <select class='movie-part' data-type='movie'>
             ";
             for($i=1;$i<=50;$i++){
                 $output.="<option value='{$i}'>Part {$i}</option>";
@@ -108,7 +108,7 @@ $output.="
             $output.="</select>
     </div>
 </div>
-<button class='btn btn-primary' value='0' id='publish-movie'>Publish</button>
+<button class='btn btn-primary add-to-db' value='0' id='publish-movie'>Publish</button>
 </form>";
 
 echo $output;

@@ -32,14 +32,10 @@ $output.="<div class='content-table-wrapper'>
                         <td>{$row['title']}</td>
                         <td>
                         ";
-
-                        $all_categories = $Category->selected_categories_movies($row['id']);
-                            while($categories = mysqli_fetch_assoc($all_categories))
-                            {
-                                $category = mysqli_fetch_assoc($Category->get_category_by_id($categories['category_id']));
-                                $output.="<span class='badge badge-info mx-1'>{$category['category']}</span>";
-                            }
-
+                        $all_categories = explode(',',$row['category']);
+                        foreach ($all_categories as $key => $category) {
+                            $output.="<span class='badge badge-info mx-1'>{$category}</span>";
+                        }
                         $output.="</td>
                         <td>{$row['part']}</td>
                         <td>{$row['status']}</td>
@@ -49,7 +45,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>{$row['release_year']}</td>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2 make-movie-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
-                            <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
+                            <a href='admin-update.php?movie-id={$row['id']}'><button class='btn btn-primary mx-2'><i class='fa fa-pencil-square-o text-white'></i></button></a>
                             <button class='btn btn-success make-movie-active'";
                             if($row['watchable'] == 'active') $output.='disabled';
                             $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>

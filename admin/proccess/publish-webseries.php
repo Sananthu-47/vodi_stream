@@ -6,6 +6,8 @@ include "../../Classes/Category.php";
 $Category = new Category($connection);
 
 $title = $_POST['title'];
+$season = $_POST['season'];
+$part_1 = $_POST['part_1'];
 $age = $_POST['age'];
 $thumbnail = $_POST['thumbnail'];
 $description = $_POST['description'];
@@ -16,18 +18,18 @@ $episode_error = '';
 $category_error = '';
 $erorr_array = [];
 
-if(isset($_POST['category_array_db']))
+if(isset($_POST['category_array']))
 {
-$categories = $_POST['category_array_db'];
+$categories = $_POST['category_array'];
 }else{
     $category_error = 0;
 }
 
-if(isset($_POST['episodes']))
+if(strlen($_POST['episodes'])<3)
 {
-$episodes = $_POST['episodes'];
-}else{
     $episode_error = 0;
+}else{
+    $episodes = $_POST['episodes'];
 }
 
 if($title=='') 
@@ -72,8 +74,12 @@ if($episode_error===0)
     echo 'episode';
 }
 else{
-    $webseries_id = $Webseries->add_webseries($title,$age,$thumbnail,$description,$status,$year,$language);
-    $Webseries->add_webseries_season($webseries_id,$episodes,$status);
-    $Category->add_selected_categories_webseries($categories,$webseries_id);
-    echo 'success';
+    $webseries_id = $Webseries->add_webseries($title,$season,$part_1,$age,$thumbnail,$description,$status,$year,$language,$categories);
+    if($webseries_id>0)
+    {
+        $Webseries->add_webseries_season($webseries_id,$episodes,$status);
+        echo 'success';
+    }else{
+        echo "error".mysqli_error($connection);
+    }
 }

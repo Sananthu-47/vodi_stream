@@ -2,8 +2,6 @@
 include_once "../includes/db.php";
 include "../../Classes/Movie.php";
 $Movie = new Movie($connection);
-include "../../Classes/Category.php";
-$Category = new Category($connection);
 
 $title = $_POST['title'];
 $age = $_POST['age'];
@@ -17,12 +15,13 @@ $movie_link = $_POST['movie_link'];
 $movie_iframe = $_POST['movie_iframe'];
 $duration = $_POST['duration'];
 $language = $_POST['language'];
+$action = $_POST['action'];
 $category_error = '';
 $erorr_array = [];
 
-if(isset($_POST['category_array_db']))
+if(isset($_POST['category_array']))
 {
-$categories = $_POST['category_array_db'];
+$categories = $_POST['category_array'];
 }else{
     $category_error = 0;
 }
@@ -96,8 +95,17 @@ function search_in_array($array,$key)
 if(count($erorr_array)>0)
 {
     echo json_encode($erorr_array);
-}else{
-    $movie_id = $Movie->add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language);
-    $Category->add_selected_categories_movie($categories,$movie_id);
-    echo "success";
+}else if($action == 'publish'){
+    $response = $Movie->add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories);
+    if($response)
+    {
+        echo "success";
+    }
+}else if($action == 'update'){
+    $id = $_POST['id'];
+    $response = $Movie->update_movie($id,$title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories);
+    if($response)
+    {
+        echo "success";
+    }
 }

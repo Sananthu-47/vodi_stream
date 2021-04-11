@@ -39,12 +39,10 @@ $output.="<div class='content-table-wrapper'>
                         $output.="<td>{$webseries_data['title']}</td>
                         <td>{$row['title']}</td>
                         <td>";
-                        $all_categories = $Category->selected_categories_webseries($row['webseries_id']);
-                            while($categories = mysqli_fetch_assoc($all_categories))
-                            {
-                                $category = mysqli_fetch_assoc($Category->get_category_by_id($categories['category_id']));
-                                $output.="<span class='badge badge-info mx-1'>{$category['category']}</span>";
-                            }
+                        $all_categories = explode(',',$webseries_data['category']);
+                        foreach ($all_categories as $key => $category) {
+                            $output.="<span class='badge badge-info mx-1'>{$category}</span>";
+                        }
                         $output.="</td>
                         <td>{$row['season_number']}</td>
                         <td>{$row['episode_number']}</td>
