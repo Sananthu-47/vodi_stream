@@ -12,12 +12,12 @@
         <div class = "content">
                 <div class="content-nav">
                         <div class="content-nav-left" id='sub-nav'>
-                            <a href='admin-managevideos.php?videos=all-videos'><div class="content-nav-badges" id='video-list'>Video List</div></a>
-                            <a href='admin-managevideos.php?videos=add-movies'><div class="content-nav-badges" id='add-movie'>Add Movie</div></a>
-                            <a href='admin-managevideos.php?videos=live-movies'><div class="content-nav-badges" id='live-movie'>Live Movies</div></a>
-                            <a href='admin-managevideos.php?videos=add-webseries'><div class="content-nav-badges" id='add-webseries'>Add Web-Series</div></a>
-                            <a href='admin-managevideos.php?videos=add-episodes'><div class="content-nav-badges" id='add-episodes'>Add Episode</div></a>
-                            <a href='admin-managevideos.php?videos=live-webseries'><div class="content-nav-badges" id='live-webseries'>Live Web-Series</div></a>
+                            <a href='admin-managevideos.php?videos=add-movies'><div class="content-nav-badges" id='add-movie'>Add movie</div></a>
+                            <a href='admin-managevideos.php?videos=live-movies'><div class="content-nav-badges" id='live-movie'>Live movies</div></a>
+                            <a href='admin-managevideos.php?videos=add-webseries'><div class="content-nav-badges" id='add-webseries'>Add webseries</div></a>
+                            <a href='admin-managevideos.php?videos=add-episodes'><div class="content-nav-badges" id='add-episodes'>Add episode</div></a>
+                            <a href='admin-managevideos.php?videos=live-webseries'><div class="content-nav-badges" id='live-webseries'>Live webseries</div></a>
+                            <a href='admin-managevideos.php?videos=live-webseries-episodes'><div class="content-nav-badges" id='live-webseries'>Live webseries episodes</div></a>
                         </div>
                         <div class="content-nav-right">
                             <input type="search" placeholder="Search" class='content-search-bar'>
@@ -35,9 +35,6 @@
     }
     
     switch ($page) {
-        case 'all-videos':
-            include_once "../proccess/admin-all-videos.php";
-            break;
         case 'add-movies':
             include_once "../proccess/admin-add-movie.php";
             break;
@@ -53,8 +50,11 @@
         case 'live-webseries':
             include_once "../proccess/admin-live-webseries.php";
             break;
+        case 'live-webseries-episodes':
+            include_once "../proccess/admin-live-webseries-episodes.php";
+            break;
         default:
-            include_once "../proccess/admin-all-videos.php";
+            include_once "../proccess/admin-add-movie.php";
             break;
     }
 ?>

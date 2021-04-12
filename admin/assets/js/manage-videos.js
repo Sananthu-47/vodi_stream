@@ -2,7 +2,7 @@ $(document).ready(function() {
     let search = (window.location.search).split('&')[0];
     if(search == '')
     {
-        search = '?videos=all-videos';
+        search = '?videos=add-movies';
     }
 
     let video_index = checkCurrentTabVideos(search);
@@ -11,7 +11,7 @@ $(document).ready(function() {
 });
 
 function checkCurrentTabVideos(search){
-    const videos_array = ['all-videos','add-movies','live-movies','add-webseries','add-episodes','live-webseries'];
+    const videos_array = ['add-movies','live-movies','add-webseries','add-episodes','live-webseries','live-webseries-episodes'];
     let data='';
     videos_array.forEach(function(ele,i){
         if(search == '?videos='+ele)
@@ -424,11 +424,12 @@ $(document).on('click','#publish-webseries',function(e){
     let language = $('#webseries-language').val();
     let part_1 = $(this).val();
     let episodes = JSON.stringify(episode_array_db);
+    let action = 'publish';
 
     $.ajax({
         url : "../proccess/publish-webseries.php",
         type : "POST",
-        data : {title,season,part_1,age,thumbnail,description,status,year,language,category_array,episodes},
+        data : {title,season,part_1,age,thumbnail,description,status,year,language,category_array,episodes,action},
         success : function(data)
         {
             if(data=="episode")
@@ -550,11 +551,31 @@ $(document).on('click','.make-movie-delete',function(){
         });
     }
 });
-// Make the webseries episode deleted
+
+// Make the webseries deleted
 $(document).on('click','.make-webseries-delete',function(){
     let id = $(this).data('id');
     let current_element = $(this);
     let action = 'webseries-delete';
+    if(confirm("Do you want to delete this webseries?"))
+    {
+        $.ajax({
+            url : "../proccess/make-action.php",
+            type : "POST",
+            data : {id,action},
+            success : function()
+            {
+                current_element.parent().parent().remove();
+            }
+        });
+    }
+});
+
+// Make the webseries episode deleted
+$(document).on('click','.make-webseries-episode-delete',function(){
+    let id = $(this).data('id');
+    let current_element = $(this);
+    let action = 'webseries-episode-delete';
     if(confirm("Do you want to delete this episode?"))
     {
         $.ajax({

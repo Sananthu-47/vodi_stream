@@ -14,6 +14,7 @@ $description = $_POST['description'];
 $status = $_POST['status'];
 $year = $_POST['year'];
 $language = $_POST['language'];
+$action = $_POST['action'];
 $episode_error = '';
 $category_error = '';
 $erorr_array = [];
@@ -72,14 +73,21 @@ if(count($erorr_array)>0)
 if($episode_error===0)
 {
     echo 'episode';
-}
-else{
+}else 
+if($action == 'publish'){
     $webseries_id = $Webseries->add_webseries($title,$season,$part_1,$age,$thumbnail,$description,$status,$year,$language,$categories);
-    if($webseries_id>0)
+    $response = $Webseries->add_webseries_season($webseries_id,$episodes,$status);
+    if($response)
     {
-        $Webseries->add_webseries_season($webseries_id,$episodes,$status);
         echo 'success';
-    }else{
-        echo "error".mysqli_error($connection);
+    }
+}else 
+if($action == 'update'){
+    $id = $_POST['id'];
+    $end_year = $_POST['end_year'];
+    $response = $Webseries->update_webseries($id,$title,$season,$part_1,$age,$thumbnail,$description,$status,$year,$language,$categories,$end_year);
+    if($response)
+    {
+        echo "success";
     }
 }

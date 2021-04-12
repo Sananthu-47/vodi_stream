@@ -14,7 +14,7 @@ class Category
         $result = mysqli_query($this->connection,"SELECT * FROM category");
         while($row = mysqli_fetch_assoc($result))
         {
-            $output.= "<li class='list-item w-50 text-capitalize py-2'>".$row['category']."</li>";
+            $output.= "<li class='list-item w-50 text-capitalize py-1'>".$row['category']."</li>";
         }
         echo $output;
     }

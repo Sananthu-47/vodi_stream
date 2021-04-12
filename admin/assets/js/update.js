@@ -120,3 +120,51 @@ function check_add_movies(data){
         element_array[ele].css('border','1px solid red');
     });
 }
+
+
+// Add webseries to db
+$(document).on('click','#update-webseries',function(e){
+    e.preventDefault();
+    let title = $('#webseries-title').val();
+    let age = $('#webseries-age').val();
+    let id = $(this).data('id');
+    let thumbnail = $('#webseries-thumbnail').val();
+    let description = $('#webseries-description').val();
+    let status = $('#webseries-status').val();
+    let year = $('#webseries-year').val();
+    let end_year = $('#webseries-end').val();
+    let season = $('.movie-part').val();
+    let language = $('#webseries-language').val();
+    let part_1 = $(this).val();
+    let episodes = 'done';
+    let action = 'update';
+
+    $.ajax({
+        url : "../proccess/publish-webseries.php",
+        type : "POST",
+        data : {id,title,season,part_1,age,thumbnail,description,status,year,language,category_array,episodes,action,end_year},
+        success : function(data)
+        {
+            if(data=="success")
+            {
+                window.location.href='./../pages/admin-managevideos.php?videos=live-webseries';
+            }else{
+                check_add_webseries(data);
+            }
+        }
+    });
+});
+
+// Validate the data to check any empty form fields
+function check_add_webseries(data){
+    let data_array = JSON.parse(data);
+    const element_array = [$('#webseries-title'),$('#webseries-age'),$('#webseries-thumbnail'),$('#webseries-description'),$('#webseries-status'),$('#webseries-year'),$('#webseries-language'),$('#category-select')];
+
+    element_array.forEach(ele=>{
+        ele.css('border','1px solid #b9b9b9');
+    });
+    
+    data_array.forEach((ele)=>{
+        element_array[ele].css('border','1px solid red');
+    });
+}

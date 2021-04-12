@@ -26,6 +26,9 @@ switch ($action) {
         $result = mysqli_query($connection,"UPDATE movies SET watchable = 'deleted' WHERE id = '$id'");
         break;
     case 'webseries-delete':
+        $result = mysqli_query($connection,"UPDATE webseries SET watchable = 'deleted' WHERE id = '$id'");
+        break;
+    case 'webseries-episode-delete':
         $result = mysqli_query($connection,"UPDATE webseries_seasons SET watchable = 'deleted' WHERE id = '$id'");
         break;
     case 'user-delete':

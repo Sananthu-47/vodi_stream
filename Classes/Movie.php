@@ -48,6 +48,11 @@ class Movie
         return $result;
     }
 
+    function get_all_movies_users(){
+        $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE watchable = 'active' ORDER BY title");
+        return $result;
+    }
+
     function get_all_movies_by_id($id)
     {
         $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE id = '$id'");
@@ -80,4 +85,86 @@ class Movie
         $result = mysqli_query($this->connection,$db_query);
         return $result;
     }
+
+    function get_movie_letter(){
+        $result = mysqli_query($this->connection,"SELECT title FROM movies WHERE watchable = 'active' ORDER BY title");
+        $letter_array = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            if(!array_search($row['title'][0],$letter_array))
+            {
+                array_push($letter_array,$row['title'][0]);
+            }
+        }
+        return $letter_array;
+    }
+
+    function get_all_years(){
+        $result = mysqli_query($this->connection,"SELECT release_year FROM movies WHERE watchable = 'active' ORDER BY release_year");
+        $year_array = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            if(!array_search($row['release_year'],$year_array))
+            {
+                array_push($year_array,$row['release_year']);
+            }
+        }
+        return $year_array;
+    }
+
+    function get_all_movies_by_query($search,$letters,$years,$order){
+        $query = '';
+        $query.="SELECT * FROM movies WHERE watchable = 'active'";
+        if($search != '')
+        {
+            $query.=" AND title LIKE '$search%'";
+        }
+        if(strlen($letters)>2)
+        {
+            $letters = json_decode($letters);
+            $query.=" AND (";
+            foreach ($letters as $key => $value) {
+                $query.="title LIKE '$value%'";
+                if($key<count($letters)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        if(strlen($years)>2)
+        {
+            $years = json_decode($years);
+            $query.=" AND (";
+            foreach ($years as $key => $value) {
+                $query.="release_year = '$value'";
+                if($key<count($years)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        switch($order)
+        {
+            case '1':
+                $query.=" ORDER BY title";
+            break;
+            case '2':
+                $query.=" ORDER BY title DESC";
+            break;
+            case '3':
+                $query.=" ORDER BY release_year";
+            break;
+            case '4':
+                $query.=" ORDER BY id";
+            break;
+            default:
+                $query.=" ORDER BY title";
+            break;
+        }
+        $result = mysqli_query($this->connection,$query);
+        return $result;
+    }
+
 }

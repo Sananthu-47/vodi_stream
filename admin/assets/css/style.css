@@ -4,6 +4,12 @@ body{
     padding: 0;
     box-sizing: border-box;
 }
+td{
+    vertical-align: middle !important;
+}
+button:disabled {
+    cursor: not-allowed !important;
+  }
 .active-background{
     background-color: #D2DFEA;
 }
