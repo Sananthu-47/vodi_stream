@@ -17,3 +17,14 @@ body{
     background: var(--background-color);
     overflow-x: hidden;
 }
+
+#wait{
+    display:none;
+    text-align:center;
+    width:70px;
+    height:90px;
+    color:white;
+    position:absolute;
+    transform:translate(-50%,50%);
+    padding:2px;
+}
