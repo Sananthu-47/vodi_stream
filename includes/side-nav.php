@@ -1,9 +1,7 @@
 <div class="modal-background" id='sidenav' style='display:none'>
     <div class="side-nav d-flex flex-column" id='sidenav-div'>
         <ul class='list-group'>
-            <li class='list-item'><span>Hello</span><i class='fa fa-plus'></i></li>
-            <li class='list-item'><span>HHHUUUHkkkkk</span><i class='fa fa-plus'></i></li>
-            <li class='list-item'><span>MNMM</span><i class='fa fa-plus'></i></li>
+            <li class='list-item'><span>Home</span><i class='fa fa-plus'></i></li>
             <a href='all-movies.php'><li class='nav-item'>Movies <i class='fa fa-plus'></i></li></a>
             <a href='all-webseries.php'><li class='nav-item'>Web series <i class='fa fa-plus'></i></li></a>
             <?php 

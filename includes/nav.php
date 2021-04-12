@@ -12,9 +12,7 @@ include "side-nav.php";
             <div id="logo">vodi</div>
         </div><!---left-side-nav-first-->
             <ul class='nav left-side-nav-second col-lg-8 d-flex justify-content-around align-items-center'>
-                <li class='nav-item'>Browse</li>
                 <li class='nav-item'>Home</li>
-                <li class='nav-item'>Blog</li>
                 <a href='all-movies.php'><li class='nav-item'>Movies</li></a>
                 <a href='all-webseries.php'><li class='nav-item'>Web series</li></a>
                 <?php 

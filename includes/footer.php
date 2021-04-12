@@ -31,7 +31,7 @@
     <div class='footer-widgets'>
     <div class='footer-widgets-inner row'> 
         <div class='col-5 d-flex flex-column justify-content-center'>
-            <span class='py-4 footer-headings'>Movie Categories</span>
+            <span class='py-4 footer-headings'>Categories</span>
             <ul class='list-group d-flex flex-row flex-wrap text-start'>
                 <?php 
                 $Category->get_all_category();
@@ -41,23 +41,19 @@
         <div class='col-5 d-flex flex-column justify-content-center'>
             <span class='py-4 footer-headings'>Web series Categories</span>
             <ul class='list-group d-flex flex-row flex-wrap text-start'>
-                <li  class='list-item w-50 py-2'>Alerts</li>
-                <li  class='list-item w-50 py-2'>Alerts</li>
-                <li  class='list-item w-50 py-2'>Alerts</li>
-                <li  class='list-item w-50 py-2'>Alerts</li>
-                <li  class='list-item w-50 py-2'>Alerts</li>
-                <li  class='list-item w-50 py-2'>Alerts</li>
+                <?php 
+                $Category->get_all_category();
+                ?>
             </ul>
         </div>
         <div class='col-2 d-flex flex-column justify-content-start support-tab-footer'>
-            <span class='footer-headings'>Web series Categories</span>
+            <span class='footer-headings'>Support</span>
             <ul class='list-group d-flex flex-row flex-wrap text-start'>
-                <li  class='list-item w-100 '>Alerts</li>
-                <li  class='list-item w-100 '>Alerts</li>
-                <li  class='list-item w-100 '>Alerts</li>
-                <li  class='list-item w-100 '>Alerts</li>
-                <li  class='list-item w-100 '>Alerts</li>
-                <li  class='list-item w-100 '>Alerts</li>
+                <li  class='list-item w-100 py-2'>My account</li>
+                <li  class='list-item w-100 py-2'>FAQ</li>
+                <li  class='list-item w-100 py-2'>Watch on Tv</li>
+                <li  class='list-item w-100 py-2'>Help center</li>
+                <li  class='list-item w-100 py-2'>Contact</li>
             </ul>
         </div>
     </div>
@@ -75,5 +71,6 @@
 </footer>
 
 </div>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

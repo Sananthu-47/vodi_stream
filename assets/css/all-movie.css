@@ -22,12 +22,16 @@
 
 .filters{
     display: flex;
+    min-width: 320px;
+    max-width: 400px;
+    height: max-content;
+}
+
+.filters-holder{
+    display: inherit;
     flex-direction: column;
     background: #1C212E;
     padding: 0 1em;
-    max-width: 400px;
-    min-width: 320px;
-    height: max-content;
 }
 
 .filters-wrapper{
@@ -51,11 +55,12 @@
 
 .search-inside-input-movies{
     width: 48px;
-    height: 48px;
-    border-radius: 50px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
     right: 0px;
-    transform: translate(-10px,25px);
     padding: 0 15px;
     font-size: 20px;
     cursor: pointer;
@@ -83,19 +88,17 @@
 
 .category-list{
     width: 50%;
-    color: #696969;
     display: flex;
     align-items: center;
-    padding: 12px 0;
+    padding: 5px 0;
     list-style: none;
-    font-size: 22px;
-    color: #949494;
+    font-size: 18px;
+    color: #949cb0;
     cursor: pointer;
 }
 
 .category-list i{
     margin-right: 10px;
-    color: white;
     font-size: 28px;
 }
 
@@ -117,11 +120,18 @@
 }
 
 .filter-badge{
-    padding: 10px 1em;
+    padding: 10px 1rem;
     background-color: #161b25;
-    margin: 5px 10px;
+    margin: 5px;
+    font-size: 18px;
+    font-weight: 600;
     color: var(--primary-color-movies);
     cursor: pointer;
+}
+
+.active-badge{
+    color: black;
+    background: var(--primary-color-movies);
 }
 
 .filter-badge:hover{
@@ -153,7 +163,7 @@
 .all-star .fa-star{
     color: var(--primary-color-movies);
     font-size: 20px;
-    margin: 0 5px;
+    margin: 0 3px;
 }
 
 .total-movies-with-ratings{
@@ -180,7 +190,7 @@
 .filters-and-latest-div{
     padding: 1rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 }
 
 .filter-icon{
@@ -189,6 +199,7 @@
     font-weight: 700;
     text-transform: uppercase;
     cursor: pointer;
+    display: none;
 }
 
 .filter-icon i{
@@ -204,6 +215,7 @@
     font-size: 20px;
     border-radius: 5px;
     font-family: fontAwesome , monospace;
+    float: right;
 }
 
 .dropdown-movies:focus{
@@ -221,29 +233,45 @@
 
 .movie-card{
     max-width: 250px;
-    margin: 5px 10px;
-    cursor: pointer;
+    min-height: 350px;
+    margin: 10px;
+    background-size: cover;
+}
+
+.movie-image {
+    height: calc(100% - 60px);
 }
 
 .movie-image img{
     max-width: 100%;
+    min-height: 100%;
+    cursor: pointer;
 }
 
 .movie-info{
     display: flex;
     flex-direction: column;
-    padding: 10px 0;
+    min-height: 60px;
+    flex-wrap: wrap;
 }
 
 .movie-info span:first-child{
    color: #949494;
    font-size: 14px;
+   flex-wrap: wrap;
 }
 
 .movie-info span:last-child{
     color: white;
     font-size: 20px;
     font-weight: 600;
+ }
+
+ .season-badge{
+     background: #17222c;
+     padding: 0 3px;
+     color: #24baef !important;
+     font-size: 14px !important;
  }
 
 .pagination-div{
@@ -280,16 +308,74 @@
 
 }
 
+.close-side-nav-holder{
+    display: none;
+}
+
 @media only screen and (max-width: 1200px) {
     .movies-small-navigation{
-        padding: 2rem 1rem;
+        padding: 1rem;
+    }
+
+    .filter-icon{
+        display: block;
+    }
+
+    .filters-and-latest-div{
+        justify-content: space-between;
     }
 
     .wrapper-movies{
-        padding: 2rem 1rem;
+        padding: 0rem 0.5rem;
+    }
+
+    .dropdown-movies{
+        padding: 0;
+    }
+
+    .all-movies{
+        width: 100%;
+        margin-left: 0;
     }
 
     .filters{
         display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 100;
+        overflow-y: scroll;
+        height: 100%;
+        width: 100%;
+    }
+
+    .filters-holder{
+        width: calc(100% - 30px);
+    }
+
+    .close-side-nav-holder{
+        position: absolute;
+        top: 20%;
+        right: 0%;
+        background: #fff;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        z-index: 100;
+        font-size: 14px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .close-side-nav-holder .fa-times{
+        border-radius: 50%;
+        padding: 3px;
+        background: #000;
+        color: #fff;
+    }
+
+    .filter-badge{
+        margin: 5px;
+        padding: 10px 0.8em;
     }
 }
