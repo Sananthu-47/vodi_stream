@@ -1,5 +1,4 @@
 #movie-single-banner{
-    background-image: url('../../images/movie-banner.jpg');
     max-width: 100%;
     height: calc(100vh - 58vh);
     background-position: top;
@@ -7,8 +6,28 @@
     padding: 0;
 }
 
+#movie-single-banner iframe{
+    width: 100% !important;
+    height: 100% !important;
+    cursor: pointer;
+}
+
+video{
+    cursor: pointer;
+}
+
+video:focus{
+    outline: none !important;
+}
+
+#movie-single-banner img{
+    width: fit-content;
+    margin: auto;
+    height: 100%;
+}
+
 #watch-movies-div{
-    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 #watch-movie{
@@ -37,25 +56,33 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 50%;
     max-width: 50%;
 }
 
 .rating-div , .playlist-div{
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 .rating-div .fa-star{
     font-size: 50px;
     color: rgb(0, 174, 255);
 }
 
+.add-rating{
+    background: none;
+    outline: none;
+    border: none;
+    color: #0d9fd4;
+}
 
-.playlist-div .fa-heart{
+/* .playlist-div .fa-heart{
     color: transparent;
     font-size: 30px;
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: rgb(212, 212, 212);
-  }
+  } */
  .fa.fa-stroke{
     -webkit-text-stroke-color: rgb(212, 212, 212);
     color:transparent;
@@ -63,7 +90,7 @@
 
  .playlist-div span{
      font-size: 15px;
-     padding: 0 1em;
+     padding: 0 0.3em;
      color: white;
  }
 
@@ -128,7 +155,7 @@
 }
 
 .right-side{
-    max-width: 100%;
+    max-width: calc(100% - 50%);
     display: flex;
     margin: 0 auto;
 }
@@ -180,13 +207,13 @@
     position: relative;
 }
 
-.stars-wrapper .stars .stars-glider .stars-image-card img{
+.stars-image-card img{
     width: 100%;
     height: 80%;
     position: absolute;
 }
 
-.stars-wrapper .stars .stars-glider .stars-image-card .star-detail{
+.star-detail{
     display: flex;
     flex-direction: column;
     position: relative;
@@ -195,13 +222,13 @@
 }
 
 
-.stars-wrapper .stars .stars-glider .stars-image-card .star-detail .star-name{
+.star-name{
     font-size: 22px;
     color: white;
     padding: 0;
 }
 
-.stars-wrapper .stars .stars-glider .stars-image-card .star-detail .star-role{
+.star-role{
     font-size: 12px;
     color: white;
     padding: 0;
@@ -275,48 +302,6 @@
     background: #24BAEF;
 }
 
-.all-episode{
-    display: flex;
-}
-
-.season-episode-card{
-    min-width: 250px;
-    min-height: 380px;
-    display: flex;
-    margin: 0px 2em;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-}
-
-.season-episode-card img{
-    width: 100%;
-    height: 80%;
-    position: absolute;
-}
-
-.season-episode-card .episode-details{
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    top: 100%;
-    transform: translateY(-110%);
-    color: white;
-}
-
-.episode-details .episode-number{
-    font-size: 16px;
-    color: rgb(160, 159, 159);
-    padding: 0;
-}
-
-.episode-details .episode-name{
-    font-size: 22px;
-    color: white;
-    padding: 0;
-}
-
 .description-reviews{
     padding: 2rem 7rem;
 }
@@ -347,20 +332,78 @@
     font-size: 20px;
 }
 
-@media only screen and (max-width: 600px) {
-
-    .movie-details{
-        padding: 0 20px;
-        display: flex;
-        flex-direction: column;
-    }
+.all-movies-holder{
+    display: flex;
+    overflow-x: scroll;
+    width: 100%;
+    border-bottom: 0.1px solid #696969;
 }
+
+.all-movies-holder::-webkit-scrollbar{
+    display: none;
+}
+
+.movie-card{
+    min-width: 250px;
+    max-width: 280px;
+    min-height: 350px;
+    margin: 10px;
+    background-size: 100% 100%;
+}
+
+.movie-image {
+    height: calc(100% - 60px);
+}
+
+.movie-image img{
+    max-width: 100%;
+    min-height: 100%;
+    cursor: pointer;
+}
+
+.movie-info{
+    display: flex;
+    flex-direction: column;
+    min-height: 60px;
+    flex-wrap: wrap;
+}
+
+.movie-info span:first-child{
+   color: #949494;
+   font-size: 14px;
+   flex-wrap: wrap;
+}
+
+.movie-info span:last-child{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+ }
+
+ .episode-badge{
+     background: #17222c;
+     padding: 0 3px;
+     margin: 0 3px;
+     color: #24baef !important;
+     font-size: 14px !important;
+ }
 
 @media only screen and (max-width: 1200px) {
     .movie-details{
         padding: 0 30px;
         display: flex;
         flex-direction: column;
+    }
+
+    .movie-details{
+        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .season-badge{
+        padding: 0.8em !important;
+        font-size: 10px !important;
     }
 
     .side-extra{
@@ -385,8 +428,7 @@
     }
 
     .web-details{
-        padding: 2rem;
-        display: grid;
+        padding: 0;
         justify-content: center;
     }
 
@@ -410,13 +452,6 @@
         padding: 10px 0;
     }
 
-    .season-badge{
-        padding: 0.3em 1em;
-        font-size: 16px;
-        border-radius: 5px;
-        margin: 0 0.5em;
-    }
-
     .web-details-more{
         padding: 2rem 1rem;
     }
@@ -427,7 +462,6 @@
 
     #watch-movie{
         padding: 10px 20px;
-        margin: 10px 0;
         font-size: 20px;
         font-weight: 600;
     }

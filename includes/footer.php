@@ -1,4 +1,4 @@
-<?php include 'Classes/Category.php';
+<?php include_once 'Classes/Category.php';
             $Category = new Category($connection);
 ?>
 

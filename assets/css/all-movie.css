@@ -102,16 +102,21 @@
     font-size: 28px;
 }
 
-.category-list i:hover::before{
+.category-list .add-icon::before{
+    content: '\f14a';
+    color: var(--primary-color-movies);
+}
+
+.category-list .add-icon-click::before{
     content: '\f14a';
     color: var(--primary-color-movies);
 }
 
 .category-list:hover {
-    color: var(--primary-color-movies);
+    color: var(--primary-color-movies) !important;
 }
 
-.all-years{
+.all-badges{
     border-top: 0.2px solid rgb(82, 82, 82);
     padding: 1em 0;
     display: flex;
@@ -235,7 +240,7 @@
     max-width: 250px;
     min-height: 350px;
     margin: 10px;
-    background-size: cover;
+    background-size: contain;
 }
 
 .movie-image {

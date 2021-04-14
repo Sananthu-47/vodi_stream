@@ -35,11 +35,11 @@ include "side-nav.php";
         <i id='search-icon-desktop' class='fa fa-search text-secondary'></i>
         </div>
     </div>
-    <?php if(isset($USER_LOGIN_ID))
+    <?php if($User->check_admin_or_not($USER_LOGIN_ID))
     {
-        echo "<div class='text-white d-flex align-items-center upload-button modal-pop'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
+        echo "<a href='admin/pages/admin-managevideos.php'><div class='text-white d-flex align-items-center upload-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div></a>";
     }else{
-        echo "<div class='btn btn-none text-white d-flex align-items-center upload-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
+        echo "<div class='btn btn-none text-white d-flex align-items-center upload-button modal-pop'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
     } ?>
     </div><!---right-side-nav-first--->
     <div class="right-side-nav-second d-flex justify-content-between align-items-center">

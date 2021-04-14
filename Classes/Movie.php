@@ -112,7 +112,7 @@ class Movie
         return $year_array;
     }
 
-    function get_all_movies_by_query($search,$letters,$years,$order){
+    function get_all_movies_by_query($search,$letters,$years,$order,$categorys){
         $query = '';
         $query.="SELECT * FROM movies WHERE watchable = 'active'";
         if($search != '')
@@ -126,6 +126,19 @@ class Movie
             foreach ($letters as $key => $value) {
                 $query.="title LIKE '$value%'";
                 if($key<count($letters)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        if(strlen($categorys)>2)
+        {
+            $categorys = json_decode($categorys);
+            $query.=" AND (";
+            foreach ($categorys as $key => $value) {
+                $query.="category LIKE '%$value%'";
+                if($key<count($categorys)-1)
                 {
                     $query.=" OR ";
                 }

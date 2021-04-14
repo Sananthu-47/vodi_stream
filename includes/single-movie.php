@@ -1,10 +1,16 @@
-<div id="movie-single-banner" class='m-0 row'></div><!--image-banner--->
+<?php
+include_once "Classes/Movie.php";
+$Movie = new Movie($connection);
+?>
+<div id="movie-single-banner" class='m-0 row'>
+    <img src='<?php echo $Movie->get_movie_by_id_and_search('thumbnail',$movie_id); ?>'>
+</div><!--image-banner--->
 <!-- deatails of movie -->
 <div class="movie-details">
     <div class="col-3 side-extra"></div>
     <div class="movie-inside-wrapper">
         <div class="left-side">
-            <span class='movie-name'>Paradigm Lost</span>
+            <span class='movie-name'><?php echo $Movie->get_movie_by_id_and_search('title',$movie_id); ?></span>
             <div class="ratings-of-movie d-flex">
                 <div class="rating-div d-flex">
                     <i class='fa fa-star'></i>
@@ -19,26 +25,24 @@
                 </div>
             </div>
             <div class="short-details d-flex">
-                <span>2017</span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('release_year',$movie_id); ?></span>
                     <span>|</span>
-                <span>1h 02 mins</span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('duration',$movie_id); ?> mins</span>
                     <span>|</span>
-                <span>R</span>
-                    <span>|</span>
-                <span>Action, Documentry</span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('category',$movie_id); ?></span>
             </div>
             <div class="movie-description text-white">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis voluptatem fugiat, reprehenderit vel unde rerum iusto? Optio itaque sequi a?
+                <label class='badge badge-info'>Description:</label>
+                <?php echo $Movie->get_movie_by_id_and_search('description',$movie_id); ?>
             </div>
             <div class="movie-production d-flex">
-                <span>Robert hjk<p>Director</p></span>
-                <span>Martin njk<p>Screenplay</p></span>
-                <span>Anna MJkk<p>Producer</p></span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('director',$movie_id); ?><p>Director</p></span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('producer',$movie_id); ?><p>Producer</p></span>
             </div>
         </div>
     
         <div class="right-side">
-            <div id="watch-movies-div"><button id='watch-movie'><i class='fa fa-play'></i>&nbsp;Watch now</button>
+            <div id="watch-movies-div"><button id='watch-movie' data-type='movie' data-movie-id='<?php echo $movie_id; ?>'><i class='fa fa-play'></i>&nbsp;Watch now</button>
             </div>
         </div>
     </div>

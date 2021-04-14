@@ -4,6 +4,10 @@
     font-weight: 100 !important;
 }
 
+a{
+    text-decoration: none !important;
+}
+
 .custom-navbar{
     background-color: var(--primary-color);
     padding: 20px 0;

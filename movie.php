@@ -8,6 +8,12 @@
 
 <div class="full-size">
 <?php include "includes/nav.php"; ?>
+<?php
+if(isset($_GET['movie_id']))
+{
+    $movie_id = $_GET['movie_id'];
+}
+?>
 <?php include "includes/single-movie.php"; ?>
 
 <?php include "includes/footer.php"; ?>
