@@ -1,6 +1,8 @@
 <?php include "includes/header.php"; 
+include_once "Classes/Category.php";
 include_once "Classes/Webseries.php";
 $Webseries = new Webseries($connection);
+$Category = new Category($connection);
 
 ?>
 <link rel="stylesheet" href="assets/css/all-movie.css">
@@ -24,67 +26,51 @@ $Webseries = new Webseries($connection);
         <div class='filters-holder'>
             <div class="filters-wrapper">
                 <div class="input-group">
-                    <input type="text" id="search" class='form-control p-4 search-input-movies' placeholder='Search...'>
-                    <i id='search-icon-desktop' class='fa fa-search text-secondary search-inside-input-movies'></i>
+                    <input type="text" id="search_filter" class='form-control p-4 search-input-movies' placeholder='Search...'>
+                    <div id='search-filter-button' data-type='webseries' class='search-inside-input-movies'>
+                        <i class='fa fa-search text-secondary'></i>
+                    </div>
                 </div>
             </div><!--filters-wrapper--->
             <div class="filters-wrapper">
                 <span>Filter by letters</span>
-                <div class="all-years">
-                        <div class="filter-badge letter-badge"><h4>0-9</h4></div>
-                        <div class="filter-badge letter-badge"><h4>A</h4></div>
-                        <div class="filter-badge letter-badge"><h4>B</h4></div>
-                        <div class="filter-badge letter-badge"><h4>C</h4></div>
-                        <div class="filter-badge letter-badge"><h4>D</h4></div>
-                        <div class="filter-badge letter-badge"><h4>E</h4></div>
-                        <div class="filter-badge letter-badge"><h4>F</h4></div>
-                        <div class="filter-badge letter-badge"><h4>G</h4></div>
-                        <div class="filter-badge letter-badge"><h4>H</h4></div>
-                        <div class="filter-badge letter-badge"><h4>I</h4></div>
-                        <div class="filter-badge letter-badge"><h4>J</h4></div>
-                        <div class="filter-badge letter-badge"><h4>K</h4></div>
+                <div class="all-badges">
+                    <?php
+                        $output = '';
+                        $webseries_letters = $Webseries->get_webseries_letter();
+                        foreach ($webseries_letters as $key => $value) {
+                            $output.="<div class='filter-badge letter-badge' data-type='webseries' data-letter='{$value}'>{$value}</div>";
+                        }
+                        echo $output;
+                    ?>
                 </div>
             </div><!--filters-wrapper--->
             <div class="filters-wrapper">
                 <span>Categories</span>
                 <div class="all-categories">
                     <ul class='list-of-categories'>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Action</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Horror</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Love</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Biography</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Drama</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Romance</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Action</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Horror</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Love</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Biography</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Drama</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Romance</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Action</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Horror</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Love</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Biography</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Drama</li>
-                        <li class='category-list'><i class="fa fa-square-o"></i>Romance</li>
+                    <?php
+                    $output = '';
+                        $movie_categories = $Category->get_all_category_admin();
+                        while($row = mysqli_fetch_assoc($movie_categories)){
+                            $output.="<li class='category-list' data-type='webseries' data-category='{$row['category']}'><i class='fa fa-square-o'></i>{$row['category']}</li>";
+                        }
+                        echo $output;
+                    ?>
                     </ul>
                 </div>
             </div><!--filters-catogory--->
             <div class="filters-wrapper">
-                <span>Movies by Year</span>
-                <div class="all-years">
-                    <div class="filter-badge years-badge">2021</div>
-                    <div class="filter-badge years-badge">2020</div>
-                    <div class="filter-badge years-badge">2019</div>
-                    <div class="filter-badge years-badge">2018</div>
-                    <div class="filter-badge years-badge">2017</div>
-                    <div class="filter-badge years-badge">2016</div>
-                    <div class="filter-badge years-badge">2015</div>
-                    <div class="filter-badge years-badge">2014</div>
-                    <div class="filter-badge years-badge">2013</div>
-                    <div class="filter-badge years-badge">2012</div>
-                    <div class="filter-badge years-badge">2011</div>
-                    <div class="filter-badge years-badge">2010</div>
+                <span>Webseries by Year</span>
+                <div class="all-badges">
+                <?php
+                    $output = '';
+                        $all_years = $Webseries->get_all_years();
+                        foreach ($all_years as $key => $value) {
+                            $output.="<div class='filter-badge years-badge' data-type='webseries' data-year='{$value}'>{$value}</div>";
+                        }
+                        echo $output;
+                    ?>
                 </div>
             </div><!---filters-by-year--->
             <div class="filters-wrapper">
@@ -153,11 +139,11 @@ $Webseries = new Webseries($connection);
         <div class="sub-title"><span class='page-name'>Webseries</span></div>
         <div class="filters-and-latest-div">
             <span class='filter-icon'><i class="fa fa-sliders"></i>Filters</span>
-            <select class='dropdown-movies'>
-                <option>&#xf15d;&nbsp;&nbsp;&nbsp;A to Z</option>
-                <option>&#xf15e;&nbsp;&nbsp;&nbsp;Z to A</option>
-                <option>&#xf0dc;&nbsp;&nbsp;&nbsp;Latest</option>
-                <option>&#xf005;&nbsp;&nbsp;&nbsp;Ratings</option>
+            <select class='dropdown-movies' data-type='webseries'>
+                <option value='1' selected>&#xf15d;&nbsp;&nbsp;&nbsp;A to Z</option>
+                <option value='2'>&#xf15e;&nbsp;&nbsp;&nbsp;Z to A</option>
+                <option value='3'>&#xf0dc;&nbsp;&nbsp;&nbsp;Year</option>
+                <option value='4'>&#xf005;&nbsp;&nbsp;&nbsp;Latest</option>
             </select>
         </div><!--filters-and-latest-div-->
         <div class="all-movies-holder">
@@ -166,9 +152,11 @@ $Webseries = new Webseries($connection);
                 $output = '';
                 while($row = mysqli_fetch_assoc($all_webseries))
                 {
+                    $all_episodes = $Webseries->get_first_episode_of_webseries($row['id']);
+                    $all_episodes = mysqli_fetch_assoc($all_episodes);
                     $categories = explode(',',$row['category']);
                     $output.= "<div class='movie-card'>
-                    <div class='movie-image'>
+                    <a href='webseries.php?webseries_id={$row['id']}&episode_id={$all_episodes['id']}'><div class='movie-image'>
                         <img src='{$row['thumbnail']}'>
                     </div>
                     <div class='movie-info'>

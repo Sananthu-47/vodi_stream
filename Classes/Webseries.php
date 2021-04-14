@@ -68,6 +68,11 @@ class Webseries
         return $result;
     }
 
+    function get_first_episode_of_webseries($id){
+        $result = mysqli_query($this->connection,"SELECT id FROM webseries_seasons WHERE watchable != 'deleted' AND webseries_id = '$id' AND episode_number = 1");
+        return $result;
+    }
+
     function get_all_webseries(){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable != 'deleted'");
         return $result;
@@ -79,8 +84,27 @@ class Webseries
     }
 
     function get_webseries_by_id($id){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE id = '$id'");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active' AND id = '$id'");
         return $result;
+    }
+
+    function get_webseries_by_part_1_id($id){
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active' AND part_1_id = '$id'");
+        return $result;
+    }
+
+    function get_webseries_by_id_and_search($get_value,$id)
+    {
+        $result = mysqli_query($this->connection,"SELECT $get_value FROM webseries WHERE watchable = 'active' AND id = '$id'");
+        $row = mysqli_fetch_array($result);
+        return $row[0];
+    }
+
+    function get_webseries_episode_by_id_and_search($get_value,$id)
+    {
+        $result = mysqli_query($this->connection,"SELECT $get_value FROM webseries_seasons WHERE watchable = 'active' AND id = '$id'");
+        $row = mysqli_fetch_array($result);
+        return $row[0];
     }
 
     function get_all_webseries_with_query($part,$search,$language)
@@ -102,4 +126,101 @@ class Webseries
         $result = mysqli_query($this->connection,$db_query);
         return $result;
     }
+
+    function get_webseries_letter(){
+        $result = mysqli_query($this->connection,"SELECT title FROM webseries WHERE watchable = 'active' ORDER BY title");
+        $letter_array = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            if(!array_search($row['title'][0],$letter_array))
+            {
+                array_push($letter_array,$row['title'][0]);
+            }
+        }
+        return $letter_array;
+    }
+
+    function get_all_years(){
+        $result = mysqli_query($this->connection,"SELECT release_year FROM webseries WHERE watchable = 'active' ORDER BY release_year");
+        $year_array = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            $pos = array_search($row['release_year'], $year_array);
+            unset($year_array[$pos]);
+            if(!array_search($row['release_year'],$year_array))
+            {
+                array_push($year_array,$row['release_year']);
+            }
+        }
+        return $year_array;
+    }
+
+    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys){
+        $query = '';
+        $query.="SELECT * FROM webseries WHERE watchable = 'active'";
+        if($search != '')
+        {
+            $query.=" AND title LIKE '$search%'";
+        }
+        if(strlen($letters)>2)
+        {
+            $letters = json_decode($letters);
+            $query.=" AND (";
+            foreach ($letters as $key => $value) {
+                $query.="title LIKE '$value%'";
+                if($key<count($letters)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        if(strlen($categorys)>2)
+        {
+            $categorys = json_decode($categorys);
+            $query.=" AND (";
+            foreach ($categorys as $key => $value) {
+                $query.="category LIKE '%$value%'";
+                if($key<count($categorys)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        if(strlen($years)>2)
+        {
+            $years = json_decode($years);
+            $query.=" AND (";
+            foreach ($years as $key => $value) {
+                $query.="release_year = '$value'";
+                if($key<count($years)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.=")";
+        }
+        switch($order)
+        {
+            case '1':
+                $query.=" ORDER BY title";
+            break;
+            case '2':
+                $query.=" ORDER BY title DESC";
+            break;
+            case '3':
+                $query.=" ORDER BY release_year";
+            break;
+            case '4':
+                $query.=" ORDER BY id";
+            break;
+            default:
+                $query.=" ORDER BY title";
+            break;
+        }
+        $result = mysqli_query($this->connection,$query);
+        return $result;
+    }
+
 }

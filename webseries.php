@@ -6,9 +6,18 @@
     
     <div id="plans"></div>
 
-
 <div class="full-size">
 <?php include "includes/nav.php"; ?>
+<?php
+if(isset($_GET['webseries_id']))
+{
+    $webseries_id = $_GET['webseries_id'];
+}
+if(isset($_GET['episode_id']))
+{
+    $episode_id = $_GET['episode_id'];
+}
+?>
 <?php include "includes/single-webseries.php"; ?>
 
 <?php include "includes/footer.php"; ?>
