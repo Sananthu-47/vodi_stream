@@ -18,10 +18,10 @@ if($type == 'movie')
 }else if($type == 'webseries')
 {
    $episode_id = $_POST['episode_id'];
-   if($Webseries->get_webseries_episode_by_id_and_search('iframe',$id) != '')
+   if($Webseries->get_webseries_episode_by_id_and_search('iframe',$episode_id) != '')
       {
-         echo $Webseries->get_webseries_episode_by_id_and_search('iframe',$id);
+         echo $Webseries->get_webseries_episode_by_id_and_search('iframe',$episode_id);
       }else{
-         echo "<video type='video/webm' style='width:100%;height:100%;' autoplay controls src='{$Webseries->get_webseries_episode_by_id_and_search('link',$id)}'></video>";
+         echo "<video type='video/webm' style='width:100%;height:100%;' autoplay controls src='{$Webseries->get_webseries_episode_by_id_and_search('link',$episode_id)}'></video>";
       }
 }

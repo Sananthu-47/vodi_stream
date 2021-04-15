@@ -2,6 +2,8 @@
 include_once "Classes/Movie.php";
 $Movie = new Movie($connection);
 ?>
+<div class="web-navigation d-flex"><span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i><a href='all-movies.php'>Movies</a> <i class='fa fa-angle-right'></i> <?php echo $Movie->get_movie_by_id_and_search('title',$movie_id); ?> </span></div>
+
 <div id="movie-single-banner" class='m-0 row'>
     <img src='<?php echo $Movie->get_movie_by_id_and_search('thumbnail',$movie_id); ?>'>
 </div><!--image-banner--->
@@ -21,7 +23,20 @@ $Movie = new Movie($connection);
                 </div>
                 <div class="playlist-div d-flex px-3">
                     <i class='fa fa-heart fa-stroke'></i> 
-                    <span>+Playlist</span>
+                    <span>My ratings</span>
+                        <select class='add-rating'>
+                            <option></option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                            <option>9</option>
+                            <option>10</option>
+                        </select>
                 </div>
             </div>
             <div class="short-details d-flex">

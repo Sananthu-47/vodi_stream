@@ -16,7 +16,7 @@ $Category = new Category($connection);
 <?php include "includes/nav.php"; ?>
 
 <div class="movies-small-navigation d-flex">
-    <span>Home <i class='fa fa-angle-right'></i> Drama <i class='fa fa-angle-right'></i> Vikings</span>
+    <span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i> Webseries</span>
 </div>
 
 <!-- All wrapper -->

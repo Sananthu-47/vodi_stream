@@ -59,22 +59,22 @@ class Webseries
     }
 
     function get_all_webseries_seasons(){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted'");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable = 'active'");
         return $result;
     }
 
     function get_all_webseries_seasons_by_seriesid($id){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted' AND webseries_id = '$id'");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable = 'active' AND webseries_id = '$id'");
         return $result;
     }
 
     function get_first_episode_of_webseries($id){
-        $result = mysqli_query($this->connection,"SELECT id FROM webseries_seasons WHERE watchable != 'deleted' AND webseries_id = '$id' AND episode_number = 1");
+        $result = mysqli_query($this->connection,"SELECT id FROM webseries_seasons WHERE watchable = 'active' AND webseries_id = '$id'");
         return $result;
     }
 
     function get_all_webseries(){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable != 'deleted'");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active'");
         return $result;
     }
 

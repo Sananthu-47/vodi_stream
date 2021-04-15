@@ -242,7 +242,7 @@ $('#watch-movie').on('click',function(){
     let id = $(this).data('movie-id');
     let episode_id = 0;
     if($(this).data('episode'))
-        episode = $(this).data('episode');
+        episode_id = $(this).data('episode');
     let type = $(this).data('type');
     $.ajax({
         url : "process/get-video.php",
@@ -251,6 +251,9 @@ $('#watch-movie').on('click',function(){
         success : function(data)
         {
             $('#movie-single-banner').html(data);
+        },
+        error : function(){
+            $('#movie-single-banner').html("We are facing some issues resolve it soon");
         }
     });
 

@@ -254,12 +254,26 @@ video:focus{
 }
 
 .left-part-web{
-    width: 55%;
+    width: 50%;
     display: flex;
     flex-direction: column;
 }
 
-.web-views span{
+.episode-details {
+    margin: 10px 0;
+}
+
+.episode-details span{
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    flex-wrap: wrap;
+}
+
+.current-episode{
+    border: 5px solid #49cfff;
+}
+
+/* .web-views span{
     color: rgb(156, 156, 156);
     padding: 0 10px 0 0;
     font-size: 18px;
@@ -267,7 +281,7 @@ video:focus{
 
 .web-views span i{
     padding: 0 5px;
-}
+} */
 
 .web-details-more{
     background: #1C212E;
@@ -346,7 +360,7 @@ video:focus{
 .movie-card{
     min-width: 250px;
     max-width: 280px;
-    min-height: 350px;
+    height: max-content;
     margin: 10px;
     background-size: 100% 100%;
 }
@@ -365,8 +379,15 @@ video:focus{
     display: flex;
     flex-direction: column;
     min-height: 60px;
-    flex-wrap: wrap;
+    padding: 0 5px;
+    word-break: break-all;
 }
+
+.movie-info span{
+    color: #d4d4d4;
+    font-size: 16px;
+    font-weight: 600;
+ }
 
 .movie-info span:first-child{
    color: #949494;
@@ -374,16 +395,10 @@ video:focus{
    flex-wrap: wrap;
 }
 
-.movie-info span:last-child{
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
- }
-
  .episode-badge{
      background: #17222c;
      padding: 0 3px;
-     margin: 0 3px;
+     margin: 3px;
      color: #24baef !important;
      font-size: 14px !important;
  }
@@ -461,9 +476,12 @@ video:focus{
     }
 
     #watch-movie{
-        padding: 10px 20px;
-        font-size: 20px;
+        padding: 10px;
+        font-size: 16px;
         font-weight: 600;
     }
 
+    .episode-details span{
+        font-size: 16px;
+    }
 }
