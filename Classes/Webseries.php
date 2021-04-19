@@ -48,9 +48,11 @@ class Webseries
 
     function add_webseries_season($webseries_id,$episodes,$status){
         $episode_data = json_decode($episodes);
+        $language = get_webseries_by_id_and_search('language',$webseries_id);
+        $language = $language['language'];
         foreach ($episode_data as $key => $value) {
         $description = mysqli_real_escape_string($this->connection,$value->description);
-            $result = mysqli_query($this->connection,"INSERT INTO webseries_seasons (webseries_id,title,link,iframe,season_number,episode_number,thumbnail,description,release_year,duration,status) VALUES ('$webseries_id' , '$value->title' , '$value->link' , '$value->iframe' , '$value->season' , '$value->episode', '$value->thumbnail', '$description', '$value->year', '$value->duration' , '$status')");
+            $result = mysqli_query($this->connection,"INSERT INTO webseries_seasons (webseries_id,title,link,iframe,season_number,episode_number,thumbnail,description,release_year,duration,status,language) VALUES ('$webseries_id' , '$value->title' , '$value->link' , '$value->iframe' , '$value->season' , '$value->episode', '$value->thumbnail', '$description', '$value->year', '$value->duration' , '$status' , '$language')");
             if($result)
             {
                 return true;
@@ -155,7 +157,7 @@ class Webseries
         return $year_array;
     }
 
-    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys){
+    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys,$limit){
         $query = '';
         $query.="SELECT * FROM webseries WHERE watchable = 'active'";
         if($search != '')
@@ -219,7 +221,32 @@ class Webseries
                 $query.=" ORDER BY title";
             break;
         }
+        if($limit != '')
+        {
+            $query.=" LIMIT $limit";
+        }
         $result = mysqli_query($this->connection,$query);
+        return $result;
+    }
+
+
+    function get_all_episode_with_query($part,$search,$language)
+    {
+        $db_query = "SELECT * FROM webseries_seasons WHERE watchable = ('active' OR 'blocked')";
+        if($part != 0)
+        {
+            $db_query .= "AND episode_number = '$part'";
+        }
+        if($language != '0')
+        {
+            $db_query .= "AND language = '$language'";
+        }
+        if($search != '')
+        {
+            $db_query .= "AND title LIKE '%$search%'";
+        }
+        $db_query .= " ORDER BY title";
+        $result = mysqli_query($this->connection,$db_query);
         return $result;
     }
 

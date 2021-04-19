@@ -112,7 +112,7 @@ class Movie
         return $year_array;
     }
 
-    function get_all_movies_by_query($search,$letters,$years,$order,$categorys){
+    function get_all_movies_by_query($search,$letters,$years,$order,$categorys,$limit){
         $query = '';
         $query.="SELECT * FROM movies WHERE watchable = 'active'";
         if($search != '')
@@ -175,6 +175,10 @@ class Movie
             default:
                 $query.=" ORDER BY title";
             break;
+        }
+        if($limit != '')
+        {
+            $query.=" LIMIT $limit";
         }
         $result = mysqli_query($this->connection,$query);
         return $result;

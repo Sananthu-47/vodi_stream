@@ -10,6 +10,7 @@ $category = '';
 $year = '';
 $order = '';
 $type = $_GET['type'];
+$limit = $_GET['limit'];
 
 if(isset($_GET['search']))
 {
@@ -38,14 +39,14 @@ if(isset($_GET['order']))
 
 if($type == 'movie')
 {
-    $movies_result = $Movie->get_all_movies_by_query($search,$letter,$year,$order,$category);
+    $movies_result = $Movie->get_all_movies_by_query($search,$letter,$year,$order,$category,$limit);
     $response = array();
     while ($row = mysqli_fetch_assoc($movies_result)) {
         array_push($response,$row);
     }
     echo json_encode($response);
 }else{
-    $webseries_result = $Webseries->get_all_webseries_by_query($search,$letter,$year,$order,$category);
+    $webseries_result = $Webseries->get_all_webseries_by_query($search,$letter,$year,$order,$category,$limit);
     $response = array();
     while ($row = mysqli_fetch_assoc($webseries_result)) {
         $all_episodes = $Webseries->get_first_episode_of_webseries($row['id']);

@@ -170,21 +170,21 @@ video:focus{
     display: flex;
 }
 
-.stars-wrapper .stars{
+.stars{
     display: flex;
     flex-direction: column;
     max-width: 100%;
     overflow: hidden;
 }
 
-.stars-wrapper .stars span{
+.stars span{
     font-size: 30px;
     color: white;
     font-weight: 200;
     padding: 1rem;
 }
 
-.stars-wrapper .stars .stars-glider{
+.stars-glider{
     position: relative;
     width: 90%;
     overflow-x: hidden;
@@ -193,11 +193,11 @@ video:focus{
     display: flex;
 }
 
-/* .stars-wrapper .stars .stars-glider::-webkit-scrollbar {
+.stars-glider::-webkit-scrollbar {
     display: none;
-  } */
+  }
 
-.stars-wrapper .stars .stars-glider .stars-image-card{
+.stars-image-card{
     min-width: 250px;
     min-height: 380px;
     display: flex;
@@ -220,7 +220,6 @@ video:focus{
     top: 100%;
     transform: translateY(-110%);
 }
-
 
 .star-name{
     font-size: 22px;

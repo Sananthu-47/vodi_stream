@@ -28,6 +28,13 @@ if($type == 'movie')
     {
         array_push($data_array,$row);
     }
+}else if($type == 'episode')
+{
+    $webseries = $Webseries->get_all_episode_with_query($part,$search,$language);
+    while($row = mysqli_fetch_assoc($webseries))
+    {
+        array_push($data_array,$row);
+    }
 }
 
 echo json_encode($data_array);

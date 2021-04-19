@@ -14,6 +14,7 @@ $output.="<div class='content-table-wrapper'>
                         <th>Username</th>
                         <th>Email Id</th>
                         <th>Mobile</th>
+                        <th>Role</th>
                         <th>Active plan</th>
                         <th>Action</th>
                     </tr>";
@@ -26,6 +27,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>User{$row['id']}</td>
                         <td>{$row['email']}</td>
                         <td>{$row['mobile_number']}</td>
+                        <td>{$row['role']}</td>
                         <td>{$row['pricing']}</td>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2 make-user-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>

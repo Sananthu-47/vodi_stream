@@ -63,7 +63,7 @@ $Movie = new Movie($connection);
     </div>
 </div>
 <!-- Trailers -->
-<div class="stars-wrapper">
+<!-- <div class="stars-wrapper">
     <div class="col-3 side-extra"></div>
         <div class="stars">
             <span>Trailers</span>
@@ -119,9 +119,9 @@ $Movie = new Movie($connection);
                     </div>
             </div>
         </div>
-</div>
+</div> -->
 <!-- The stars representing -->
-<div class="stars-wrapper">
+<!-- <div class="stars-wrapper">
     <div class="col-3 side-extra"></div>
         <div class="stars">
             <span>Stars</span>
@@ -177,4 +177,4 @@ $Movie = new Movie($connection);
                     </div>
             </div>
         </div>
-</div>
+</div> -->
