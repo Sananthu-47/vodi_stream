@@ -73,6 +73,116 @@
     padding-top: 20px;
 }
 
+
+.home-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 7rem;
+}
+
+.inner-home-wrapper{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.home-headers{
+    font-size: 30px;
+    color: white;
+    font-weight: 200;
+    padding: 1rem;
+}
+
+.home-videos-glider{
+    position: relative;
+    width: 100%;
+    padding: 1rem 0;
+    overflow-x: scroll;
+    display: flex;
+}
+
+.home-videos-glider::-webkit-scrollbar {
+    display: none;
+  }
+
+.image-card{
+    min-width: 250px;
+    max-width: 280px;
+    height: 320px;
+    margin: 10px;
+    background-size: 100% 100%;
+    box-shadow: 1px 1px 5px #5e5e5e,
+                -1px -1px 5px #5e5e5e;
+}
+
+.image-wrapper{
+    height: calc(100% - 80px);
+    text-align: center;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.image-wrapper img{
+    max-width: 100%;
+    cursor: pointer;
+}
+
+.movie-detail{
+    display: flex;
+    flex-direction: column;
+    padding: 1em 0.3em;
+    height: 80px;
+}
+
+.movie-span{
+    color: #bdbdbd;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.movie-title{
+    color: #ffffff;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.banner-label{
+    position: relative;
+    top: -100%;
+    left: 50%;
+    transform: translate(-50%,0);
+    width: fit-content;
+    padding: 1px 8px;
+    color: white;
+    border-radius: 10px;
+    background: #0044ff;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.season-badge{
+    padding: 0.2em;
+    background: #2d3549;
+    color: #24BAEF;
+    font-size: 12px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0.5em;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1440px) {
+.banner-label{
+    padding: 1px 5px;
+    font-size: 14px;
+    margin: 3px 0;
+}
+}
+
 @media only screen and (max-width: 1440px) {
     #movie-details-home{
         max-width: 80%;
@@ -100,5 +210,8 @@
         top: -124%;
         left: 45%;
         transform: translateX(-45%);
+    }
+    .home-wrapper{
+        padding: 2rem 1rem;
     }
 }

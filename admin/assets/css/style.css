@@ -157,7 +157,7 @@ button:disabled {
 }
 .input-selected-tags{
     display: none;
-    background: rgb(221 221 221);
+    background: rgb(221, 221 ,221);
     padding: 20px 10px;
     margin: 10px 0 0 0;
     border-radius: 10px;
@@ -212,6 +212,7 @@ button:disabled {
     justify-content: center;
     align-items: center;
     background: rgba(19, 19, 19, 0.3);
+    z-index: 10;
 }
 
 .part-selection{
@@ -264,6 +265,8 @@ button:disabled {
 
 .movie-card{
     max-width: 250px;
+    min-height: 350px;
+    position: relative;
     margin: 10px;
     cursor: pointer;
     display: flex;
@@ -295,6 +298,132 @@ button:disabled {
     font-weight: 600;
     text-align: center;
  }
+
+.index-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.dashboard-sections{
+    max-width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+    overflow: hidden;
+}
+
+.features-glider{
+    display: flex;
+    width: 100%;
+    position: relative;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.features-glider::-webkit-scrollbar{
+    display: none;
+}
+
+.feature-card{
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 350px;
+    display: flex;
+    margin: 0px 0.4em;
+    flex-direction: column;
+    position: relative;
+}
+
+.add-more-wrapper{
+    min-width: 280px;
+    max-width: 300px;
+    min-height: 350px;
+}
+
+.add-more{
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.feature-image {
+    height: calc(100% - 80px);
+}
+
+.feature-image .fa-times{
+    font-size: 26px;
+    cursor: pointer;
+    color: white;
+    z-index: 5;
+    position: absolute;
+    right: 0;
+    background: #000;
+    padding: 5px;
+}
+
+.feature-card img{
+    width: 100%;
+    height: 100%;
+}
+
+.feature-detail{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 80px;
+    padding: 0 5px;
+    word-break: break-all;
+}
+
+
+.feature-name{
+    font-size: 22px;
+    color: black;
+    padding: 0;
+}
+
+.feature-type{
+    font-size: 12px;
+    color: black;
+    padding: 0;
+}
+
+.feature-header{
+    background: #be27be2f;
+    padding: 10px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature-header span{
+    color: #000;
+    font-size: 22px;
+}
+
+.feature-header i{
+    color: rgb(2, 15, 75);
+    cursor: pointer;
+    font-size: 26px;
+    border-radius: 50%;
+    border: 1px solid rgb(153, 153, 153);
+    padding: 5px;
+}
+
+.banner-label{
+    width: fit-content;
+    padding: 1px 5px;
+    color: white;
+    border-radius: 10px;
+    background: #0044ff;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
@@ -378,6 +507,11 @@ button:disabled {
     .part-select-header{
         padding: 5px 0;
     }
+    .banner-label{
+        padding: 1px 2px;
+        font-size: 10px;
+        margin: 3px 0;
+    }
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -455,7 +589,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: calc(100% - 20px);
+        width: calc(100% - 80px);
         margin: auto;
     }
     .logo-holder{
@@ -476,7 +610,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: 100%;
+        width: calc(100% - 80px);
     }
 }
 
@@ -494,6 +628,12 @@ button:disabled {
     }
     .logo{
         font-size: 49px;
+    }
+    .inner-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: calc(100% - 300px);
     }
     /* .active-nav{
     box-shadow: 50px 0px 0px #FFFFFF;
@@ -520,4 +660,17 @@ button:disabled {
         background: #ffffff;
         border-radius: 0px 0px 0px 50px;
     } */
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1400px) {
+    .inner-wrapper{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    .content{
+        width: calc(100% - 300px);
+    }
 }
