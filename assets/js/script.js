@@ -42,11 +42,12 @@ $('.dropdown-movies').on('change',function(){
     let search = $('#search_filter').val();
     let order = $(this).val();
     let type = $(this).data('type');
+    let limit = 20;
     
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type},
+        data : {search,letter,year,order,category,type,limit},
         success : function(data)
         {
             if(type == 'movie')
@@ -66,11 +67,12 @@ $('#search-filter-button').on('click',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
+    let limit = 20;
 
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type},
+        data : {search,letter,year,order,category,type,limit},
         success : function(data)
         {
             if(type == 'movie')
@@ -101,11 +103,12 @@ $(document).on('click','.letter-badge',function(){
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
-    let output = '';
+    let limit = 20;
+
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type},
+        data : {search,letter,year,order,category,type,limit},
         success : function(data)
         {
             if(type == 'movie')
@@ -136,10 +139,12 @@ $(document).on('click','.years-badge',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
+    let limit = 20;
+
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type},
+        data : {search,letter,year,order,category,type,limit},
         success : function(data)
         {
             if(type == 'movie')
@@ -172,10 +177,12 @@ $(document).on('click','.category-list',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
+    let limit = 20;
+
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type},
+        data : {search,letter,year,order,category,type,limit},
         success : function(data)
         {
             if(type == 'movie')
