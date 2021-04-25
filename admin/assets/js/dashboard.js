@@ -1,5 +1,5 @@
-const home_featured = [];
-const featured_shows = [];
+let home_featured = [];
+let featured_shows = [];
 
 $(document).ready(function(){
         $.ajax({
@@ -10,7 +10,10 @@ $(document).ready(function(){
             {
                 if(data == '0')
                 {
-                    $('#home-featured').html("<button class='btn btn-primary mx-auto'>Empty</button>");
+                    $('#home-featured').html(`<div class='add-more-wrapper'>
+                    <button class='btn btn-primary add-more' id='add-more-home'>Add more 
+                    </button>
+                    </div>`);
                 }
                addFeaturedDataToArray(data,'home');
             }
@@ -24,7 +27,10 @@ $(document).ready(function(){
             {
                 if(data == '0')
                 {
-                    $('#home-featured').html("<button class='btn btn-primary mx-auto'>Empty</button>");
+                    $('#featured-shows').html(`<div class='add-more-wrapper'>
+                    <button class='btn btn-primary add-more' id='add-more-featured'>Add more 
+                    </button>
+                    </div>`);
                 }
                addFeaturedDataToArray(data,'featured');
             }
@@ -33,13 +39,17 @@ $(document).ready(function(){
 
 function addFeaturedDataToArray(data,type){
     let response = JSON.parse(data);
-
+    home_featured = [];
+    featured_shows = [];
+    
         if(type=='home')
         {
             response.forEach(ele=>{
             home_featured.push(ele);
             });
             let content = displayFeaturedData(home_featured,type);
+            console.log(home_featured.length);
+
             if(home_featured.length<5)
             {
                 content+=`<div class="add-more-wrapper">
@@ -94,9 +104,9 @@ $(document).on('change','.feature-type',function(){
         $('#search-parts').attr('data-feature',feature);
         $('.part-selection-wrapper').css('display','flex');
         $.ajax({
-            url : "../proccess/add-next-part-movie.php",
+            url : "../proccess/get-non-featured.php",
             type : "POST",
-            data : {part,language,search,type},
+            data : {part,language,search,type,feature},
             success : function(data)
             {
                 getMoviesOnSearch(part,search,language,data,type,feature);
@@ -114,9 +124,9 @@ $(document).on('click','#search-parts',function(){
     let feature = $(this).data('feature');
         $('.part-selection-wrapper').css('display','flex');
         $.ajax({
-            url : "../proccess/add-next-part-movie.php",
+            url : "../proccess/get-non-featured.php",
             type : "POST",
-            data : {part,search,language,type},
+            data : {part,search,language,type,feature},
             success : function(data)
             {
                 getMoviesOnSearch(part,search,language,data,type,feature);
@@ -203,17 +213,20 @@ function clearFiled() {
 
 $(document).on('click','.movie-card',function(){
     let feature = $(this).data('feature');
+    let type = $(this).data('type');
     let title = $(this).data('title');
     let id = $(this).data('id');
     if(feature == 'home')
     {
         $('.selcted-home').removeClass('d-none');
-        $('.selcted-home').attr('data-id',id);
+        $('#home-feature').data('id',id);
+        $('#home-feature').data('type',type);
         $('.selcted-home').html(`<span>${title}</span><i class='fa fa-times delete-category'></i>`);
     }else if(feature == 'featured')
     {
         $('.selcted-featured').removeClass('d-none');
-        $('.selcted-featured').attr('data-id',id);
+        $('#show-featured').data('id',id);
+        $('#show-featured').data('type',type);
         $('.selcted-featured').html(`<span>${title}</span><i class='fa fa-times delete-category'></i>`);
     }
     clearFiled();
@@ -221,6 +234,8 @@ $(document).on('click','.movie-card',function(){
 
 $(document).on('click','.delete-category',function(){
     $(this).parent().addClass('d-none');
+    $(this).parent().parent().children()[2].dataset.id = '';
+    
 });
 
 $(document).on('click','.remove-feature',function(){
@@ -228,7 +243,6 @@ $(document).on('click','.remove-feature',function(){
     let type = $(this).data('type');
     let feature = $(this).data('feature');
     let action = 'delete';
-    let ele = $(this);
 
     if(confirm("Do you want to remove this from "+feature+" shows?"))
     {
@@ -238,25 +252,12 @@ $(document).on('click','.remove-feature',function(){
             data : {type,action,id,feature},
             success : function(data)
             {
-                ele.parent().parent().remove();
                 if(feature == 'home')
                 {
-                    for(let i = 0;i<home_featured.length;i++)
-                    {
-                        if(id == home_featured[i].id)
-                        {
-                            home_featured.splice(i,1);
-                        }
-                    }
+                    addFeaturedDataToArray(data,feature);
                 }else if(feature == 'featured')
                 {
-                    for(let i = 0;i<featured_shows.length;i++)
-                    {
-                        if(id == featured_shows[i].id)
-                        {
-                            featured_shows.splice(i,1);
-                        }
-                    }
+                    addFeaturedDataToArray(data,feature);
                 }
             }
         });
@@ -269,4 +270,34 @@ $(document).on('click','#add-more-home',function(){
 
 $(document).on('click','#add-more-featured',function(){
     $('#featured-show-more').css('display','flex');
+});
+
+$(document).on('click','.feature-add',function(){
+    let id = $(this).data('id');
+    let type = $(this).data('type');
+    let feature = $(this).data('feature');
+    let current = $(this);
+    
+    if(id != undefined && id != '')
+    {
+        $.ajax({
+            url : "../proccess/featured.php",
+            type : "POST",
+            data : {type,feature,id,action:'add'},
+            success : function(data)
+            {
+                if(feature == 'home')
+                {
+                    addFeaturedDataToArray(data,'home');
+                    $('#home-featured-more').css('display','none');
+                }else if(feature == 'featured')
+                {
+                    addFeaturedDataToArray(data,'featured');
+                    $('#featured-show-more').css('display','none');
+                }
+                $('.delete-category').click();
+                current.data('id','');
+            }
+        });
+    }
 });

@@ -13,19 +13,33 @@ $data_array = array();
 
 if($action == 'get')
 {
-
-$result = $Dashboard->featured($type);
-if(mysqli_num_rows($result)<1)
-{
-    return 0;
-}else{
-    while($row = mysqli_fetch_assoc($result))
+    $result = $Dashboard->featured($type);
+    if(mysqli_num_rows($result)<1)
     {
-        array_push($data_array,$row);
+        return 0;
+    }else{
+        while($row = mysqli_fetch_assoc($result))
+        {
+            array_push($data_array,$row);
+        }
+        echo json_encode($data_array);
     }
-    echo json_encode($data_array);
-}
-
+}else if($action == 'add')
+{
+    $id = $_POST['id'];
+    $feature = $_POST['feature'];
+    $result = $Dashboard->addTo($type,$id,$feature);
+        $response = $Dashboard->featured($feature);
+        if(mysqli_num_rows($response)<1)
+        {
+            return 0;
+        }else{
+            while($row = mysqli_fetch_assoc($response))
+            {
+                array_push($data_array,$row);
+            }
+            echo json_encode($data_array);
+        }
 }else if($action == 'delete')
 {
 
@@ -61,8 +75,16 @@ if(mysqli_num_rows($result)<1)
         }
     }
     $result = $Dashboard->delete_from_feature($type,$id,$output);
-    echo 'done';
-}else if($action == 'insert')
-{
 
+    $response = $Dashboard->featured($feature);
+        if(mysqli_num_rows($response)<1)
+        {
+            return 0;
+        }else{
+            while($row = mysqli_fetch_assoc($response))
+            {
+                array_push($data_array,$row);
+            }
+            echo json_encode($data_array);
+        }
 }
