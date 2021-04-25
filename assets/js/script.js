@@ -15,8 +15,82 @@ $(document).ready(function(){
     });
     $(document).ajaxComplete(function(){
       $("#wait").css("display", "none");
-    });
+    });    
+    getHomeData();
   });
+
+  let current_home = 0;
+
+function getHomeData() {
+    $.ajax({
+        url : "process/get-home-data.php",
+        type : "GET",
+        data : {feature : 'home'},
+        success : function(data)
+        {
+            let output = '';            
+            let category = '';
+            let path = '';
+            let part = '';
+            let response = JSON.parse(data);
+            
+            if(response[current_home].type == 'Movie')
+            {
+                category = response[current_home].category;
+                path = `movie.php?movie_id=${response[current_home].id}`;
+                part = "Part "+ response[current_home].part;
+            }else if(response[current_home].type == 'Webseries')
+            {
+                let episode_id =  getFirstEpisode(response[current_home].id,'episode');
+                category = response[current_home].category;
+                path = `webseries.php?webseries_id=${response[current_home].id}&episode_id=${episode_id}`;
+                part = "Season "+ response[current_home].part;
+            }else if(response[current_home].type == 'Episode')
+            {
+                category =  getFirstEpisode(response[current_home].part_1_id,'webseries_name');
+                part = "S0"+response[current_home].part_1_id+"E0"+response[current_home].part;
+                path = `webseries.php?webseries_id=${response[current_home].category}&episode_id=${response[current_home].id}`;
+            }
+            output += `<div class='d-flex justify-content-center align-items-center col-xl-6 col-12 col-lg-6 p-0' id='movie-single-features-details'>
+                <div id='movie-details-home'>
+                    <div id='single-movie-details' class='text-white'><span>${response[current_home].release_year}&nbsp;&nbsp;|&nbsp;&nbsp;${category}&nbsp;&nbsp;|&nbsp;&nbsp;${part}</span></div>
+                    <div id='movie-name-home'><span class='text-white'>${response[current_home].title}</span></div>
+                    <div id='watch-movies-div'><a href='${path}'><button id='watch-movie'><i class='fa fa-play'></i>&nbsp;Watch now</button></a></div>
+                </div><!--movie-details-home--->
+                </div><!--movie-single-features-details-->
+                <div class='d-flex justify-content-center align-items-center col-xl-6 col-12 col-lg-6  p-0' id='image-sliders'>
+                <div id='image-slider-div' class='d-flex col-12 mt-5'>`;
+                for(let i=0;i<response.length;i++){
+                    output+=`<div data-index='${i}' class='image-card-movies `;
+                    if(current_home == i) output+='current-slide';
+                    output +=`'><img src='${response[i].thumbnail}' alt=''></div>`;
+                }
+                output += `</div>
+                </div><!--image-sliders-->`;
+                $('#home-glider').css('background-image','url("' + response[current_home].thumbnail + '")');
+            $('#home-glider').html(output);
+        }
+    });
+}
+
+function getFirstEpisode(id,type){
+    let response = $.ajax({
+        url : "process/get-video.php",
+        type : "POST",
+        async : false,
+        data : {id,type},
+        success : function(data)
+        {
+            /* */
+        }
+    });
+    return response.responseText;
+}
+
+$(document).on('click','.image-card-movies',function(){
+    current_home = $(this).data('index');
+    getHomeData();
+});
 
 // Fix for the side menu bar from showing in smaller size
 window.addEventListener("resize", function(){
@@ -222,7 +296,6 @@ function addMovieCards(data){
 function addWebseriesCards(data){
     let output = '';
     let response = JSON.parse(data);
-    console.log(response);
     
             if(response.length<1)
             {
@@ -257,7 +330,16 @@ $('#watch-movie').on('click',function(){
         data : {id,type,episode_id},
         success : function(data)
         {
-            $('#movie-single-banner').html(data);
+            if(data == 'not-paid')
+            {
+                $('#plans').css('display','flex');
+                get_pricing();
+            }else if(data === 'not-loggedin')
+            {
+                $('#modal-register').fadeIn();
+            }else{
+                $('#movie-single-banner').html(data);
+            }
         },
         error : function(){
             $('#movie-single-banner').html("We are facing some issues resolve it soon");

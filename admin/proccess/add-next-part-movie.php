@@ -1,10 +1,7 @@
 <?php
 include_once "../includes/db.php";
-include_once "../../Classes/Category.php";
 include_once "../../Classes/Movie.php";
 include_once "../../Classes/Webseries.php";
-$Category = new Category($connection);
-$categories = $Category->get_all_category_admin();
 $Movies = new Movie($connection);
 $Webseries = new Webseries($connection);
 
@@ -24,13 +21,6 @@ if($type == 'movie')
 }else if($type == 'webseries')
 {
     $webseries = $Webseries->get_all_webseries_with_query($part,$search,$language);
-    while($row = mysqli_fetch_assoc($webseries))
-    {
-        array_push($data_array,$row);
-    }
-}else if($type == 'episode')
-{
-    $webseries = $Webseries->get_all_episode_with_query($part,$search,$language);
     while($row = mysqli_fetch_assoc($webseries))
     {
         array_push($data_array,$row);

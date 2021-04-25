@@ -13,7 +13,7 @@ $Dashboard = new Dashboard($connection);
 
             <div class='part-selection-wrapper' style='display:none'>
                 <div class='part-selection'>
-                    <div class='text-header'><span>Choose what to add</span><i class='fa fa-close' id='close-parts'></i></div>
+                    <div class='text-header'><span>Results based on data not added</span><i class='fa fa-close' id='close-parts'></i></div>
                     <div class='part-select-header'>
                         <div class='d-flex'>
                             <input type='text' class='form-control mx-1' placeholder='Search...' id='search-part-title'>
@@ -177,8 +177,7 @@ $Dashboard = new Dashboard($connection);
 
                     <div class='dashboard-sections'>
                         <div class="feature-header">
-                            <span>Home page feature</span>
-                            <a href='admin-featured.php'><i class="fa fa-arrow-right"></i></a>
+                            <span>Home page feature <span class='text-danger'>(Max 5)</span></span>
                         </div><!--feature-header-->
                         <div class='features-glider' id='home-featured'>
 
@@ -193,14 +192,13 @@ $Dashboard = new Dashboard($connection);
                                 <option value="webseries">Webseries</option>
                                 <option value="episode">Episode</option>
                             </select>
-                            <button id='home-feature' data-type='home' class="btn btn-success mx-2">Add</button>
+                            <button id='home-feature' data-id='' data-type='' data-feature='home' class="btn btn-success mx-2 feature-add">Add</button>
                         </div><!---add-more-group-->
                     </div><!--dashboard-section-->
 
                     <div class='dashboard-sections'>
                         <div class="feature-header">
-                            <span>Featured Shows</span>
-                            <i class="fa fa-arrow-right"></i>
+                            <span>Featured Shows <span class='text-danger'>(Max 10)</span></span>
                         </div><!--feature-header-->
                         <div class='features-glider' id='featured-shows'>
 
@@ -210,12 +208,12 @@ $Dashboard = new Dashboard($connection);
                         <div class="add-more-group" style='display:none;' id='featured-show-more'>
                             <div class="selcted-featured category-tags d-none" data-id=''></div>
                             <select id="" data-feature='featured' class='feature-type mx-2'>
-                            <option value="0" slected>Select to add</option>
+                                <option value="0" slected>Select to add</option>
                                 <option value="movie">Movie</option>
                                 <option value="webseries">Webseries</option>
                                 <option value="episode">Episode</option>
                             </select>
-                            <button id='show-featured' data-type='featured' class="btn btn-success mx-2">Add</button>
+                            <button id='show-featured' data-feature='featured' class="btn btn-success mx-2 feature-add">Add</button>
                         </div><!---add-more-group-->
                     </div><!--dashboard-section-->
 
