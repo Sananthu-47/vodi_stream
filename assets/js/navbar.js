@@ -18,6 +18,11 @@ $('#close-modal').on('click',()=>{
     $('#password-login').css('border-bottom-color','#b9b9b9');
     $('#email-number-login').css('border-bottom-color','#b9b9b9');
 });
+// $('.modal-background').on('click',()=>{
+//     $('.modal-background').fadeOut();
+//     $('#password-login').css('border-bottom-color','#b9b9b9');
+//     $('#email-number-login').css('border-bottom-color','#b9b9b9');
+// });
 $('#hamburger-menu').on('click',()=>{
     $('#sidenav').fadeIn();
 });
@@ -123,6 +128,16 @@ $('#login').on('click',function(e){
                                 $('#password-login').css('border-bottom-color','red');
                                 $('#email-number-login').css('border-bottom-color','red');
                                 break;
+                        case '5':
+                                alert(value);
+                                $('#password-login').css('border-bottom-color','red');
+                                $('#email-number-login').css('border-bottom-color','red');
+                                break;
+                        case '6':
+                                alert(value);
+                                $('#password-login').css('border-bottom-color','red');
+                                $('#email-number-login').css('border-bottom-color','red');
+                                break;
                     }
                 });
             });
@@ -142,6 +157,10 @@ $('#plans').html(data);
 
 
 $(document).on('click','#close-plans',()=>{
+$('#plans').css('display','none');
+});
+
+$(document).on('click','#skip-plan',()=>{
 $('#plans').css('display','none');
 });
 

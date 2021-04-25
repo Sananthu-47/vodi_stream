@@ -27,9 +27,17 @@ if(count($error)==0)
 {
     if($data = $User->login_user($email_number,$password,$type))
     {
+        if($User->get_user_detail_by_id('status',$data['id']) == 'blocked')
+        {
+            array_push($error,['5' => 'You have been blocked by the provider!!']);
+        }else if($User->get_user_detail_by_id('status',$data['id']) == 'deleted')
+        {
+        array_push($error,['6' => 'This account is deleted']);
+        }else if($User->get_user_detail_by_id('status',$data['id']) == 'active'){
         session_start();
         $_SESSION['user_id'] = $data['id'];
         array_push($error,['3' => 'Successfully logged in']);
+        }
     }else{
         array_push($error,['4'=>"Your email/password doesn't match"]);
     }
