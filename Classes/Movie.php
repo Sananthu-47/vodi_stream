@@ -68,7 +68,7 @@ class Movie
 
     function get_all_movies_with_query($part,$search,$language)
     {
-        $db_query = "SELECT * FROM movies WHERE watchable = ('active' OR 'blocked')";
+        $db_query = "SELECT * FROM movies WHERE watchable = 'active'";
         if($part != 0)
         {
             $db_query .= "AND part = '$part'";
@@ -80,6 +80,30 @@ class Movie
         if($search != '')
         {
             $db_query .= "AND title LIKE '%$search%'";
+        }
+        $db_query .= " ORDER BY title";
+        $result = mysqli_query($this->connection,$db_query);
+        return $result;
+    }
+
+    function get_all_movies_with_non_feature($part,$search,$language,$feature)
+    {
+        $db_query = "SELECT * FROM movies WHERE watchable = 'active'";
+        if($part != 0)
+        {
+            $db_query .= "AND part = '$part'";
+        }
+        if($language != '0')
+        {
+            $db_query .= "AND language = '$language'";
+        }
+        if($search != '')
+        {
+            $db_query .= "AND title LIKE '%$search%'";
+        }
+        if($feature != '')
+        {
+            $db_query .= "AND feature NOT LIKE '%$feature%'";
         }
         $db_query .= " ORDER BY title";
         $result = mysqli_query($this->connection,$db_query);

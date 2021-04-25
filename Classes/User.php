@@ -52,6 +52,7 @@ class User{
         }else{
             $query.="mobile_number = '$email_number' AND password = '$password'";
         }
+        
         $result = mysqli_query($this->connection,$query);
         if(mysqli_num_rows($result)>0)
         {
@@ -91,5 +92,13 @@ class User{
             }
         }
         return false;
+    }
+
+    // Get a particular data
+    function get_user_detail_by_id($get_value,$id)
+    {
+        $result = mysqli_query($this->connection,"SELECT $get_value FROM users WHERE id = '$id'");
+        $row = mysqli_fetch_array($result);
+        return $row[0];
     }
 }

@@ -396,22 +396,12 @@ button:disabled {
     padding: 10px;
     margin: 10px 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-start;
 }
 
 .feature-header span{
     color: #000;
     font-size: 22px;
-}
-
-.feature-header i{
-    color: rgb(2, 15, 75);
-    cursor: pointer;
-    font-size: 26px;
-    border-radius: 50%;
-    border: 1px solid rgb(153, 153, 153);
-    padding: 5px;
 }
 
 .banner-label{

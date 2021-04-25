@@ -111,7 +111,7 @@ class Webseries
 
     function get_all_webseries_with_query($part,$search,$language)
     {
-        $db_query = "SELECT * FROM webseries WHERE watchable = ('active' OR 'blocked')";
+        $db_query = "SELECT * FROM webseries WHERE watchable = 'active'";
         if($part != 0)
         {
             $db_query .= "AND season_number = '$part'";
@@ -123,6 +123,30 @@ class Webseries
         if($search != '')
         {
             $db_query .= "AND title LIKE '%$search%'";
+        }
+        $db_query .= " ORDER BY title";
+        $result = mysqli_query($this->connection,$db_query);
+        return $result;
+    }
+
+    function get_all_webseries_with_non_feature($part,$search,$language,$feature)
+    {
+        $db_query = "SELECT * FROM webseries WHERE watchable = 'active'";
+        if($part != 0)
+        {
+            $db_query .= "AND season_number = '$part'";
+        }
+        if($language != '0')
+        {
+            $db_query .= "AND language = '$language'";
+        }
+        if($search != '')
+        {
+            $db_query .= "AND title LIKE '%$search%'";
+        }
+        if($feature != '')
+        {
+            $db_query .= "AND feature NOT LIKE '%$feature%'";
         }
         $db_query .= " ORDER BY title";
         $result = mysqli_query($this->connection,$db_query);
@@ -230,9 +254,9 @@ class Webseries
     }
 
 
-    function get_all_episode_with_query($part,$search,$language)
+    function get_all_episode_with_non_feature($part,$search,$language,$feature)
     {
-        $db_query = "SELECT * FROM webseries_seasons WHERE watchable = ('active' OR 'blocked')";
+        $db_query = "SELECT * FROM webseries_seasons WHERE watchable = 'active'";
         if($part != 0)
         {
             $db_query .= "AND episode_number = '$part'";
@@ -244,6 +268,10 @@ class Webseries
         if($search != '')
         {
             $db_query .= "AND title LIKE '%$search%'";
+        }
+        if($feature != '')
+        {
+            $db_query .= "AND feature NOT LIKE '%$feature%'";
         }
         $db_query .= " ORDER BY title";
         $result = mysqli_query($this->connection,$db_query);
