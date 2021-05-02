@@ -27,7 +27,14 @@ $output.="<div class='content-table-wrapper'>
                         <td>User{$row['id']}</td>
                         <td>{$row['email']}</td>
                         <td>{$row['mobile_number']}</td>
-                        <td>{$row['role']}</td>
+                        <td>";
+                        if($row['role'] == 'admin')
+                        {
+                            $output.="<span class='badge badge-warning mx-1 py-1 px-2'>{$row['role']}</span>";
+                        }else{
+                            $output.="{$row['role']}";
+                        }
+                        $output.="</td>
                         <td>{$row['pricing']}</td>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2 make-user-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>

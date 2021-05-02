@@ -12,7 +12,7 @@ class User{
     // Get data of all users
     function get_all_users()
     {
-        $result = mysqli_query($this->connection,"SELECT * FROM users WHERE status != 'deleted'");
+        $result = mysqli_query($this->connection,"SELECT * FROM users WHERE status != 'deleted' ORDER BY role");
         return $result;
     }
 
