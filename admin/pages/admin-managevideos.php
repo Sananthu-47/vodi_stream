@@ -15,9 +15,9 @@
                             <a href='admin-managevideos.php?videos=add-movies'><div class="content-nav-badges" id='add-movie'>Add movie</div></a>
                             <a href='admin-managevideos.php?videos=live-movies'><div class="content-nav-badges" id='live-movie'>Live movies</div></a>
                             <a href='admin-managevideos.php?videos=add-webseries'><div class="content-nav-badges" id='add-webseries'>Add webseries</div></a>
-                            <a href='admin-managevideos.php?videos=add-episodes'><div class="content-nav-badges" id='add-episodes'>Add episode</div></a>
                             <a href='admin-managevideos.php?videos=live-webseries'><div class="content-nav-badges" id='live-webseries'>Live webseries</div></a>
-                            <a href='admin-managevideos.php?videos=live-webseries-episodes'><div class="content-nav-badges" id='live-webseries'>Live webseries episodes</div></a>
+                            <a href='admin-managevideos.php?videos=add-episodes'><div class="content-nav-badges" id='add-episodes'>Add episode</div></a>
+                            <a href='admin-managevideos.php?videos=live-webseries-episodes'><div class="content-nav-badges" id='live-webseries-episodes'>Live webseries episodes</div></a>
                         </div>
                         <div class="content-nav-right">
                             <input type="search" placeholder="Search" class='content-search-bar'>

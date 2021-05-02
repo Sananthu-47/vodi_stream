@@ -6,7 +6,7 @@ $Webseries = new Webseries($connection);
 $Category = new Category($connection);
 $output = '';
 $count = 1;
-$result = $Webseries->get_all_webseries_seasons();
+$result = $Webseries->get_all_webseries_seasons_admin();
 
 $output.="<div class='content-table-wrapper'>
 <table class='table'>
@@ -28,7 +28,7 @@ $output.="<div class='content-table-wrapper'>
 
     while($row = mysqli_fetch_assoc($result))
                     {
-                        $webseries_data = $Webseries->get_webseries_by_id($row['webseries_id']);
+                        $webseries_data = $Webseries->get_webseries_by_id_admin($row['webseries_id']);
                         $webseries_data = mysqli_fetch_assoc($webseries_data);
 
                         $output.="
@@ -52,10 +52,10 @@ $output.="<div class='content-table-wrapper'>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2 make-webseries-episode-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
                             <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
-                            <button class='btn btn-success make-webseries-active'";
+                            <button class='btn btn-success make-episode-active'";
                             if($row['watchable'] == 'active') $output.='disabled';
                             $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
-                            <button class='btn btn-danger mx-2 make-webseries-blocked'";
+                            <button class='btn btn-danger mx-2 make-episode-blocked'";
                             if($row['watchable'] == 'blocked') $output.='disabled';
                             $output.=" data-id='{$row['id']}'><i class='fa fa-ban text-white'></i></button>
                         </td>

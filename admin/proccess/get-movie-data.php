@@ -16,6 +16,10 @@ if($type == 'movie')
 } else if($type == 'webseries')
 {
     $data = $Webseries->get_webseries_by_id($movie_id);
+} else if($type == 'episode')
+{
+    $data = $Webseries->get_webseries_by_id($movie_id);
+    $episodes = $Webseries->get_all_webseries_seasons_by_seriesid_admin($movie_id);
 }
 
 while ($row = mysqli_fetch_assoc($data)) {
@@ -27,6 +31,15 @@ while ($row = mysqli_fetch_assoc($data)) {
     array_push($category_array,$data_category);
     }
     array_push($data_array,$row,$category_array);
+    if($type == 'episode')
+    {
+    $episodes_array = array();
+        while ($episodes_fetched = mysqli_fetch_assoc($episodes)){
+            $data_episodes = array("episode"=>$episodes_fetched);
+            array_push($episodes_array,$data_episodes);
+        }
+    array_push($data_array,$episodes_array);
+    }
 }
 
 echo json_encode($data_array);

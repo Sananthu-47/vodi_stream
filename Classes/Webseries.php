@@ -40,6 +40,13 @@ class Webseries
             }
         }
         $result = mysqli_query($this->connection,"UPDATE webseries SET title ='$title' , age ='$age' , thumbnail ='$thumbnail' , description ='$description' , status ='$status' , release_year ='$year' , season_number ='$season' , part_1_id ='$part_1' , language ='$language' , category ='$category' , end_year ='$end_year' WHERE id = '$id'");
+        
+        $result = mysqli_query($this->connection,"UPDATE webseries_seasons SET language ='$language' WHERE webseries_id = '$id'");
+
+        if($result)
+        {
+            return true;
+        }
         if($result)
         {
             return true;
@@ -48,15 +55,13 @@ class Webseries
 
     function add_webseries_season($webseries_id,$episodes,$status){
         $episode_data = json_decode($episodes);
-        $language = get_webseries_by_id_and_search('language',$webseries_id);
-        $language = $language['language'];
+        $language = $this->get_webseries_by_id_and_search('language',$webseries_id);
         foreach ($episode_data as $key => $value) {
         $description = mysqli_real_escape_string($this->connection,$value->description);
-            $result = mysqli_query($this->connection,"INSERT INTO webseries_seasons (webseries_id,title,link,iframe,season_number,episode_number,thumbnail,description,release_year,duration,status,language) VALUES ('$webseries_id' , '$value->title' , '$value->link' , '$value->iframe' , '$value->season' , '$value->episode', '$value->thumbnail', '$description', '$value->year', '$value->duration' , '$status' , '$language')");
-            if($result)
-            {
-                return true;
-            }
+        $title = mysqli_real_escape_string($this->connection,$value->title);
+        $link = mysqli_real_escape_string($this->connection,$value->link);
+        $iframe = mysqli_real_escape_string($this->connection,$value->iframe);
+            $result = mysqli_query($this->connection,"INSERT INTO webseries_seasons (webseries_id,title,link,iframe,season_number,episode_number,thumbnail,description,release_year,duration,status,language) VALUES ('$webseries_id' , '$title' , '$link' , '$iframe' , '$value->season' , '$value->episode', '$value->thumbnail', '$description', '$value->year', '$value->duration' , '$status' , '$language')");
         }
     }
 
@@ -65,8 +70,18 @@ class Webseries
         return $result;
     }
 
+    function get_all_webseries_seasons_admin(){
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted'");
+        return $result;
+    }
+
     function get_all_webseries_seasons_by_seriesid($id){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable = 'active' AND webseries_id = '$id'");
+        return $result;
+    }
+
+    function get_all_webseries_seasons_by_seriesid_admin($id){
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted' AND webseries_id = '$id'");
         return $result;
     }
 
@@ -76,12 +91,17 @@ class Webseries
     }
 
     function get_all_webseries(){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active'");
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable != 'deleted'");
         return $result;
     }
 
     function get_all_webseries_users(){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active'");
+        return $result;
+    }
+
+    function get_webseries_by_id_admin($id){
+        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable != 'deleted' AND id = '$id'");
         return $result;
     }
 
@@ -158,7 +178,7 @@ class Webseries
         $letter_array = [];
         while($row = mysqli_fetch_assoc($result))
         {
-            if(!array_search($row['title'][0],$letter_array))
+            if(!in_array($row['title'][0],$letter_array))
             {
                 array_push($letter_array,$row['title'][0]);
             }
@@ -171,9 +191,7 @@ class Webseries
         $year_array = [];
         while($row = mysqli_fetch_assoc($result))
         {
-            $pos = array_search($row['release_year'], $year_array);
-            unset($year_array[$pos]);
-            if(!array_search($row['release_year'],$year_array))
+            if(!in_array($row['release_year'],$year_array))
             {
                 array_push($year_array,$row['release_year']);
             }

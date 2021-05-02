@@ -27,9 +27,9 @@ $output.="<div class='content-table-wrapper'>
 
     while($row = mysqli_fetch_assoc($result))
                     {
-                        $webseries_data = $Webseries->get_webseries_by_id($row['id']);
+                        $webseries_data = $Webseries->get_webseries_by_id_admin($row['id']);
                         $webseries_data = mysqli_fetch_assoc($webseries_data);
-                        $webseries_episodes = $Webseries->get_all_webseries_seasons_by_seriesid($row['id']);
+                        $webseries_episodes = $Webseries->get_all_webseries_seasons_by_seriesid_admin($row['id']);
 
 
                         $output.="
