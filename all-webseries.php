@@ -148,7 +148,7 @@ $Category = new Category($connection);
         </div><!--filters-and-latest-div-->
         <div class="all-movies-holder">
             <?php
-                $all_webseries = $Webseries->get_all_webseries_users();
+                $all_webseries = $Webseries->get_all_webseries_by_query('','','','','',1);
                 $output = '';
                 while($row = mysqli_fetch_assoc($all_webseries))
                 {

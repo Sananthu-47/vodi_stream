@@ -1,3 +1,12 @@
+//Add category to the UI
+let category_array = [];
+//Add episode to the UI
+let episode_array = [];
+let episode_array_db = [];
+//Add new episode to the UI
+let episode_array_new = [];
+let episode_array_new_db = [];
+
 $(document).ready(function() {
     let search = (window.location.search).split('&')[0];
     if(search == '')
@@ -26,18 +35,6 @@ function checkCurrentTabVideos(search){
     });
     return data;
 }
-
-
-//Add category to the UI
-let category_array = [];
-//Add episode to the UI
-let episode_array = [];
-let episode_array_db = [];
-//Add new episode to the UI
-let episode_array_new = [];
-let episode_array_new_db = [];
-
-
 
 $(document).on('click','#add-category',function(e){
     let output = '';
@@ -277,6 +274,7 @@ $(document).on('click',function(e){
         clearFiled();
     }
 });
+
 // Clear the field after closing movies modal
 function clearFiled() {
         $('.part-selection-wrapper').css('display','none');
@@ -285,7 +283,6 @@ function clearFiled() {
         $('#search-part-title').val('');
         $('#language').val('0');
 }
-
 
 $(document).on('click',('.movie-card'),function(){
     let movie_id = $(this).data('id');
@@ -314,7 +311,6 @@ $(document).on('click',('.movie-card'),function(){
 function getMovieBasedOnClick(data,part_1){
     let output = '';
     let response = JSON.parse(data);
-    $('.movie-part:eq(1)').val(response[0].part);
 
     $('#movie-title').val(response[0].title);
     $('#movie-age').val(response[0].age);
@@ -336,11 +332,9 @@ function getMovieBasedOnClick(data,part_1){
     clearFiled();
 }
 
-
 function getWebseriesBasedOnClick(data,part_1){
     let output = '';
     let response = JSON.parse(data);
-    $('.movie-part:eq(1)').val(response[0].season_number);
 
     $('#webseries-title').val(response[0].title);
     $('#webseries-age').val(response[0].age);
@@ -638,6 +632,7 @@ $(document).on('click','.make-movie-active',function(){
         }
     });
 });
+
 // Make the movie blocked
 $(document).on('click','.make-movie-blocked',function(){
     let id = $(this).data('id');
@@ -673,6 +668,7 @@ $(document).on('click','.make-webseries-active',function(){
         }
     });
 });
+
 // Make the webseries blocked
 $(document).on('click','.make-webseries-blocked',function(){
     let id = $(this).data('id');
@@ -708,6 +704,7 @@ $(document).on('click','.make-episode-active',function(){
         }
     });
 });
+
 // Make the webseries episode blocked
 $(document).on('click','.make-episode-blocked',function(){
     let id = $(this).data('id');
@@ -782,8 +779,3 @@ $(document).on('click','.make-webseries-episode-delete',function(){
         });
     }
 });
-
-function test(data)
-{
-    $('#movie-thumbnail').val(data);
-}

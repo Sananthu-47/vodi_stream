@@ -149,7 +149,7 @@ $Category = new Category($connection);
         <div class="all-movies-holder">
         <div id="wait"><i class='fa fa-spinner fa-spin'></i><br>Loading..</div>
             <?php
-            $all_movies = $Movie->get_all_movies_users();
+            $all_movies = $Movie->get_all_movies_by_query('','','','','',1);
             $output = '';
             while($row = mysqli_fetch_assoc($all_movies))
             {
@@ -168,9 +168,12 @@ $Category = new Category($connection);
             ?>
         </div><!--all-movies-holder-->
         <div class="pagination-div">
-            <span class='pagination-number active-pagination'>1</span>
-            <span class='pagination-number'>2</span>
-            <span class='pagination-number'>3</span>
+        <?php
+        $total_pages = $Movie->pagination();
+            for($i=1;$i<=$total_pages;$i++) {
+                echo "<span class='pagination-number' data-type='movie'>{$i}</span>";
+            }
+        ?>
             <span class='next-page'>Next page <i class="fa fa-long-arrow-right"></i></span>
         </div><!--pagination-div-->
     </div><!--all-movies-->

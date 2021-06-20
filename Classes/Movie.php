@@ -3,6 +3,7 @@
 class Movie
 {
     public $connection;
+    public $no_of_records_per_page = 20;
 
     function __construct($connection)
     {
@@ -66,9 +67,9 @@ class Movie
         return $row[0];
     }
 
-    function get_all_movies_with_query($part,$search,$language)
+    function get_all_movies_with_query_to_admin($part,$search,$language)
     {
-        $db_query = "SELECT * FROM movies WHERE watchable = 'active'";
+        $db_query = "SELECT * FROM movies WHERE watchable != 'deleted'";
         if($part != 0)
         {
             $db_query .= "AND part = '$part'";
@@ -136,7 +137,7 @@ class Movie
         return $year_array;
     }
 
-    function get_all_movies_by_query($search,$letters,$years,$order,$categorys,$limit){
+    function get_all_movies_by_query($search,$letters,$years,$order,$categorys,$page_number){
         $query = '';
         $query.="SELECT * FROM movies WHERE watchable = 'active'";
         if($search != '')
@@ -200,12 +201,20 @@ class Movie
                 $query.=" ORDER BY title";
             break;
         }
-        if($limit != '')
+        if($page_number != '')
         {
-            $query.=" LIMIT $limit";
+            $offset = ($page_number-1) * $this->no_of_records_per_page;
+            $query.=" LIMIT $offset, $this->no_of_records_per_page";
         }
         $result = mysqli_query($this->connection,$query);
         return $result;
+    }
+
+    function pagination(){
+        $total_rows = $this->get_all_movies_users();
+        $total_rows = mysqli_num_rows($total_rows);
+        $total_pages = ceil($total_rows / $this->no_of_records_per_page);
+        return $total_pages;
     }
 
 }

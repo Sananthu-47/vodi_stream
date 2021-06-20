@@ -99,7 +99,7 @@ $Dashboard = new Dashboard($connection);
             <div class="home-videos-glider">
 
             <?php 
-            $result = $Movie->get_all_movies_by_query('','','','','1',10);
+            $result = $Movie->get_all_movies_by_query('','','','','1',1);
             $output = '';
             while ($row = mysqli_fetch_assoc($result)) {
                 $output .= "
@@ -123,7 +123,7 @@ $Dashboard = new Dashboard($connection);
             <div class="home-videos-glider">
 
             <?php 
-            $result = $Webseries->get_all_webseries_by_query('','','','','1',10);
+            $result = $Webseries->get_all_webseries_by_query('','','','','1',1);
             $output = '';
             while ($row = mysqli_fetch_assoc($result)) {
                 $first_episode = $Webseries->get_first_episode_of_webseries($row['id']);

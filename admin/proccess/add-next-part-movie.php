@@ -13,19 +13,12 @@ $data_array = array();
 
 if($type == 'movie')
 {
-    $movies = $Movies->get_all_movies_with_query($part,$search,$language);
+    $movies = $Movies->get_all_movies_with_query_to_admin($part,$search,$language);
     while($row = mysqli_fetch_assoc($movies))
     {
         array_push($data_array,$row);
     }
-}else if($type == 'webseries')
-{
-    $webseries = $Webseries->get_all_webseries_with_query($part,$search,$language);
-    while($row = mysqli_fetch_assoc($webseries))
-    {
-        array_push($data_array,$row);
-    }
-}else if($type == 'episode')
+}else if($type == 'webseries' || $type == 'episode')
 {
     $webseries = $Webseries->get_all_webseries_with_query($part,$search,$language);
     while($row = mysqli_fetch_assoc($webseries))

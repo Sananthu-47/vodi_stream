@@ -1,3 +1,10 @@
+// Global variables
+let letters_array = [];
+let years_array = [];
+let categories_array = [];
+let current_page = 1;
+let current_home = 0;
+
 $('.filter-icon').on('click',function(){
     $('.filters').show();
     $('.filters').removeClass('d-none');
@@ -17,9 +24,11 @@ $(document).ready(function(){
       $("#wait").css("display", "none");
     });    
     getHomeData();
+    if(document.querySelectorAll('.pagination-number').length > 0)
+    {    
+        document.querySelectorAll('.pagination-number')[current_page - 1].classList.add('active-pagination');
+    }
   });
-
-  let current_home = 0;
 
 function getHomeData() {
     $.ajax({
@@ -104,10 +113,6 @@ $('.category-list').hover(function(){
     $(this).children().toggleClass('add-icon').before();
 });
 
-// Global variables
-let letters_array = [];
-let years_array = [];
-let categories_array = [];
 // On change of the dropdown we get ajax request to filter data
 $('.dropdown-movies').on('change',function(){
     let letter = JSON.stringify(letters_array);
@@ -116,12 +121,12 @@ $('.dropdown-movies').on('change',function(){
     let search = $('#search_filter').val();
     let order = $(this).val();
     let type = $(this).data('type');
-    let limit = 20;
+    let page_number = JSON.stringify(current_page);
     
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,limit},
+        data : {search,letter,year,order,category,type,page_number},
         success : function(data)
         {
             if(type == 'movie')
@@ -141,12 +146,12 @@ $('#search-filter-button').on('click',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
-    let limit = 20;
+    let page_number = JSON.stringify(current_page);
 
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,limit},
+        data : {search,letter,year,order,category,type,page_number},
         success : function(data)
         {
             if(type == 'movie')
@@ -177,12 +182,12 @@ $(document).on('click','.letter-badge',function(){
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
-    let limit = 20;
+    let page_number = JSON.stringify(current_page);
 
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,limit},
+        data : {search,letter,year,order,category,type,page_number},
         success : function(data)
         {
             if(type == 'movie')
@@ -213,12 +218,12 @@ $(document).on('click','.years-badge',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
-    let limit = 20;
+    let page_number = JSON.stringify(current_page);
 
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,limit},
+        data : {search,letter,year,order,category,type,page_number},
         success : function(data)
         {
             if(type == 'movie')
@@ -251,12 +256,12 @@ $(document).on('click','.category-list',function(){
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
     let type = $(this).data('type');
-    let limit = 20;
+    let page_number = JSON.stringify(current_page);
 
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,limit},
+        data : {search,letter,year,order,category,type,page_number},
         success : function(data)
         {
             if(type == 'movie')
@@ -268,6 +273,38 @@ $(document).on('click','.category-list',function(){
         }
     });
 });
+
+// Get the data on click of the letters tab
+$(document).on('click','.pagination-number',function(){
+    let letter = JSON.stringify(letters_array);
+    let year = JSON.stringify(years_array);
+    let search = $('#search_filter').val();
+    let category = JSON.stringify(categories_array);
+    let order = $('.dropdown-movies').val();
+    let type = $(this).data('type');
+    page_number = $(this).text();
+    let curr_ele = $(this);
+
+    $.ajax({
+        url : "process/movie-filter.php",
+        type : "GET",
+        data : {search,letter,year,order,category,type,page_number},
+        success : function(data)
+        {
+            curr_ele.parent().children().each(function(){
+                $(this).removeClass('active-pagination');
+            });
+            curr_ele.addClass('active-pagination')
+            if(type == 'movie')
+            {
+                addMovieCards(data);
+            }else{
+                addWebseriesCards(data);
+            }
+        }
+    });
+});
+
 // Main function to form the movies card
 function addMovieCards(data){
     let output = '';
@@ -347,3 +384,4 @@ $('#watch-movie').on('click',function(){
     });
 
 });
+

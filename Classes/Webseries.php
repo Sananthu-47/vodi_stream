@@ -199,7 +199,7 @@ class Webseries
         return $year_array;
     }
 
-    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys,$limit){
+    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys,$page_number){
         $query = '';
         $query.="SELECT * FROM webseries WHERE watchable = 'active'";
         if($search != '')
@@ -263,9 +263,14 @@ class Webseries
                 $query.=" ORDER BY title";
             break;
         }
-        if($limit != '')
+        if($page_number != '')
         {
-            $query.=" LIMIT $limit";
+            $no_of_records_per_page = 20;
+            $offset = ($page_number-1) * $no_of_records_per_page;
+            $total_rows = $this->get_all_webseries_users();
+            $total_rows = mysqli_num_rows($total_rows);
+            $total_pages = ceil($total_rows / $no_of_records_per_page);
+            $query.=" LIMIT $offset, $no_of_records_per_page";
         }
         $result = mysqli_query($this->connection,$query);
         return $result;
