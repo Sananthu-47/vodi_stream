@@ -10,7 +10,7 @@ class Movie
         $this->connection = $connection;
     }
 
-    function add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories){
+    function add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories,$director,$producer){
         $description = mysqli_real_escape_string($this->connection,$description);
         $category = '';
         foreach ($categories as $key => $value) {
@@ -20,14 +20,14 @@ class Movie
                 $category.=',';
             }
         }
-        $result = mysqli_query($this->connection,"INSERT INTO movies (title,age,thumbnail,description,status,release_year,part,part_1_id,link,iframe,duration,language,category) VALUES ('$title' , '$age' , '$thumbnail' , '$description' , '$status' ,'$year' , '$part' , '$part_1' ,'$movie_link' , '$movie_iframe' , '$duration' , '$language' , '$category')");
+        $result = mysqli_query($this->connection,"INSERT INTO movies (title,age,thumbnail,description,status,release_year,part,part_1_id,link,iframe,duration,language,category,director,producer) VALUES ('$title' , '$age' , '$thumbnail' , '$description' , '$status' ,'$year' , '$part' , '$part_1' ,'$movie_link' , '$movie_iframe' , '$duration' , '$language' , '$category' , '$director' , '$producer')");
         if($result)
         {
             return true;
         }
     }
 
-    function update_movie($id,$title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories){
+    function update_movie($id,$title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories,$director,$producer){
         $description = mysqli_real_escape_string($this->connection,$description);
         $category = '';
         foreach ($categories as $key => $value) {
@@ -37,7 +37,7 @@ class Movie
                 $category.=',';
             }
         }
-        $result = mysqli_query($this->connection,"UPDATE movies SET title ='$title' , age ='$age' , thumbnail ='$thumbnail' , description ='$description' , status ='$status' , release_year ='$year' , part ='$part' , part_1_id ='$part_1' , link ='$movie_link' , iframe ='$movie_iframe' , duration ='$duration' , language ='$language' , category ='$category' WHERE id = '$id'");
+        $result = mysqli_query($this->connection,"UPDATE movies SET title ='$title' , age ='$age' , thumbnail ='$thumbnail' , description ='$description' , status ='$status' , release_year ='$year' , part ='$part' , part_1_id ='$part_1' , link ='$movie_link' , iframe ='$movie_iframe' , duration ='$duration' , language ='$language' , category ='$category' , director = '$director' , producer = '$producer' WHERE id = '$id'");
         if($result)
         {
             return true;

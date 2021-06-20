@@ -19,6 +19,9 @@ button:disabled {
     padding: 20px;
     overflow-x: hidden;
 }
+.admin-menu-bar{
+    cursor: pointer;
+}
 .inner-wrapper{
     display: flex;
     width: 100%;

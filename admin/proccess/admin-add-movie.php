@@ -81,8 +81,14 @@ $output.="
                 <option value='paid' selected>Paid</option>
                 <option value='free'>Free</option>
             </select>
+        <br>
+        <label class='badge badge-dark'>Director:</label> (Optional)
+        <input type='text' id='movie-director' class='form-control' placeholder='Movie director'>
     </div>
     <div class='main-content-right form-group'>
+    <label class='badge badge-dark'>Producer:</label> (Optional)
+        <input type='text' id='movie-producer' class='form-control' placeholder='Movie producer'>
+    <br>
     <label class='badge badge-dark'>Thumbnail</label>
         <input type='text' id='movie-thumbnail' class='form-control' placeholder='Add Thumbnail'>
         <br>

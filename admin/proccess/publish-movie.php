@@ -15,6 +15,8 @@ $movie_link = $_POST['movie_link'];
 $movie_iframe = $_POST['movie_iframe'];
 $duration = $_POST['duration'];
 $language = $_POST['language'];
+$director = $_POST['director'];
+$producer = $_POST['producer'];
 $action = $_POST['action'];
 $category_error = '';
 $erorr_array = [];
@@ -86,6 +88,12 @@ if($movie_iframe!=='')
 {
     $erorr_array = array_values(search_in_array($erorr_array,[7]));
 }
+if($director == ''){
+    $director = 'No data';
+}
+if($producer == ''){
+    $producer = 'No data';
+}
 
 function search_in_array($array,$key)
 {
@@ -96,14 +104,14 @@ if(count($erorr_array)>0)
 {
     echo json_encode($erorr_array);
 }else if($action == 'publish'){
-    $response = $Movie->add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories);
+    $response = $Movie->add_movie($title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories,$director,$producer);
     if($response)
     {
         echo "success";
     }
 }else if($action == 'update'){
     $id = $_POST['id'];
-    $response = $Movie->update_movie($id,$title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories);
+    $response = $Movie->update_movie($id,$title,$age,$thumbnail,$description,$status,$year,$part,$part_1,$movie_link,$movie_iframe,$duration,$language,$categories,$director,$producer);
     if($response)
     {
         echo "success";

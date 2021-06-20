@@ -12,7 +12,7 @@
         <div class = "content">
                 <div class="content-nav">
                         <div class="content-nav-left" id='sub-nav'>
-                            <div class="content-nav-badges active-background" id='video-list'>Update</div>
+                            <div class="content-nav-badges active-background" id='video-list'>Update the details</div>
                         </div>
                         <div class="content-nav-right">
                             <input type="search" placeholder="Search" class='content-search-bar'>

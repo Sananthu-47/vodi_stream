@@ -241,6 +241,8 @@
     min-height: 350px;
     margin: 10px;
     background-size: contain;
+    box-shadow: 1px 1px 12px #000000, 
+                -1px -1px 12px #181717;
 }
 
 .movie-image {
@@ -256,8 +258,8 @@
 .movie-info{
     display: flex;
     flex-direction: column;
-    min-height: 60px;
-    flex-wrap: wrap;
+    padding: 0.1em 0.3em;
+    height: 100px;
 }
 
 .movie-info span:first-child{

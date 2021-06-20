@@ -158,7 +158,7 @@ $Category = new Category($connection);
                     $output.= "<div class='movie-card'>
                     <a href='webseries.php?webseries_id={$row['id']}&episode_id={$all_episodes['id']}'><div class='movie-image'>
                         <img src='{$row['thumbnail']}'>
-                    </div>
+                    </div></a>
                     <div class='movie-info'>
                         <span>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season {$row['season_number']}</span></span>
                         <span>{$row['title']}</span>

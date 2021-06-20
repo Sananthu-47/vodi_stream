@@ -89,12 +89,14 @@ $(document).on('click','#update-movie',function(e){
     let movie_iframe = $('#movie-iframe').val();
     let duration = $('#movie-duration').val();
     let language = $('#movie-language').val();
+    let director = $('#movie-director').val();
+    let producer = $('#movie-producer').val();
     let action = 'update';
 
     $.ajax({
         url : "../proccess/publish-movie.php",
         type : "POST",
-        data : {id,title,age,thumbnail,description,status,year,part,part_1,movie_link,movie_iframe,duration,language,category_array,action},
+        data : {id,title,age,thumbnail,description,status,year,part,part_1,movie_link,movie_iframe,duration,language,director,producer,category_array,action},
         success : function(data)
         {
             if(data=="success")
