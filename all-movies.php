@@ -147,42 +147,42 @@ $Category = new Category($connection);
             </select>
         </div><!--filters-and-latest-div-->
         <div class="all-movies-holder">
-        <div id="wait"><i class='fa fa-spinner fa-spin'></i><br>Loading..</div>
+            <div id="wait"><i class='fa fa-spinner fa-spin'></i><br>Loading..</div>
             <?php
-            $all_movies = $Movie->get_all_movies_by_query('','','','','',1);
-            $output = '';
-            while($row = mysqli_fetch_assoc($all_movies[0]))
-            {
-                $categories = explode(',',$row['category']);
-                $output.="<div class='movie-card'>
-                <a href='movie.php?movie_id={$row['id']}'><div class='movie-image'>
-                    <img src='{$row['thumbnail']}'>
-                </div></a>
-                <div class='movie-info'>
-                    <span>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]},{$categories[1]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Part {$row['part']}</span></span>
-                    <span>{$row['title']}</span>
-                </div>
-            </div><!---movie-card-->";
-            }
-            echo $output;
+                $all_movies = $Movie->get_all_movies_by_query('','','','','',1);
+                $output = '';
+                while($row = mysqli_fetch_assoc($all_movies[0]))
+                {
+                    $categories = explode(',',$row['category']);
+                    $output.="<div class='movie-card'>
+                    <a href='movie.php?movie_id={$row['id']}'><div class='movie-image'>
+                        <img src='{$row['thumbnail']}'>
+                    </div></a>
+                    <div class='movie-info'>
+                        <span>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]},{$categories[1]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Part {$row['part']}</span></span>
+                        <span>{$row['title']}</span>
+                    </div>
+                </div><!---movie-card-->";
+                }
+                echo $output;
             ?>
         </div><!--all-movies-holder-->
         <div class="pagination-holder">
-        <span class='previous' data-type='movie' data-value='1'><i class='fa fa-angle-double-left filter-badge'></i></span>
-        <div class='pagination-div'>
-            <?php
-            $total_pages = $Movie->pagination();
-                for($i=1;$i<=$total_pages;$i++) {
-                    echo "<span class='pagination-number ";
-                    if($i == 1){
-                        echo "active-pagination";
+            <span class='previous' data-type='movie' data-value='1'><i class='fa fa-angle-double-left filter-badge'></i></span>
+            <div class='pagination-div'>
+                <?php
+                    $total_pages = $Movie->pagination();
+                    for($i=1;$i<=$total_pages;$i++) {
+                        echo "<span class='pagination-number ";
+                        if($i == 1){
+                            echo "active-pagination";
+                        }
+                        echo "' data-type='movie'>{$i}</span>";
                     }
-                    echo "' data-type='movie'>{$i}</span>";
-                }
-            ?>
-        </div>
-        <span class='next' data-type='movie' data-value='1'><i class='fa fa-angle-double-right filter-badge'></i></span>
-        </div><!--pagination-div-->
+                ?>
+            </div>
+            <span class='next' data-type='movie' data-value='1'><i class='fa fa-angle-double-right filter-badge'></i></span>
+        </div><!--pagination-holder-->
     </div><!--all-movies-->
 
 </div><!---wrapper-movies--->

@@ -147,10 +147,11 @@ $Category = new Category($connection);
             </select>
         </div><!--filters-and-latest-div-->
         <div class="all-movies-holder">
+            <div id="wait"><i class='fa fa-spinner fa-spin'></i><br>Loading..</div>
             <?php
                 $all_webseries = $Webseries->get_all_webseries_by_query('','','','','',1);
                 $output = '';
-                while($row = mysqli_fetch_assoc($all_webseries))
+                while($row = mysqli_fetch_assoc($all_webseries[0]))
                 {
                     $all_episodes = $Webseries->get_first_episode_of_webseries($row['id']);
                     $all_episodes = mysqli_fetch_assoc($all_episodes);
@@ -160,7 +161,7 @@ $Category = new Category($connection);
                         <img src='{$row['thumbnail']}'>
                     </div></a>
                     <div class='movie-info'>
-                        <span>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season {$row['season_number']}</span></span>
+                        <span>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]},{$categories[1]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season {$row['season_number']}</span></span>
                         <span>{$row['title']}</span>
                     </div>
                 </div><!--movie-card-->";
@@ -168,12 +169,22 @@ $Category = new Category($connection);
                 echo $output;
             ?>
         </div><!--all-movies-holder-->
-        <div class="pagination-div">
-            <span class='pagination-number active-pagination'>1</span>
-            <span class='pagination-number'>2</span>
-            <span class='pagination-number'>3</span>
-            <span class='next-page'>Next page <i class="fa fa-long-arrow-right"></i></span>
-        </div><!--pagination-div-->
+        <div class="pagination-holder">
+            <span class='previous' data-type='webseries' data-value='1'><i class='fa fa-angle-double-left filter-badge'></i></span>
+            <div class='pagination-div'>
+                <?php
+                    $total_pages = $Webseries->pagination();
+                    for($i=1;$i<=$total_pages;$i++) {
+                        echo "<span class='pagination-number ";
+                        if($i == 1){
+                            echo "active-pagination";
+                        }
+                        echo "' data-type='webseries'>{$i}</span>";
+                    }
+                ?>
+            </div>
+            <span class='next' data-type='webseries' data-value='1'><i class='fa fa-angle-double-right filter-badge'></i></span>
+        </div><!--pagination-holder-->
     </div><!--all-movies-->
 
 </div><!---wrapper-movies--->

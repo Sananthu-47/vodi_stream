@@ -296,7 +296,7 @@ $(document).on('click','.pagination-number',function(){
             {
                 addMovieCards(data,'pagination');
             }else{
-                addWebseriesCards(data);
+                addWebseriesCards(data,'pagination');
             }
         }
     });
@@ -327,7 +327,7 @@ $(document).on('click','.next',function(){
                 {
                     addMovieCards(data,'pagination');
                 }else{
-                    addWebseriesCards(data);
+                    addWebseriesCards(data,'pagination');
                 }
             }
         });
@@ -359,7 +359,7 @@ $(document).on('click','.previous',function(){
                 {
                     addMovieCards(data,'pagination');
                 }else{
-                    addWebseriesCards(data);
+                    addWebseriesCards(data,'pagination');
                 }
             }
         });
@@ -415,26 +415,47 @@ function addMovieCards(data,type=''){
 function addWebseriesCards(data,type=''){
     let output = '';
     let response = JSON.parse(data);
-    
-            if(response.length<1)
-            {
-                output = "<div class='mx-auto my-5'><span class='btn btn-primary'>No results found</span></div>";
-            }else{
-                response.forEach(result=>{
-                    let webseries = result.webseries;
-                    let categories = webseries.category.split(',');
-                    output += `<div class='movie-card'>
-                    <a href='webseries.php?webseries_id=${webseries.id}&episode_id=${result.episodes.id}'><div class='movie-image'>
-                        <img src='${webseries.thumbnail}'>
-                    </div></a>
-                <div class='movie-info'>
-                    <span>${webseries.release_year}&nbsp;&nbsp;|&nbsp;&nbsp;${categories[0]}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season ${webseries.season_number}</span></span>
-                    <span>${webseries.title}</span>
-                </div>
-            </div><!---movie-card-->`;
-                });
+        if(response.length<1)
+        {
+            output += "<div class='mx-auto my-5'><span class='btn btn-primary'>No results found</span></div>";
+            $('.pagination-holder').hide();
+        }else{
+            response.forEach((result,count)=>{
+            if(count<response.length-1){
+                let webseries = result.webseries;
+                let categories = webseries.category.split(',');
+                let category2 = '';
+                if(categories.length>1)
+                    category2 = ','+categories[1];
+                output += `<div class='movie-card'>
+                <a href='webseries.php?webseries_id=${webseries.id}&episode_id=${result.episodes.id}'><div class='movie-image'>
+                    <img src='${webseries.thumbnail}'>
+                </div></a>
+                    <div class='movie-info'>
+                        <span>${webseries.release_year}&nbsp;&nbsp;|&nbsp;&nbsp;${categories[0]}${category2}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season ${webseries.season_number}</span></span>
+                        <span>${webseries.title}</span>
+                    </div>
+                </div><!---movie-card-->`;
             }
-                $('.all-movies-holder').html(output);
+                    });
+            $('.pagination-holder').show();
+        }
+        $('.all-movies-holder').html(output);
+        $('.next').data('value',current_page_number);
+        $('.previous').data('value',current_page_number);
+        if(type == '' && type != 'pagination'){
+            let pagination = '';
+            $(".pagination-div").html('');
+            if(response.length>1){
+                current_page_number = 1;
+                $('.next').data('value',current_page_number);
+                $('.previous').data('value',current_page_number);
+                for(let i=1;i<=response[response.length-1];i++) {
+                    pagination+=`<span class='pagination-number ${(i==1)?"active-pagination":""}' data-type='webseries'>${i}</span>`;
+                }
+                $(".pagination-div").html(pagination);
+            }
+        }
 }
 // Click on watch movie to take to the movie if he is logged in else take to login page
 $('#watch-movie').on('click',function(){

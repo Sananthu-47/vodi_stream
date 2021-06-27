@@ -3,6 +3,7 @@
 class Webseries
 {
     public $connection;
+    public $no_of_records_per_page = 2;
 
     function __construct($connection)
     {
@@ -263,19 +264,27 @@ class Webseries
                 $query.=" ORDER BY title";
             break;
         }
+        $result_before_pagination = mysqli_query($this->connection,$query);
         if($page_number != '')
         {
-            $no_of_records_per_page = 20;
-            $offset = ($page_number-1) * $no_of_records_per_page;
-            $total_rows = $this->get_all_webseries_users();
-            $total_rows = mysqli_num_rows($total_rows);
-            $total_pages = ceil($total_rows / $no_of_records_per_page);
-            $query.=" LIMIT $offset, $no_of_records_per_page";
+            $offset = ($page_number-1) * $this->no_of_records_per_page;
+            $query.=" LIMIT $offset, $this->no_of_records_per_page";
         }
         $result = mysqli_query($this->connection,$query);
-        return $result;
+        return [$result,$result_before_pagination];
     }
 
+    function pagination(){
+        $total_rows = $this->get_all_webseries_users();
+        $total_rows = mysqli_num_rows($total_rows);
+        $total_pages = ceil($total_rows / $this->no_of_records_per_page);
+        return $total_pages;
+    }
+
+    function calcPagination($total_record){
+        $total_pages = ceil($total_record / $this->no_of_records_per_page);
+        return $total_pages;
+    }
 
     function get_all_episode_with_non_feature($part,$search,$language,$feature)
     {

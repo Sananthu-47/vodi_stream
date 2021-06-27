@@ -102,13 +102,14 @@ $Dashboard = new Dashboard($connection);
             $result = $Movie->get_all_movies_by_query('','','','','1',1);
             $output = '';
             while ($row = mysqli_fetch_assoc($result[0])) {
+                $categories = explode(',',$row['category']);
                 $output .= "
                     <div class='image-card'>
                         <a href='movie.php?movie_id={$row['id']}'><div class='image-wrapper'>
                             <img src='{$row['thumbnail']}'>
                         </div></a>
                             <div class='movie-detail'>
-                                <span class='movie-span'>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Part {$row['part']}</span>&nbsp;&nbsp;|&nbsp;&nbsp;{$row['category']}</span>
+                                <span class='movie-span'>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Part {$row['part']}</span>&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]},{$categories[1]}</span>
                                 <span class='movie-title'>{$row['title']}</span>
                             </div>
                     </div><!--image-card-->";
@@ -125,7 +126,8 @@ $Dashboard = new Dashboard($connection);
             <?php 
             $result = $Webseries->get_all_webseries_by_query('','','','','1',1);
             $output = '';
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result[0])) {
+                $categories = explode(',',$row['category']);
                 $first_episode = $Webseries->get_first_episode_of_webseries($row['id']);
                 $first_episode = mysqli_fetch_assoc($first_episode);
                 $output .= "
@@ -134,7 +136,7 @@ $Dashboard = new Dashboard($connection);
                             <img src='{$row['thumbnail']}'>
                         </div></a>
                             <div class='movie-detail'>
-                                <span class='movie-span'>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season {$row['season_number']}</span>&nbsp;&nbsp;|&nbsp;&nbsp;{$row['category']}</span>
+                                <span class='movie-span'>{$row['release_year']}&nbsp;&nbsp;|&nbsp;&nbsp;<span class='season-badge'>Season {$row['season_number']}</span>&nbsp;&nbsp;|&nbsp;&nbsp;{$categories[0]},{$categories[1]}</span>
                                 <span class='movie-title'>{$row['title']}</span>
                             </div>
                     </div><!--image-card-->";
