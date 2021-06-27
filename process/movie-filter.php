@@ -41,10 +41,17 @@ if($type == 'movie')
 {
     $movies_result = $Movie->get_all_movies_by_query($search,$letter,$year,$order,$category,$page_number);
     $response = array();
-    while ($row = mysqli_fetch_assoc($movies_result)) {
+    while ($row = mysqli_fetch_assoc($movies_result[0])) {
         array_push($response,$row);
     }
-    echo json_encode($response);
+    $total_response = mysqli_num_rows($movies_result[1]);
+    $total_response = $Movie->calcPagination($total_response);
+    array_push($response,$total_response);
+    if(count($response)>1){
+        echo json_encode($response);
+    }else{
+        echo json_encode([]);
+    }
 }else{
     $webseries_result = $Webseries->get_all_webseries_by_query($search,$letter,$year,$order,$category,$page_number);
     $response = array();
@@ -54,5 +61,9 @@ if($type == 'movie')
         $all_data = array("webseries"=>$row,"episodes"=>$all_episodes);
         array_push($response,$all_data);
     }
-    echo json_encode($response);
+    if(count($response)>1){
+        echo json_encode($response);
+    }else{
+        echo json_encode([]);
+    }
 }

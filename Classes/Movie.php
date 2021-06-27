@@ -3,7 +3,7 @@
 class Movie
 {
     public $connection;
-    public $no_of_records_per_page = 20;
+    public $no_of_records_per_page = 2;
 
     function __construct($connection)
     {
@@ -201,19 +201,25 @@ class Movie
                 $query.=" ORDER BY title";
             break;
         }
+        $result_before_pagination = mysqli_query($this->connection,$query);
         if($page_number != '')
         {
             $offset = ($page_number-1) * $this->no_of_records_per_page;
             $query.=" LIMIT $offset, $this->no_of_records_per_page";
         }
         $result = mysqli_query($this->connection,$query);
-        return $result;
+        return [$result,$result_before_pagination];
     }
 
     function pagination(){
         $total_rows = $this->get_all_movies_users();
         $total_rows = mysqli_num_rows($total_rows);
         $total_pages = ceil($total_rows / $this->no_of_records_per_page);
+        return $total_pages;
+    }
+
+    function calcPagination($total_record){
+        $total_pages = ceil($total_record / $this->no_of_records_per_page);
         return $total_pages;
     }
 

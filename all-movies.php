@@ -151,7 +151,7 @@ $Category = new Category($connection);
             <?php
             $all_movies = $Movie->get_all_movies_by_query('','','','','',1);
             $output = '';
-            while($row = mysqli_fetch_assoc($all_movies))
+            while($row = mysqli_fetch_assoc($all_movies[0]))
             {
                 $categories = explode(',',$row['category']);
                 $output.="<div class='movie-card'>
@@ -167,14 +167,21 @@ $Category = new Category($connection);
             echo $output;
             ?>
         </div><!--all-movies-holder-->
-        <div class="pagination-div">
-        <?php
-        $total_pages = $Movie->pagination();
-            for($i=1;$i<=$total_pages;$i++) {
-                echo "<span class='pagination-number' data-type='movie'>{$i}</span>";
-            }
-        ?>
-            <span class='next-page'>Next page <i class="fa fa-long-arrow-right"></i></span>
+        <div class="pagination-holder">
+        <span class='previous' data-type='movie' data-value='1'><i class='fa fa-angle-double-left filter-badge'></i></span>
+        <div class='pagination-div'>
+            <?php
+            $total_pages = $Movie->pagination();
+                for($i=1;$i<=$total_pages;$i++) {
+                    echo "<span class='pagination-number ";
+                    if($i == 1){
+                        echo "active-pagination";
+                    }
+                    echo "' data-type='movie'>{$i}</span>";
+                }
+            ?>
+        </div>
+        <span class='next' data-type='movie' data-value='1'><i class='fa fa-angle-double-right filter-badge'></i></span>
         </div><!--pagination-div-->
     </div><!--all-movies-->
 

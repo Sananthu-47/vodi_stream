@@ -101,7 +101,7 @@ $Dashboard = new Dashboard($connection);
             <?php 
             $result = $Movie->get_all_movies_by_query('','','','','1',1);
             $output = '';
-            while ($row = mysqli_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result[0])) {
                 $output .= "
                     <div class='image-card'>
                         <a href='movie.php?movie_id={$row['id']}'><div class='image-wrapper'>
