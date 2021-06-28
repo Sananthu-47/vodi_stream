@@ -582,7 +582,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: calc(100% - 80px);
+        /* width: calc(100% - 80px); */
         margin: auto;
     }
     .logo-holder{
@@ -603,7 +603,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: calc(100% - 80px);
+        /* width: calc(100% - 80px); */
     }
 }
 
@@ -626,7 +626,7 @@ button:disabled {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        width: calc(100% - 300px);
+        /* width: calc(100% - 300px); */
     }
     /* .active-nav{
     box-shadow: 50px 0px 0px #FFFFFF;

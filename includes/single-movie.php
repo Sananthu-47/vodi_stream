@@ -8,11 +8,27 @@ $Movie = new Movie($connection);
     <img src='<?php echo $Movie->get_movie_by_id_and_search('thumbnail',$movie_id); ?>'>
 </div><!--image-banner--->
 <!-- deatails of movie -->
-<div class="movie-details">
-    <div class="col-3 side-extra"></div>
-    <div class="movie-inside-wrapper">
-        <div class="left-side">
+<div class="web-details">
+    <div class="row px-5">
+        <div class="left-part-web">
             <span class='movie-name'><?php echo $Movie->get_movie_by_id_and_search('title',$movie_id); ?></span>
+            <div class="short-details d-flex">
+                <span><?php echo $Movie->get_movie_by_id_and_search('release_year',$movie_id); ?></span>
+                    <span>|</span>
+                    <span><?php echo $Movie->get_movie_by_id_and_search('duration',$movie_id); ?> mins</span>
+                <span>|</span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('category',$movie_id); ?></span>
+            </div>
+            <div class="movie-description text-white py-3">
+                <label class='badge badge-info'>Description:</label>
+                <?php echo $Movie->get_movie_by_id_and_search('description',$movie_id); ?>
+            </div>
+            <div class="movie-production d-flex">
+                <span><?php echo $Movie->get_movie_by_id_and_search('director',$movie_id); ?><p>Director</p></span>
+                <span><?php echo $Movie->get_movie_by_id_and_search('producer',$movie_id); ?><p>Producer</p></span>
+            </div>
+        </div><!---left-part-web-->
+        <div class="right-part-web">
             <div class="ratings-of-movie d-flex">
                 <div class="rating-div d-flex">
                     <i class='fa fa-star'></i>
@@ -22,46 +38,50 @@ $Movie = new Movie($connection);
                     </div>
                 </div>
                 <div class="playlist-div d-flex px-3">
-                    <i class='fa fa-heart fa-stroke'></i> 
+                    <i class='fa fa-star text-secondary'></i> 
                     <span>My ratings</span>
-                        <select class='add-rating'>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
-                        </select>
+                    <select class='add-rating'>
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
                 </div>
             </div>
-            <div class="short-details d-flex">
-                <span><?php echo $Movie->get_movie_by_id_and_search('release_year',$movie_id); ?></span>
-                    <span>|</span>
-                <span><?php echo $Movie->get_movie_by_id_and_search('duration',$movie_id); ?> mins</span>
-                    <span>|</span>
-                <span><?php echo $Movie->get_movie_by_id_and_search('category',$movie_id); ?></span>
-            </div>
-            <div class="movie-description text-white">
-                <label class='badge badge-info'>Description:</label>
-                <?php echo $Movie->get_movie_by_id_and_search('description',$movie_id); ?>
-            </div>
-            <div class="movie-production d-flex">
-                <span><?php echo $Movie->get_movie_by_id_and_search('director',$movie_id); ?><p>Director</p></span>
-                <span><?php echo $Movie->get_movie_by_id_and_search('producer',$movie_id); ?><p>Producer</p></span>
-            </div>
-        </div>
-    
-        <div class="right-side">
-            <div id="watch-movies-div"><button id='watch-movie' data-type='movie' data-movie-id='<?php echo $movie_id; ?>'><i class='fa fa-play'></i>&nbsp;Watch now</button>
-            </div>
-        </div>
+        </div><!--right-part-web-->
     </div>
+    <!-- <div class="tags-div py-3">
+    <span class='text-white pr-3'>Tags:</span><span class='tags text-primary'>Brother , Relation , King</span>
+    </div> -->
+    <div class='mx-auto'>
+        <div id="watch-movies-div"><button id='watch-movie' data-type='movie' data-movie-id='<?php echo $movie_id; ?>'><i class='fa fa-play'></i>&nbsp;Watch now</button>
+        </div>
+    </div><!--#watch-movies-div-->
 </div>
+
+<!-- Description and reviews page -->
+<div class="description-reviews">
+    <div class="header-desp-review">
+        <span class='active-tab'>Description</span>
+        <!-- <span>/</span>
+        <span>Reviews</span> -->
+    </div>
+    <div class="inner-content">
+        <span>
+        <?php echo $Movie->get_movie_by_id_and_search('description',$movie_id); ?>
+        </span>
+    </div>
+</div><!---description-reviews-->
+
+
+
 <!-- Trailers -->
 <!-- <div class="stars-wrapper">
     <div class="col-3 side-extra"></div>

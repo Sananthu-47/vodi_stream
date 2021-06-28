@@ -28,4 +28,9 @@ class Category
         $result = mysqli_query($this->connection,"SELECT category FROM category WHERE id = '$category_id'");
         return $result;
     }
+
+    function check_category_exists($category_name){
+        $result = mysqli_query($this->connection,"SELECT * FROM category WHERE category = '$category_name'");
+        return $result;
+    }
 }

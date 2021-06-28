@@ -31,10 +31,6 @@ $Webseries = new Webseries($connection);
                     <label class='badge badge-info'>Description:</label>
                     <?php echo $Webseries->get_webseries_episode_by_id_and_search('description',$episode_id); ?>
                 </div>
-                <!-- <div class="web-views d-flex">
-                    <span><i class='fa fa-eye'></i>2.4k views</span>
-                    <span><i class='fa fa-thumbs-up'></i>24+</span>
-                </div> -->
             </div><!---left-part-web-->
             <div class="right-part-web">
                 <div class="ratings-of-movie d-flex">

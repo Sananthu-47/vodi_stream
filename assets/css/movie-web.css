@@ -47,19 +47,6 @@ video:focus{
     box-shadow: 1px 1px 15px #24baef;
 }
 
-.movie-details{
-    padding: 25px 60px;
-    display: flex;
-}
-
-.left-side{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-width: 50%;
-    max-width: 50%;
-}
-
 .rating-div , .playlist-div{
     display: flex;
     align-items: center;
@@ -148,21 +135,6 @@ video:focus{
     font-weight: 200;
     font-size: 16px;
     color: white;
-}
-
-.side-extra{
-    display: block;
-}
-
-.right-side{
-    max-width: calc(100% - 50%);
-    display: flex;
-    margin: 0 auto;
-}
-
-.movie-inside-wrapper{
-    border-bottom: 1px solid rgb(95, 95, 95);
-    display: flex;
 }
 
 .stars-wrapper{
@@ -403,33 +375,10 @@ video:focus{
  }
 
 @media only screen and (max-width: 1200px) {
-    .movie-details{
-        padding: 0 30px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .movie-details{
-        padding: 0 20px;
-        display: flex;
-        flex-direction: column;
-    }
 
     .season-badge{
         padding: 0.8em !important;
         font-size: 10px !important;
-    }
-
-    .side-extra{
-        display: none;
-    }
-
-    .left-side{
-        max-width: 100%;
-    }
-
-    .movie-inside-wrapper{
-        display: block;
     }
 
     .short-details{

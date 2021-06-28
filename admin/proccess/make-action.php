@@ -1,5 +1,7 @@
 <?php
 include_once "../includes/db.php";
+include_once "../../Classes/Category.php";
+$Category = new Category($connection);
 $id = $_POST['id'];
 $action = $_POST['action'];
 
@@ -42,7 +44,30 @@ switch ($action) {
     case 'user-delete':
         $result = mysqli_query($connection,"UPDATE users SET status = 'deleted' WHERE id = '$id'");
         break;
-    
+    case 'add-category':
+        $category_name = $_POST['category_name'];
+        $category_number = $Category->check_category_exists($category_name);
+        $category_number = mysqli_num_rows($category_number);
+        if($category_number<1){
+            $result = mysqli_query($connection,"INSERT INTO category (category) VALUE ('$category_name')");
+        }else{
+        echo 1;
+        }
+        break;
+    case 'delete-category':
+        $result = mysqli_query($connection,"DELETE FROM category WHERE id = '$id'");
+        break;
+    case 'update-category':
+        $category_name = $_POST['category_name'];
+        $category_number = $Category->check_category_exists($category_name);
+        $category_number = mysqli_num_rows($category_number);
+        if($category_number<1){
+            $result = mysqli_query($connection,"UPDATE category SET category = '$category_name' WHERE id = '$id'");
+        }else{
+            echo 1;
+        }
+        break;
+
     default:
         echo false;
         break;

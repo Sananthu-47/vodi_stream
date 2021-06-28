@@ -10,7 +10,7 @@ $Dashboard = new Dashboard($connection);
             <!--Dashboard Navbar-->
             <?php include "../includes/admin-nav.php"; ?>
 
-
+            <!-- Pop up for selecting next part of move/webseries  -->
             <div class='part-selection-wrapper' style='display:none'>
                 <div class='part-selection'>
                     <div class='text-header'><span>Results based on data not added</span><i class='fa fa-close' id='close-parts'></i></div>
@@ -68,7 +68,7 @@ $Dashboard = new Dashboard($connection);
                                   <div class="col-8 text-center">
                                       <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM movies WHERE watchable != 'deleted'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                      <h4 class="text-white">Movies</h4>
+                                      <h5 class="text-white">Movies</h5>
                                   </div>
                               </div>
                               <a href="admin-managevideos.php?videos=live-movies">
@@ -87,7 +87,7 @@ $Dashboard = new Dashboard($connection);
                                 <div class="col-8 text-center">
                                     <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM webseries WHERE watchable != 'deleted' AND part_1_id = '0'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                    <h4 class="text-white">Webseries</h4>
+                                    <h5 class="text-white">Webseries</h5>
                                 </div>
                             </div>
                             <a href="admin-managevideos.php?videos=live-webseries">
@@ -106,7 +106,7 @@ $Dashboard = new Dashboard($connection);
                                 <div class="col-8 text-center">
                                     <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                    <h4 class="text-white">All episodes</h4>
+                                    <h5 class="text-white">All episodes</h5>
                                 </div>
                             </div>
                             <a href="admin-managevideos.php?videos=live-webseries-episodes">
@@ -125,7 +125,7 @@ $Dashboard = new Dashboard($connection);
                                 <div class="col-8 text-center">
                                     <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM users WHERE role = 'user' AND status != 'deleted'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                    <h4 class="text-white">Users</h4>
+                                    <h5 class="text-white">Users</h5>
                                 </div>
                             </div>
                             <a href="admin-manageuser.php?users=all-users">
@@ -144,7 +144,7 @@ $Dashboard = new Dashboard($connection);
                                 <div class="col-8 text-center">
                                     <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM users WHERE role = 'admin' AND status != 'deleted'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                    <h4 class="text-white">Admins</h4>
+                                    <h5 class="text-white">Admins</h5>
                                 </div>
                             </div>
                             <a href="admin-manageuser.php?users=all-users">
@@ -163,7 +163,7 @@ $Dashboard = new Dashboard($connection);
                                 <div class="col-8 text-center">
                                     <h2 class="text-white"><?php $result = mysqli_query($connection,"SELECT * FROM users WHERE pricing != 'free' AND status != 'deleted'");
                                       echo mysqli_num_rows($result); ?></h2>
-                                    <h4 class="text-white">Paid user</h4>
+                                    <h5 class="text-white">Paid user</h5>
                                 </div>
                             </div>
                             <a href="admin-manageuser.php?users=all-users">
