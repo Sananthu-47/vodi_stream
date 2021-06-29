@@ -47,15 +47,14 @@ function getHomeData() {
                 part = "Part "+ response[current_home].part;
             }else if(response[current_home].type == 'Webseries')
             {
-                let episode_id =  getFirstEpisode(response[current_home].id,'episode');
                 category = response[current_home].category;
-                path = `webseries.php?webseries_id=${response[current_home].id}&episode_id=${episode_id}`;
+                path = `webseries.php?webseries_id=${response[current_home].id}`;
                 part = "Season "+ response[current_home].part;
             }else if(response[current_home].type == 'Episode')
             {
                 category =  getFirstEpisode(response[current_home].part_1_id,'webseries_name');
                 part = "S0"+response[current_home].part_1_id+"E0"+response[current_home].part;
-                path = `webseries.php?webseries_id=${response[current_home].category}&episode_id=${response[current_home].id}`;
+                path = `webseries.php?type=episode&webseries_id=${response[current_home].category}&episode_id=${response[current_home].id}`;
             }
             output += `<div class='d-flex justify-content-center align-items-center col-xl-6 col-12 col-lg-6 p-0' id='movie-single-features-details'>
                 <div id='movie-details-home'>
@@ -428,7 +427,7 @@ function addWebseriesCards(data,type=''){
                 if(categories.length>1)
                     category2 = ','+categories[1];
                 output += `<div class='movie-card'>
-                <a href='webseries.php?webseries_id=${webseries.id}&episode_id=${result.episodes.id}'><div class='movie-image'>
+                <a href='webseries.php?webseries_id=${webseries.id}'><div class='movie-image'>
                     <img src='${webseries.thumbnail}'>
                 </div></a>
                     <div class='movie-info'>

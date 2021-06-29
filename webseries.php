@@ -18,6 +18,12 @@ if(isset($_GET['episode_id']))
     $episode_id = $_GET['episode_id'];
 }
 ?>
-<?php include "includes/single-webseries.php"; ?>
+<?php
+if(isset($_GET['type'])){
+    include "includes/single-episode.php"; 
+}else{
+    include "includes/single-webseries.php"; 
+}
+?>
 
 <?php include "includes/footer.php"; ?>

@@ -153,11 +153,9 @@ $Category = new Category($connection);
                 $output = '';
                 while($row = mysqli_fetch_assoc($all_webseries[0]))
                 {
-                    $all_episodes = $Webseries->get_first_episode_of_webseries($row['id']);
-                    $all_episodes = mysqli_fetch_assoc($all_episodes);
                     $categories = explode(',',$row['category']);
                     $output.= "<div class='movie-card'>
-                    <a href='webseries.php?webseries_id={$row['id']}&episode_id={$all_episodes['id']}'><div class='movie-image'>
+                    <a href='webseries.php?webseries_id={$row['id']}'><div class='movie-image'>
                         <img src='{$row['thumbnail']}'>
                     </div></a>
                     <div class='movie-info'>

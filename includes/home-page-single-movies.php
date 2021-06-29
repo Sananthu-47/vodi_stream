@@ -29,9 +29,7 @@ $Dashboard = new Dashboard($connection);
                 }else if($row['type'] == 'Webseries')
                 {
                     $part = "Season ".$row['part'];
-                    $first_episode = $Webseries->get_first_episode_of_webseries($row['id']);
-                    $first_episode = mysqli_fetch_assoc($first_episode);
-                    $path = "webseries.php?webseries_id={$row['id']}&episode_id={$first_episode['id']}";
+                    $path = "webseries.php?webseries_id={$row['id']}";
                 }else if($row['type'] == 'Episode')
                 {
                     $part = "S0".$row['part_1_id']."E0".$row['part'];
@@ -69,13 +67,11 @@ $Dashboard = new Dashboard($connection);
                 }else if($row['type'] == 'Webseries')
                 {
                     $part = "Season ".$row['part'];
-                    $first_episode = $Webseries->get_first_episode_of_webseries($row['id']);
-                    $first_episode = mysqli_fetch_assoc($first_episode);
-                    $path = "webseries.php?webseries_id={$row['id']}&episode_id={$first_episode['id']}";
+                    $path = "webseries.php?webseries_id={$row['id']}";
                 }else if($row['type'] == 'Episode')
                 {
                     $part = "S0".$row['part_1_id']."E0".$row['part'];
-                    $path = "webseries.php?webseries_id={$row['category']}&episode_id={$row['id']}";
+                    $path = "webseries.php?type=episode&webseries_id={$row['category']}&episode_id={$row['id']}";
                 }
                 $output .= "
                     <div class='image-card'>
@@ -128,11 +124,9 @@ $Dashboard = new Dashboard($connection);
             $output = '';
             while ($row = mysqli_fetch_assoc($result[0])) {
                 $categories = explode(',',$row['category']);
-                $first_episode = $Webseries->get_first_episode_of_webseries($row['id']);
-                $first_episode = mysqli_fetch_assoc($first_episode);
                 $output .= "
                     <div class='image-card'>
-                        <a href='webseries.php?webseries_id={$row['id']}&episode_id={$first_episode['id']}'><div class='image-wrapper'>
+                        <a href='webseries.php?webseries_id={$row['id']}'><div class='image-wrapper'>
                             <img src='{$row['thumbnail']}'>
                         </div></a>
                             <div class='movie-detail'>

@@ -1,14 +1,11 @@
 <?php
 include_once "Classes/Webseries.php";
 $Webseries = new Webseries($connection);
-$all_episodes = $Webseries->get_first_episode_of_webseries($webseries_id);
-$all_episodes = mysqli_fetch_assoc($all_episodes);
-$episode_id = $all_episodes['id'];
 ?>
-    <div class="web-navigation d-flex"><span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i><a href='all-webseries.php'>Webseries</a> <i class='fa fa-angle-right'></i> <?php echo $Webseries->get_webseries_by_id_and_search('title',$webseries_id); ?> </div>
+    <div class="web-navigation d-flex"><span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i><a href='all-webseries.php'>Webseries</a> <i class='fa fa-angle-right'></i> <a href='webseries.php?<?php echo "webseries_id=$webseries_id"; ?>'><?php echo $Webseries->get_webseries_by_id_and_search('title',$webseries_id); ?></a> <i class='fa fa-angle-right'></i> Episode <?php echo $Webseries->get_webseries_episode_by_id_and_search('episode_number',$episode_id); ?> </span></div>
 
     <div id="movie-single-banner" class='m-0 row'>
-        <img src='<?php echo $Webseries->get_webseries_by_id_and_search('thumbnail',$webseries_id); ?>'>
+        <img src='<?php echo $Webseries->get_webseries_episode_by_id_and_search('thumbnail',$episode_id); ?>'>
     </div><!--image-banner--->
 
     <!-- deatails of web show -->
@@ -23,9 +20,18 @@ $episode_id = $all_episodes['id'];
                         <span>|</span>
                     <span><?php echo $Webseries->get_webseries_by_id_and_search('category',$webseries_id); ?></span>
                 </div>
+                <div class="episode-details">
+                    <span class='badge badge-primary'>Episode <?php echo $Webseries->get_webseries_episode_by_id_and_search('episode_number',$episode_id); ?></span>
+                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <span><?php echo $Webseries->get_webseries_episode_by_id_and_search('title',$episode_id); ?></span>
+                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <span><?php echo $Webseries->get_webseries_episode_by_id_and_search('duration',$episode_id); ?> mins</span>
+                    <span>&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+                    <span><?php echo $Webseries->get_webseries_episode_by_id_and_search('release_year',$episode_id); ?></span>
+                </div>
                 <div class="movie-description text-white py-3">
                     <label class='badge badge-info'>Description:</label>
-                    <?php echo $Webseries->get_webseries_by_id_and_search('description',$webseries_id); ?>
+                    <?php echo $Webseries->get_webseries_episode_by_id_and_search('description',$episode_id); ?>
                 </div>
             </div><!---left-part-web-->
             <div class="right-part-web">
@@ -61,7 +67,7 @@ $episode_id = $all_episodes['id'];
         <span class='text-white pr-3'>Tags:</span><span class='tags text-primary'>Brother , Relation , King</span>
         </div> -->
         <div class='mx-auto'>
-        <div id="watch-movies-div"><a href='webseries.php?type=episode&<?php echo "webseries_id=$webseries_id&episode_id=$episode_id"; ?>'><button id='watch-movie' data-type='webseries' data-episode='<?php echo $episode_id; ?>' data-movie-id='<?php echo $webseries_id; ?>'><i class='fa fa-play'></i>&nbsp;Watch now</button></a></div>
+        <div id="watch-movies-div"><button id='watch-movie' data-type='webseries' data-episode='<?php echo $episode_id; ?>' data-movie-id='<?php echo $webseries_id; ?>'><i class='fa fa-play'></i>&nbsp;Play</button></div>
         </div><!--#watch-movies-div-->
     </div>
 
@@ -113,7 +119,12 @@ $episode_id = $all_episodes['id'];
                 $all_episodes = $Webseries->get_all_webseries_seasons_by_seriesid($webseries_id);
                 $output = '';
                 while ($row = mysqli_fetch_assoc($all_episodes)) {
-                    $output.="<div class='movie-card'>
+                    $output.="<div class='movie-card";
+                    if($row['id'] == $episode_id)
+                    {
+                        $output.=" current-episode";
+                    }
+                    $output.="'>
                     <a href='webseries.php?type=episode&webseries_id={$webseries_id}&episode_id={$row['id']}'>
                         <div class='movie-image'>
                             <img src='{$row['thumbnail']}' alt='image'>
@@ -143,12 +154,4 @@ $episode_id = $all_episodes['id'];
             </span>
         </div>
     </div><!---description-reviews-->
-
-
-
-
-
-
-
-
 
