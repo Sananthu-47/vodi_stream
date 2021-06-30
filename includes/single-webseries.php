@@ -4,6 +4,16 @@ $Webseries = new Webseries($connection);
 $all_episodes = $Webseries->get_first_episode_of_webseries($webseries_id);
 $all_episodes = mysqli_fetch_assoc($all_episodes);
 $episode_id = $all_episodes['id'];
+
+include_once "Classes/Rating.php";
+$Rating = new Rating($connection);
+if($Rating->checkUserRated($webseries_id,$USER_LOGIN_ID,'webseries')){
+    $rating_row = false;
+}else{
+    $rating_row = $Rating->getRatedDetails($webseries_id,$USER_LOGIN_ID,'webseries');
+    $rating_row = mysqli_fetch_assoc($rating_row);
+}
+$ratings = $Rating->calculateTotRating($webseries_id,'webseries');
 ?>
     <div class="web-navigation d-flex"><span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i><a href='all-webseries.php'>Webseries</a> <i class='fa fa-angle-right'></i> <?php echo $Webseries->get_webseries_by_id_and_search('title',$webseries_id); ?> </div>
 
@@ -33,25 +43,38 @@ $episode_id = $all_episodes['id'];
                     <div class="rating-div d-flex">
                         <i class='fa fa-star'></i>
                         <div class="ratings-wrapper">
-                            <span>9.0</span>
-                            <span>2 votes</span>
+                            <span id='total-stars'><?php if($ratings[0]>0){
+                                echo $ratings[0];
+                                }else{
+                                    echo "0.0";
+                                } ?></span>
+                            <span id='total-votes'><?php if($ratings[1]>0){
+                                echo $ratings[1];
+                            }else{
+                                echo 0;
+                            } ?> vote</span>
                         </div>
                     </div>
                     <div class="playlist-div d-flex px-3">
-                        <i class='fa fa-star text-secondary'></i> 
+                        <i id='my-rating' class='fa fa-star <?php 
+                        if($rating_row == false){
+                            echo "text-secondary"; 
+                        }else{
+                            echo "add-rating";
+                        }
+                        ?>'></i> 
                         <span>My ratings</span>
-                        <select class='add-rating'>
+                        <select class='add-rating' data-video-id='<?php echo $webseries_id; ?>' data-user-id='<?php echo $USER_LOGIN_ID; ?>' data-type='webseries' data-comment='<?php 
+                            if($rating_row != false)
+                                echo $rating_row['comment'];
+                        ?>' id='add-rating'>
                             <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                            <option>9</option>
-                            <option>10</option>
+                            <?php for($i=1;$i<=10;$i++){
+                                echo "<option value='$i'";
+                                if($rating_row != false && $i == $rating_row['star'])
+                                    echo "selected";
+                                echo">$i</option>";
+                            } ?>
                         </select>
                     </div>
                 </div>
@@ -143,10 +166,6 @@ $episode_id = $all_episodes['id'];
             </span>
         </div>
     </div><!---description-reviews-->
-
-
-
-
 
 
 

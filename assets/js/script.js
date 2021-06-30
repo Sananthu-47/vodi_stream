@@ -487,3 +487,38 @@ $('#watch-movie').on('click',function(){
 
 });
 
+// Add rating
+$('#add-rating').on('change',function(){
+    let video_id = $(this).data('video-id');
+    let user_id = $(this).data('user-id');
+    let type = $(this).data('type');
+    let star = $(this).val();
+    let comment = $(this).data('comment');
+    $.ajax({
+        url : "process/rating.php",
+        type : "POST",
+        data : {user_id,video_id,type,star,comment},
+        success : function(data)
+        {
+            let result = JSON.parse(data);
+            if(result == 'not-paid')
+            {
+                $('#plans').css('display','flex');
+                get_pricing();
+            }else if(result === 'not-loggedin')
+            {
+                $('#modal-register').fadeIn();
+            }else{
+                $('#total-stars').html(result[0]);
+                $('#total-votes').html(result[1]+" vote");
+                if($('#my-rating').hasClass('text-secondary'))
+                    $('#my-rating').removeClass('text-secondary');
+                $('#my-rating').addClass('add-rating');
+            }
+        },
+        error : function(){
+            $('#movie-single-banner').html("We are facing some issues resolve it soon");
+        }
+    });
+
+});
