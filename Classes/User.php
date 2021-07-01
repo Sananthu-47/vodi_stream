@@ -18,7 +18,6 @@ class User{
 
     //Check whether user already exists in db or not
     function check_user_exists($email,$mobile_number){
-        // global $connection;
         $result = mysqli_query($this->connection,"SELECT * FROM users WHERE email = '$email' OR mobile_number = '$mobile_number'");
         if(mysqli_num_rows($result)>0)
         {
@@ -29,8 +28,8 @@ class User{
     }
     //Add new user to the db
     function add_user($username,$email,$mobile_number,$password,$role){
-        // global $connection;
-        $result = mysqli_query($this->connection,"INSERT INTO users (username,email,mobile_number,password,pricing,payed,role) VALUES ('$username','$email','$mobile_number','$password','free',0,'$role')");
+        $color = sprintf('#%06X', mt_rand(0, 0xBBBBBB));
+        $result = mysqli_query($this->connection,"INSERT INTO users (username,email,mobile_number,password,pricing,payed,role,color) VALUES ('$username','$email','$mobile_number','$password','free',0,'$role','$color')");
         if($result)
         {
             return true;
@@ -44,7 +43,6 @@ class User{
 
     function login_user($email_number,$password,$type)
     {
-        // global $connection;
         $query = "SELECT * FROM users WHERE ";
         if($type == 'email')
         {

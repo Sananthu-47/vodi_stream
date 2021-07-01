@@ -9,6 +9,11 @@ class Rating
         $this->connection = $connection;
     }
 
+    function getAllReviews($video_id,$type){
+        $result = mysqli_query($this->connection,"SELECT * FROM rating_review WHERE video_id = '$video_id' AND type = '$type' AND comment != ''");
+        return $result;
+    }
+
     function addRating($video_id,$user_id,$star,$comment,$type){
         $userCheckResult = $this->checkUserRated($video_id,$user_id,$type);
         if($userCheckResult){

@@ -11,7 +11,7 @@ $user_id = $_POST['user_id'];
 $video_id = $_POST['video_id'];
 $type = $_POST['type'];
 $star = $_POST['star'];
-$comment = $_POST['comment'];
+$comment = filter_var(trim($_POST['comment']), FILTER_SANITIZE_STRING);
 
 if(isset($_SESSION['user_id']))
 {
@@ -22,8 +22,8 @@ if(isset($_SESSION['user_id']))
         $ratings = $Rating->calculateTotRating($video_id,$type);
         echo json_encode($ratings);
     }else{
-        echo "not-paid";
+        echo json_encode("not-paid");
     }
 }else{
-    echo "not-loggedin";
+    echo json_encode("not-loggedin");
 }

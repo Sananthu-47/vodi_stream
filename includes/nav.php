@@ -45,7 +45,7 @@ include "side-nav.php";
     <div class="right-side-nav-second d-flex justify-content-between align-items-center">
         <i id='search-icon-mobile' class='fa fa-search d-none px-3'></i>
         <div class='d-flex align-items-center dropdown'>
-            <div id='profile-img-small' class='d-flex justify-content-center align-items-center'><i class='fa fa-user fa-2x'></i></div>
+            <div id='profile-img-small' class='d-flex justify-content-center align-items-center' style="background-color:<?php echo $User->get_user_detail_by_id('color',$USER_LOGIN_ID); ?>;"><i class='fa fa-user fa-2x'></i></div>
             <i class='fa fa-angle-down arrow-down'></i>
         </div>
     </div><!---right-side-nav-second--->
@@ -67,7 +67,7 @@ include "side-nav.php";
             echo "<li class='list-item modal-pop-login modal-pop'>Sign In</li>
             <li class='list-item modal-pop-login modal-pop'>Register</li>";
             }else{
-                $username = 'User'.$USER_LOGIN_ID;
+                $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
                 echo "<li class='list-item modal-pop-login'><i class='fa fa-user px-1'></i>$username</li>
                 <li class='list-item modal-pop-login' id='logout'><a href='includes/logout.php'><i class='fa fa-sign-out px-1'></i>Logout</a></li>";
             }

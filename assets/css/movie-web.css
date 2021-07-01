@@ -375,6 +375,56 @@ video:focus{
      font-size: 14px !important;
  }
 
+ /* Reviews */
+.image-wrapper{
+    min-width: 60px;
+    max-width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #b9ff6c;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-wrapper img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.reviews{
+    border-bottom: 1px solid #4b4a4a;
+    margin: 20px 0;
+    padding: 10px 0;
+    position: relative;
+}
+
+.review-menu{
+    cursor: pointer;
+    position: absolute;
+    left: calc(100% - 0.2em);
+}
+
+.collapsible {
+    color: #49cfff;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+  }
+  
+  .content {
+    padding: 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #282f40;
+  }
+
 @media only screen and (max-width: 1200px) {
 
     .season-badge{

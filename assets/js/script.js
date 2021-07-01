@@ -494,6 +494,24 @@ $('#add-rating').on('change',function(){
     let type = $(this).data('type');
     let star = $(this).val();
     let comment = $(this).data('comment');
+    addReview(user_id,video_id,type,star,comment,'change');
+});
+
+// Add rating
+$('#add-rating-review').on('click',function(){
+    let video_id = $(this).data('video-id');
+    let user_id = $(this).data('user-id');
+    let type = $(this).data('type');
+    let star = $('#review-star').val();
+    let comment = $("#review-comment").val();
+    if(comment != '' && star != ''){
+        addReview(user_id,video_id,type,star,comment,'click');
+    }else{
+        alert("Please provide a review and rating to continue!!!");
+    }
+});
+
+function addReview(user_id,video_id,type,star,comment,action){
     $.ajax({
         url : "process/rating.php",
         type : "POST",
@@ -514,11 +532,23 @@ $('#add-rating').on('change',function(){
                 if($('#my-rating').hasClass('text-secondary'))
                     $('#my-rating').removeClass('text-secondary');
                 $('#my-rating').addClass('add-rating');
+                if(action == 'click'){
+                    location.reload();
+                }
             }
         },
         error : function(){
             $('#movie-single-banner').html("We are facing some issues resolve it soon");
         }
     });
+}
 
+// Add collapse
+$('.collapsible').on("click", function() {
+    let content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
 });
