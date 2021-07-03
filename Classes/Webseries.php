@@ -200,9 +200,22 @@ class Webseries
         return $year_array;
     }
 
-    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys,$page_number){
+    function get_all_webseries_by_query($search,$letters,$years,$order,$categorys,$page_number,$ratings){
         $query = '';
         $query.="SELECT * FROM webseries WHERE watchable = 'active'";
+        if(strlen($ratings)>2)
+        {
+            $ratings = json_decode($ratings);
+            $query.=" AND id IN (SELECT video_id FROM rating_review WHERE type = 'webseries' AND (";
+            foreach ($ratings as $key => $value) {
+                $query.="star = '$value'";
+                if($key<count($ratings)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.="))";
+        }
         if($search != '')
         {
             $query.=" AND title LIKE '$search%'";

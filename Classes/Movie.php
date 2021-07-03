@@ -116,7 +116,7 @@ class Movie
         $letter_array = [];
         while($row = mysqli_fetch_assoc($result))
         {
-            if(!array_search($row['title'][0],$letter_array))
+            if(!in_array($row['title'][0],$letter_array))
             {
                 array_push($letter_array,$row['title'][0]);
             }
@@ -129,7 +129,7 @@ class Movie
         $year_array = [];
         while($row = mysqli_fetch_assoc($result))
         {
-            if(!array_search($row['release_year'],$year_array))
+            if(!in_array($row['release_year'],$year_array))
             {
                 array_push($year_array,$row['release_year']);
             }
@@ -137,9 +137,22 @@ class Movie
         return $year_array;
     }
 
-    function get_all_movies_by_query($search,$letters,$years,$order,$categorys,$page_number){
+    function get_all_movies_by_query($search,$letters,$years,$order,$categorys,$page_number,$ratings){
         $query = '';
         $query.="SELECT * FROM movies WHERE watchable = 'active'";
+        if(strlen($ratings)>2)
+        {
+            $ratings = json_decode($ratings);
+            $query.=" AND id IN (SELECT video_id FROM rating_review WHERE type = 'movie' AND (";
+            foreach ($ratings as $key => $value) {
+                $query.="star = '$value'";
+                if($key<count($ratings)-1)
+                {
+                    $query.=" OR ";
+                }
+            }
+            $query.="))";
+        }
         if($search != '')
         {
             $query.=" AND title LIKE '$search%'";

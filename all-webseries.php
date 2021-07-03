@@ -3,7 +3,8 @@ include_once "Classes/Category.php";
 include_once "Classes/Webseries.php";
 $Webseries = new Webseries($connection);
 $Category = new Category($connection);
-
+include_once "Classes/Rating.php";
+$Rating = new Rating($connection);
 ?>
 <link rel="stylesheet" href="assets/css/all-movie.css">
 
@@ -76,57 +77,29 @@ $Category = new Category($connection);
             <div class="filters-wrapper">
                 <span>Filter by Rating</span>
                 <div class="all-ratings">
-                        <div class="ratings-div">
-                            <div class="all-star">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div><!--all-star-->
-                            <span class="total-movies-with-ratings">
-                                (2)
-                            </span><!--total-movies-with-ratings-->
-                        </div>
-                        <div class="ratings-div">
-                            <div class="all-star">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div><!--all-star-->
-                            <span class="total-movies-with-ratings">
-                                (2)
-                            </span><!--total-movies-with-ratings-->
-                        </div>
-                        <div class="ratings-div">
-                            <div class="all-star">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div><!--all-star-->
-                            <span class="total-movies-with-ratings">
-                                (2)
-                            </span><!--total-movies-with-ratings-->
-                        </div>
+                <?php
+                    $output = '';
+                        $movie_ratings = $Rating->get_all_stars('webseries');
+                        asort($movie_ratings);
+                        foreach ($movie_ratings as $key => $value) {
+                            $output.="<div class='ratings-div rating-badge' data-type='webseries' data-star='$value'>
+                                <div class='all-star'>";
+                                    for($i=1;$i<=10;$i++){
+                                        $output.="<i class='fa fa-star ";
+                                        if($i <= $value){
+                                            $output.="add-rating";
+                                        }else{
+                                            $output.="no-rating";
+                                        }
+                                        $output.="'></i>";
+                                    }
+                                    $output.="
+                                </div>
+                                <span class='total-movies-with-ratings'>($value)</span>
+                            </div>";
+                        }
+                    echo $output;
+                ?>
                 </div>
             </div><!---filters-by-rating--->
         </div>
@@ -149,7 +122,7 @@ $Category = new Category($connection);
         <div class="all-movies-holder">
             <div id="wait"><i class='fa fa-spinner fa-spin'></i><br>Loading..</div>
             <?php
-                $all_webseries = $Webseries->get_all_webseries_by_query('','','','','',1);
+                $all_webseries = $Webseries->get_all_webseries_by_query('','','','','',1,''); //params -> (search,letters,years,order,categorys,page_number,ratings)
                 $output = '';
                 while($row = mysqli_fetch_assoc($all_webseries[0]))
                 {

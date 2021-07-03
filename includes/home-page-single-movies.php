@@ -95,7 +95,7 @@ $Dashboard = new Dashboard($connection);
             <div class="home-videos-glider">
 
             <?php 
-            $result = $Movie->get_all_movies_by_query('','','','','1',1);
+            $result = $Movie->get_all_movies_by_query('','','','','1',1,''); //params -> (search,letters,years,order,categorys,page_number,ratings)
             $output = '';
             while ($row = mysqli_fetch_assoc($result[0])) {
                 $categories = explode(',',$row['category']);
@@ -120,7 +120,7 @@ $Dashboard = new Dashboard($connection);
             <div class="home-videos-glider">
 
             <?php 
-            $result = $Webseries->get_all_webseries_by_query('','','','','1',1);
+            $result = $Webseries->get_all_webseries_by_query('','','','','1',1,''); //params -> (search,letters,years,order,categorys,page_number,ratings)
             $output = '';
             while ($row = mysqli_fetch_assoc($result[0])) {
                 $categories = explode(',',$row['category']);

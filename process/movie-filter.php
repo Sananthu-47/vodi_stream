@@ -9,6 +9,7 @@ $letter = '';
 $category = '';
 $year = '';
 $order = '';
+$ratings = '';
 $type = $_GET['type'];
 $page_number = $_GET['page_number'];
 
@@ -37,9 +38,14 @@ if(isset($_GET['order']))
     $order = $_GET['order'];
 }
 
+if(isset($_GET['ratings']))
+{
+    $ratings = $_GET['ratings'];
+}
+
 if($type == 'movie')
 {
-    $movies_result = $Movie->get_all_movies_by_query($search,$letter,$year,$order,$category,$page_number);
+    $movies_result = $Movie->get_all_movies_by_query($search,$letter,$year,$order,$category,$page_number,$ratings);
     $response = array();
     while ($row = mysqli_fetch_assoc($movies_result[0])) {
         array_push($response,$row);
@@ -53,7 +59,7 @@ if($type == 'movie')
         echo json_encode([]);
     }
 }else{
-    $webseries_result = $Webseries->get_all_webseries_by_query($search,$letter,$year,$order,$category,$page_number);
+    $webseries_result = $Webseries->get_all_webseries_by_query($search,$letter,$year,$order,$category,$page_number,$ratings);
     $response = array();
     while ($row = mysqli_fetch_assoc($webseries_result[0])) {
         $all_data = array("webseries"=>$row);

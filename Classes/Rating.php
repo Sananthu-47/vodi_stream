@@ -14,6 +14,19 @@ class Rating
         return $result;
     }
 
+    function get_all_stars($type){
+        $result = mysqli_query($this->connection,"SELECT * FROM rating_review WHERE type = '$type'");
+        $rating_array = [];
+        while($row = mysqli_fetch_assoc($result))
+        {
+            if(!in_array($row['star'],$rating_array))
+            {
+                array_push($rating_array,$row['star']);
+            }
+        }
+        return $rating_array;
+    }
+
     function addRating($video_id,$user_id,$star,$comment,$type){
         $userCheckResult = $this->checkUserRated($video_id,$user_id,$type);
         if($userCheckResult){

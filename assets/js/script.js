@@ -1,6 +1,7 @@
 // Global variables
 let letters_array = [];
 let years_array = [];
+let ratings_array = [];
 let categories_array = [];
 let current_page = 1;
 let current_home = 0;
@@ -113,6 +114,7 @@ $('.category-list').hover(function(){
 $('.dropdown-movies').on('change',function(){
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let category = JSON.stringify(categories_array);
     let search = $('#search_filter').val();
     let order = $(this).val();
@@ -122,7 +124,7 @@ $('.dropdown-movies').on('change',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             if(type == 'movie')
@@ -138,6 +140,7 @@ $('.dropdown-movies').on('change',function(){
 $('#search-filter-button').on('click',function(){
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let category = JSON.stringify(categories_array);
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
@@ -147,7 +150,7 @@ $('#search-filter-button').on('click',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             if(type == 'movie')
@@ -174,6 +177,7 @@ $(document).on('click','.letter-badge',function(){
     }
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let search = $('#search_filter').val();
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
@@ -183,7 +187,7 @@ $(document).on('click','.letter-badge',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             if(type == 'movie')
@@ -210,6 +214,7 @@ $(document).on('click','.years-badge',function(){
     }
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let category = JSON.stringify(categories_array);
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
@@ -219,7 +224,7 @@ $(document).on('click','.years-badge',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             if(type == 'movie')
@@ -248,6 +253,7 @@ $(document).on('click','.category-list',function(){
     }
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let category = JSON.stringify(categories_array);
     let search = $('#search_filter').val();
     let order = $('.dropdown-movies').val();
@@ -257,7 +263,44 @@ $(document).on('click','.category-list',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
+        success : function(data)
+        {
+            if(type == 'movie')
+            {
+                addMovieCards(data);
+            }else{
+                addWebseriesCards(data);
+            }
+        }
+    });
+});
+// get data on rating tab
+$(document).on('click','.rating-badge',function(){
+    if(ratings_array.includes($(this).data('star')))
+    {
+        $(this).removeClass('active-rating');
+        let removeItem = $(this).data('star');
+        ratings_array = $.grep(ratings_array, function(value) {
+            return value != removeItem;
+            });
+    }else{
+        ratings_array.push($(this).data('star'));
+        $(this).addClass('active-rating');
+    }
+    let letter = JSON.stringify(letters_array);
+    let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
+    let category = JSON.stringify(categories_array);
+    let search = $('#search_filter').val();
+    let order = $('.dropdown-movies').val();
+    let type = $(this).data('type');
+    let page_number = JSON.stringify(current_page);
+
+    $.ajax({
+        url : "process/movie-filter.php",
+        type : "GET",
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             if(type == 'movie')
@@ -273,6 +316,7 @@ $(document).on('click','.category-list',function(){
 $(document).on('click','.pagination-number',function(){
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let search = $('#search_filter').val();
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
@@ -284,7 +328,7 @@ $(document).on('click','.pagination-number',function(){
     $.ajax({
         url : "process/movie-filter.php",
         type : "GET",
-        data : {search,letter,year,order,category,type,page_number},
+        data : {search,letter,year,order,category,type,page_number,ratings},
         success : function(data)
         {
             curr_ele.parent().children().each(function(){
@@ -304,6 +348,7 @@ $(document).on('click','.pagination-number',function(){
 $(document).on('click','.next',function(){
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let search = $('#search_filter').val();
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
@@ -315,7 +360,7 @@ $(document).on('click','.next',function(){
         $.ajax({
             url : "process/movie-filter.php",
             type : "GET",
-            data : {search,letter,year,order,category,type,page_number},
+            data : {search,letter,year,order,category,type,page_number,ratings},
             success : function(data)
             {
                 $('.pagination-number').parent().children().each(function(){
@@ -336,6 +381,7 @@ $(document).on('click','.next',function(){
 $(document).on('click','.previous',function(){
     let letter = JSON.stringify(letters_array);
     let year = JSON.stringify(years_array);
+    let ratings = JSON.stringify(ratings_array);
     let search = $('#search_filter').val();
     let category = JSON.stringify(categories_array);
     let order = $('.dropdown-movies').val();
@@ -347,7 +393,7 @@ $(document).on('click','.previous',function(){
         $.ajax({
             url : "process/movie-filter.php",
             type : "GET",
-            data : {search,letter,year,order,category,type,page_number},
+            data : {search,letter,year,order,category,type,page_number,ratings},
             success : function(data)
             {
                 $('.pagination-number').parent().children().each(function(){

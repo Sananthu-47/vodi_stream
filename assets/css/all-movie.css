@@ -140,6 +140,11 @@
     background: var(--primary-color-movies);
 }
 
+.active-rating{
+    color: black;
+    background: #244551;
+}
+
 .filter-badge:hover{
     color: black;
     background: var(--primary-color-movies);
@@ -166,8 +171,14 @@
     cursor: pointer;
 }
 
-.all-star .fa-star{
+.add-rating{
     color: var(--primary-color-movies);
+    font-size: 20px;
+    margin: 0 3px;
+}
+
+.no-rating{
+    color: #949494;
     font-size: 20px;
     margin: 0 3px;
 }
