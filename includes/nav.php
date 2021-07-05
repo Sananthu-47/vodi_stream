@@ -44,35 +44,40 @@ include "side-nav.php";
     </div><!---right-side-nav-first--->
     <div class="right-side-nav-second d-flex justify-content-between align-items-center">
         <i id='search-icon-mobile' class='fa fa-search d-none px-3'></i>
-        <div class='d-flex align-items-center dropdown'>
-            <div id='profile-img-small' class='d-flex justify-content-center align-items-center' style="background-color:<?php echo $User->get_user_detail_by_id('color',$USER_LOGIN_ID); ?>;"><i class='fa fa-user fa-2x'></i></div>
-            <i class='fa fa-angle-down arrow-down'></i>
-        </div>
+            <div class="header-cart">
+                <div class="cart-btn">
+                    <div class='d-flex align-items-center justify-content-center'>
+                        <div id='profile-img-small' class='d-flex justify-content-center align-items-center' style="background-color:<?php echo $User->get_user_detail_by_id('color',$USER_LOGIN_ID); ?>;"><i class='fa fa-user fa-2x'></i></div>
+                        <i class='fa fa-angle-down arrow-down'></i>
+                    </div>
+                </div>
+
+                <div class="mini-cart">
+                    <div class="mini_content">
+                        <?php if($USER_LOGIN_ID == ''){
+                            echo "<span class='label modal-pop-login modal-pop'>Sign In</span>
+                            <span class='label modal-pop-login modal-pop'>Register</span>";
+                            }else{
+                                $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
+                                echo "<span class='label modal-pop-login'><i class='fa fa-user px-1'></i>$username</span>
+                                <span class='label modal-pop-login' id='logout'><a href='includes/logout.php'><i class='fa fa-sign-out px-1'></i>Logout</a></span>";
+                            }
+                        ?>
+                    </div> <!-- mini content -->
+                </div> <!-- mini cart -->
+            </div>
     </div><!---right-side-nav-second--->
     </div><!--nav-right-side-->
 </div>
 
 <div class="search-in-mobile-mode" style='display:none;'>
-<div class="d-flex">
-    <input type="text" id='search-box-mobile' placeholder='Search...'>
-    <div class="input-group-append search-inside-input-mobile d-flex justify-content-end align-items-center">
-        <i id='search-icon-desktop' class='fa fa-search text-secondary'></i>
-    </div>
+    <div class="d-flex">
+        <input type="text" id='search-box-mobile' placeholder='Search...'>
+        <div class="input-group-append search-inside-input-mobile d-flex justify-content-end align-items-center">
+            <i id='search-icon-desktop' class='fa fa-search text-secondary'></i>
+        </div>
     </div>
 </div>
-
-    <!-- Drop down to get signin and register -->
-        <ul class="sub-menu dropdown-menu text-center" style='display:none;'>
-        <?php if($USER_LOGIN_ID == ''){
-            echo "<li class='list-item modal-pop-login modal-pop'>Sign In</li>
-            <li class='list-item modal-pop-login modal-pop'>Register</li>";
-            }else{
-                $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
-                echo "<li class='list-item modal-pop-login'><i class='fa fa-user px-1'></i>$username</li>
-                <li class='list-item modal-pop-login' id='logout'><a href='includes/logout.php'><i class='fa fa-sign-out px-1'></i>Logout</a></li>";
-            }
-        ?>
-        </ul>
 
         <!---Modal for register and login-->
     <div class="modal-background" id='modal-register' style='display:none'>

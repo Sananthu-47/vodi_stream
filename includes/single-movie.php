@@ -98,6 +98,7 @@ $ratings = $Rating->calculateTotRating($movie_id,'movie');
     <div class="inner-content">
         <div type="button" class="collapsible">Add review<i class='fa fa-plus mx-2'></i></div>
         <div class="content">
+            <?php if($USER_LOGIN_ID != ''){ ?>
             <div class="d-flex align-items-start">
                 <span>My ratings
                     <select class='add-rating' id='review-star'>
@@ -113,6 +114,9 @@ $ratings = $Rating->calculateTotRating($movie_id,'movie');
                 <textarea id="review-comment" cols="70" rows="2" placeholder="Enter your reviews here.."><?php if($rating_row != false) echo $rating_row['comment'];?></textarea>
                 <button class='btn btn-primary mx-3' data-video-id='<?php echo $movie_id; ?>' data-user-id='<?php echo $USER_LOGIN_ID; ?>' data-type='movie' id='add-rating-review'>Submit</button>
             </div>
+            <?php }else{ ?>
+            <span class='text-secondary'>Please login to leave a review</span>
+            <?php } ?>
         </div>
         <span style='border-bottom:3px solid #24BAEF;font-size:28px;'>Reviews</span>
 
