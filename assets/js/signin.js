@@ -1,23 +1,3 @@
-$('.sub-menu').on('mouseenter',function(){
-    $('.sub-menu').show();
-});
-$('.sub-menu').on('mouseleave',function(){
-    $('.sub-menu').hide();
-});
-$('.dropdown').on('mouseenter',function(){
-    $('.sub-menu').show();
-});
-$('.dropdown').on('mouseleave',function(){
-    $('.sub-menu').hide();
-});
-$('.modal-pop').on('click',function(){
-    $('#modal-register').fadeIn();
-});
-$('#close-modal').on('click',()=>{
-    $('.modal-background').fadeOut();
-    $('#password-login').css('border-bottom-color','#b9b9b9');
-    $('#email-number-login').css('border-bottom-color','#b9b9b9');
-});
 $('#hamburger-menu').on('click',()=>{
     $('#sidenav').fadeIn();
 });
@@ -27,7 +7,6 @@ $('#sidenav').on('click',()=>{
 $('#search-icon-mobile').on('click',function(){
     $('.search-in-mobile-mode').toggle();
 });
-
 $('#register').on('click',function(e){
     e.preventDefault();
     let username = $('#username-register').val();
@@ -56,8 +35,6 @@ $('#register').on('click',function(e){
         }
     });
 });
-
-
 function get_pricing()
 {
     $.ajax({
@@ -70,7 +47,6 @@ function get_pricing()
         }
     });
 }
-
 function register_validation(data){
     let data_array = JSON.parse(data);
     const element_array = [$('#username-register'),$('#email-register'),$('#mobile-number-register'),$('#password-register')];
@@ -83,8 +59,6 @@ function register_validation(data){
         element_array[ele].css('border-bottom-color','red');
     });
 }
-
-
 $('#login').on('click',function(e){
     e.preventDefault();
     let email_number = $('#email-number-login').val();
@@ -139,23 +113,16 @@ $('#login').on('click',function(e){
         }
     });
 });
-
-
 $('.planings').on('click',()=>{
-$('#plans').css('display','flex');
- get_pricing();
+    $('#plans').css('display','flex');
+    get_pricing();
 });
-
 function get_pricing_data(data){
-$('#plans').html(data);
+    $('#plans').html(data);
 }
-
-
 $(document).on('click','#close-plans',()=>{
-$('#plans').css('display','none');
+    $('#plans').css('display','none');
 });
-
 $(document).on('click','#skip-plan',()=>{
-$('#plans').css('display','none');
+    $('#plans').css('display','none');
 });
-

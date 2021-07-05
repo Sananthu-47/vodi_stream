@@ -1,6 +1,8 @@
 <?php include "db.php";  
 global $connection;
 $USER_LOGIN_ID = '';
+date_default_timezone_set('Asia/Kolkata');
+ob_start();
 session_start();
 if(isset($_SESSION['user_id']))
 {

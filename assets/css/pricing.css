@@ -42,6 +42,10 @@
 .snip1265 .plan:hover,
 .snip1265 .plan.hover {
   background-color: #1c1c1c;
+  margin-top: -15px;
+  background-color: #262626;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 .snip1265 .plan:hover i,
 .snip1265 .plan.hover i {
@@ -73,7 +77,8 @@
 }
 .snip1265 .plan-cost {
   margin: 0;
-  opacity: 0.2;
+  opacity: 0.5;
+  color: #b8b8b8;
 }
 .snip1265 .plan-price {
   font-family: 'Montserrat', Arial, sans-serif;
@@ -104,7 +109,7 @@
   background-color: rgba(0, 0, 0, 0.2);
   text-align: center;
 }
-.snip1265 .plan-select a {
+.snip1265 .plan-select button {
   color: #ffffff;
   text-decoration: none;
   padding: 15px 20px;
@@ -115,8 +120,10 @@
   text-transform: uppercase;
   display: inline-block;
   background-color: #f39c12;
+  border: none;
+  outline: none;
 }
-.snip1265 .plan-select a:hover {
+.snip1265 .plan-select button:hover {
   background-color: #262626;
 }
 .snip1265 .featured {
@@ -129,7 +136,7 @@
   margin: 30px 20px;
 }
 #skip-plan{
-  background-color: #fbff00;
+  background-color: #ced106;
   padding: 8px 25px;
   border-radius: 20px;
   font-size: 22px;

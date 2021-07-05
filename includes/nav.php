@@ -9,10 +9,10 @@ include "side-nav.php";
     <div class="nav-left-side d-flex col-lg-8">
         <div class="left-side-nav-first d-flex align-items-center  px-1">
             <i class='fa fa-bars pr-3' id='hamburger-menu'></i>
-            <div id="logo">vodi</div>
+            <a href='index.php'><div id="logo">vodi</div></a>
         </div><!---left-side-nav-first-->
             <ul class='nav left-side-nav-second col-lg-8 d-flex justify-content-around align-items-center'>
-                <li class='nav-item'>Home</li>
+                <a href='index.php'><li class='nav-item'>Home</li></a>
                 <a href='all-movies.php'><li class='nav-item'>Movies</li></a>
                 <a href='all-webseries.php'><li class='nav-item'>Web series</li></a>
                 <?php 

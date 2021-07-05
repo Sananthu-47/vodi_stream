@@ -67,6 +67,12 @@ switch ($action) {
             echo 1;
         }
         break;
+    case 'update-payment':
+        $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['monthly']}' WHERE package = 'monthly'");
+        $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['quarterly']}' WHERE package = 'quarterly'");
+        $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['half_yearly']}' WHERE package = 'half-yearly'");
+        $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['annually']}' WHERE package = 'annually'");
+        break;
 
     default:
         echo false;

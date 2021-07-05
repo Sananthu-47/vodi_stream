@@ -65,34 +65,6 @@ $('#add-advertisement').on('click',function(e){
     });
 });
 
-// Get all payments page with a ajax call
-$('#payment-list').on('click',function(e){
-    clearActiveNav();
-    $(this).addClass('active-background');
-
-    $.ajax({
-        url : "../proccess/admin-list-of-payment.php",
-        type : "GET",
-        success : function(data){
-            $('.admin-main-content').html(data);
-        }
-    });
-});
-
-// Get update payment page with a ajax call
-$('#update-payment').on('click',function(e){
-    clearActiveNav();
-    $(this).addClass('active-background');
-
-    $.ajax({
-        url : "../proccess/admin-update-payments.php",
-        type : "GET",
-        success : function(data){
-            $('.admin-main-content').html(data);
-        }
-    });
-});
-
 // Clear the active subnavs
 function clearActiveNav(){
     $('.content-nav-badges').each(function(i,ele){

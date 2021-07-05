@@ -6,7 +6,7 @@
 <div class='footer-holder'>
     <div class='footer-top-bar'>
         <div class='footer-logo'>
-            <a href='#' rel='home'> <div id='logo'>vodi</div></a>
+        <a href='index.php'><div id='logo'>vodi</div></a>
         </div>
         <div class='footer-social-icons'>
             <ul class='social-icons d-flex align-items-center'>
