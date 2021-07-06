@@ -55,12 +55,12 @@ include "side-nav.php";
                 <div class="mini-cart">
                     <div class="mini_content">
                         <?php if($USER_LOGIN_ID == ''){
-                            echo "<span class='label modal-pop-login modal-pop'>Sign In</span>
-                            <span class='label modal-pop-login modal-pop'>Register</span>";
+                            echo "<span class='label modal-pop-login modal-pop py-1'>Sign In</span>
+                            <span class='label modal-pop-login modal-pop py-1'>Register</span>";
                             }else{
                                 $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
-                                echo "<span class='label modal-pop-login'><i class='fa fa-user px-1'></i>$username</span>
-                                <span class='label modal-pop-login' id='logout'><a href='includes/logout.php'><i class='fa fa-sign-out px-1'></i>Logout</a></span>";
+                                echo "<a href='profile.php' class='text-dark'><span class='label modal-pop-login py-1'><i class='fa fa-user px-1'></i>$username</span></a>
+                                <a href='includes/logout.php'><span class='label modal-pop-login py-1' id='logout'><i class='fa fa-sign-out px-1'></i>Logout</span></a>";
                             }
                         ?>
                     </div> <!-- mini content -->

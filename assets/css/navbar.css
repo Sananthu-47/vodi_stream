@@ -277,6 +277,9 @@ a {
   flex-direction: column;
   color: black;
 }
+.mini_content a:hover{
+  background-color: #e4e4ec;
+}
 
 @media only screen and (max-width: 1440px) {
   .search-in-mobile-mode {

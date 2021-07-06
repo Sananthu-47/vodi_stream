@@ -1,0 +1,40 @@
+.profile-wrapper{
+    margin: 10px auto;
+    max-width: 900px;
+    display: flex;
+}
+
+#profile-img-big{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    color: white;
+}
+
+.right-profile{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin: 10px 0;
+}
+
+.deatils-row{
+    margin: 5px 0;
+    padding: 10px 0;
+    max-width: 320px;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+.deatils-row span{
+    color: #7c8386;
+}
+.deatils-row input{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(60, 255, 0);
+    cursor: default;
+    color: rgb(243, 194, 87);
+}
