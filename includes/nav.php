@@ -22,7 +22,7 @@ include "side-nav.php";
                     }
                 if($User->check_admin_or_not($USER_LOGIN_ID))
                     {
-                    echo "<a href='admin/pages/index.php'><li class='nav-item admin-login'>Admin</li></a>";
+                    echo "<a href='admin/pages/index.php' target='_blank'><li class='nav-item admin-login'>Admin</li></a>";
                     }
                 ?>
             </ul><!--left-side-nav-second- -->
@@ -37,7 +37,7 @@ include "side-nav.php";
     </div>
     <?php if($User->check_admin_or_not($USER_LOGIN_ID))
     {
-        echo "<a href='admin/pages/admin-managevideos.php'><div class='text-white d-flex align-items-center upload-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div></a>";
+        echo "<a href='admin/pages/admin-managevideos.php' target='_blank'><div class='text-white d-flex align-items-center upload-button'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div></a>";
     }else{
         echo "<div class='btn btn-none text-white d-flex align-items-center upload-button modal-pop'><i class='fa fa-cloud-upload mx-2'></i><span>Upload</span></div>";
     } ?>
@@ -55,12 +55,12 @@ include "side-nav.php";
                 <div class="mini-cart">
                     <div class="mini_content">
                         <?php if($USER_LOGIN_ID == ''){
-                            echo "<span class='label modal-pop-login modal-pop py-1'>Sign In</span>
-                            <span class='label modal-pop-login modal-pop py-1'>Register</span>";
+                            echo "<a class='text-dark modal-pop'><span class='label py-1'>Sign In</span><a>
+                            <a class='text-dark modal-pop'><span class='label py-1'>Register</span><a>";
                             }else{
                                 $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
-                                echo "<a href='profile.php' class='text-dark'><span class='label modal-pop-login py-1'><i class='fa fa-user px-1'></i>$username</span></a>
-                                <a href='includes/logout.php'><span class='label modal-pop-login py-1' id='logout'><i class='fa fa-sign-out px-1'></i>Logout</span></a>";
+                                echo "<a href='profile.php' class='text-dark'><span class='label  py-1'><i class='fa fa-user px-1'></i>$username</span></a>
+                                <a href='includes/logout.php'><span class='label  py-1' id='logout'><i class='fa fa-sign-out px-1'></i>Logout</span></a>";
                             }
                         ?>
                     </div> <!-- mini content -->

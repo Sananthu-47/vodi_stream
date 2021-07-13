@@ -30,4 +30,9 @@ class Payment
         $row = mysqli_fetch_array($result);
         return $row[0];
     }
+
+    function allPayments(){
+        $result = mysqli_query($this->connection,"SELECT * FROM payments");
+        return $result;
+    }
 }

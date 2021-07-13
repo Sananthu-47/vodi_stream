@@ -128,11 +128,6 @@ a {
   text-decoration: none;
 }
 
-.modal-pop-login:hover {
-  background: #e3e7e9;
-  color: black;
-}
-
 .self-center-modal {
   position: absolute;
   left: 50%;

@@ -1,10 +1,12 @@
 <?php include "db.php";  
+include_once "../../Classes/User.php";
+$User = new User($connection);
 global $connection;
 $USER_LOGIN_ID = '';
 date_default_timezone_set('Asia/Kolkata');
 ob_start();
 session_start();
-if(isset($_SESSION['user_id']))
+if(isset($_SESSION['user_id']) && $User->check_admin_or_not($_SESSION['user_id']))
 {
     $USER_LOGIN_ID = $_SESSION['user_id'];
 }else{

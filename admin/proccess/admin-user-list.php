@@ -1,6 +1,6 @@
 <?php
 include_once "../includes/db.php";
-include "../../Classes/User.php";
+include_once "../../Classes/User.php";
 $User = new User($connection);
 $output = '';
 $count = 1;
@@ -24,7 +24,7 @@ $output.="<div class='content-table-wrapper'>
                         $output.="
                         <tr>
                         <td>{$count}</td>
-                        <td>User{$row['id']}</td>
+                        <td>{$row['username']}</td>
                         <td>{$row['email']}</td>
                         <td>{$row['mobile_number']}</td>
                         <td>";

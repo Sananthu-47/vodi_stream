@@ -16,6 +16,13 @@ class User{
         return $result;
     }
 
+    // Get data of all users
+    function get_all_users_by_id($id)
+    {
+        $result = mysqli_query($this->connection,"SELECT * FROM users WHERE id = '$id'");
+        return $result;
+    }
+
     //Check whether user already exists in db or not
     function check_user_exists($email,$mobile_number){
         $result = mysqli_query($this->connection,"SELECT * FROM users WHERE email = '$email' OR mobile_number = '$mobile_number'");
