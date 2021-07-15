@@ -36,38 +36,3 @@ function checkCurrentTab(realpath,search){
 $('#menubar').on('click',function(){
     $('.navbar').toggle();
 });
-
-// Get all advertisement videos with a ajax call
-$('#advertisement-list').on('click',function(e){
-    clearActiveNav();
-    $(this).addClass('active-background');
-
-    $.ajax({
-        url : "../proccess/admin-list-of-advertisement.php",
-        type : "POST",
-        success : function(data){
-            $('.admin-main-content').html(data);
-        }
-    });
-});
-
-// Get add advertisement page with a ajax call
-$('#add-advertisement').on('click',function(e){
-    clearActiveNav();
-    $(this).addClass('active-background');
-
-    $.ajax({
-        url : "../proccess/admin-add-advertisement.php",
-        type : "GET",
-        success : function(data){
-            $('.admin-main-content').html(data);
-        }
-    });
-});
-
-// Clear the active subnavs
-function clearActiveNav(){
-    $('.content-nav-badges').each(function(i,ele){
-        $(ele).removeClass('active-background');
-    });
-}

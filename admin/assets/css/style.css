@@ -19,7 +19,7 @@ button:disabled {
     padding: 20px;
     overflow-x: hidden;
 }
-.admin-menu-bar{
+.admin-menu-bar , .cursor-pointer{
     cursor: pointer;
 }
 .inner-wrapper{
@@ -527,6 +527,28 @@ button:disabled {
         padding: 1px 2px;
         font-size: 10px;
         margin: 3px 0;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .side-nav a .active-nav::before{
+        display: none;
+    }
+    .side-nav a .active-nav::after{
+        display: none;
+    }
+    .active-nav{
+        box-shadow: none;
+    }
+    .nav-list{
+        border-radius: 50px;
+    }
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (min-width: 768px) and (max-width: 1200px) {
+    .nav-list{
+        border-radius: 50px 0 0 50px;
     }
 }
 

@@ -524,6 +524,7 @@ $('#watch-movie').on('click',function(){
                 $('#modal-register').fadeIn();
             }else{
                 $('#movie-single-banner').html(data);
+                setInterval(adManager,20000);
             }
         },
         error : function(){
@@ -532,6 +533,31 @@ $('#watch-movie').on('click',function(){
     });
 
 });
+
+
+function adManager() {
+    var vid = document.getElementById("video-tag"),
+        adSrc = "http://techslides.com/demos/sample-videos/small.mp4",
+        src;
+        src = vid.src;
+        vid.src = adSrc;
+        vid.pause();
+        vid.load();
+        vid.controls=false;
+        vid.addEventListener("ended", function(){
+            adEnded(vid,src);
+        }, false);
+        
+}
+
+function adEnded(vid,src) {
+    vid.removeEventListener("ended", adEnded, false);
+    vid.src = src;
+    vid.controls=true;
+    vid.load();
+    vid.play();
+};
+
 
 // Add rating
 $('#add-rating').on('change',function(){

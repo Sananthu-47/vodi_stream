@@ -21,6 +21,7 @@ $output.="<div class='content-table-wrapper'>
         <th>Duration</th>
         <th>Language</th>
         <th>Released</th>
+        <th>Add ads</th>
         <th>Action</th>
     </tr>";
 
@@ -43,6 +44,7 @@ $output.="<div class='content-table-wrapper'>
                         <td>{$row['duration']} minutes</td>
                         <td>{$row['language']}</td>
                         <td>{$row['release_year']}</td>
+                        <td><a href='admin-advertisement.php?advertisement=add-ads&type=movie&id={$row['id']}&name={$row['title']}'><div class='btn btn-primary'>Add ads</div></a></td>
                         <td class='d-flex justify-content-around'>
                             <button class='btn btn-info ml-2 make-movie-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
                             <a href='admin-update.php?movie-id={$row['id']}'><button class='btn btn-primary mx-2'><i class='fa fa-pencil-square-o text-white'></i></button></a>

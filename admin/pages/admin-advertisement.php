@@ -11,9 +11,9 @@
         <!--Components-->
         <div class = "content">
                 <div class="content-nav">
-                    <div class="content-nav-left">
-                        <div id='advertisement-list' class="content-nav-badges active-background">List of Ad's</div> 
-                        <div id='add-advertisement' class="content-nav-badges">Add advertisement</div> 
+                    <div class="content-nav-left" id="sub-nav">
+                        <a href="admin-advertisement.php?advertisement=ads-list"><div class="content-nav-badges">List of Ad's</div></a>
+                        <a href="admin-advertisement.php?advertisement=add-ads"><div class="content-nav-badges">Add advertisement</div> </a>
                     </div>
                     <div class="content-nav-right">
                         <input type="search" placeholder="Search" class='content-search-bar'>
@@ -23,11 +23,30 @@
                 <hr>
 
                 <div class="admin-main-content">
-                    <?php include "../proccess/admin-list-of-advertisement.php"; ?>
+                    <?php
+                        $page = '';
+                        if(isset($_GET['advertisement']))
+                        {
+                            $page = $_GET['advertisement'];
+                        }
+                        
+                        switch($page){
+                            case 'ads-list':
+                                include_once "../proccess/admin-list-of-advertisement.php";
+                                break;
+                            case 'add-ads':
+                                include_once "../proccess/admin-add-advertisement.php";
+                                break;
+                            default:
+                                include_once "../proccess/admin-list-of-advertisement.php";
+                                break;
+                        }
+                    ?>
                 </div>
 
         </div>
 
     </div>
 </div>
-        <?php include "../includes/admin-footer.php"; ?>
+<script src='../assets/js/advertisements.js'></script>  
+<?php include "../includes/admin-footer.php"; ?>

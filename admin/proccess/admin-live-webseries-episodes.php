@@ -22,48 +22,48 @@ $output.="<div class='content-table-wrapper'>
         <th>Language</th>
         <th>Duration</th>
         <th>Released</th>
+        <th>Add ads</th>
         <th>Action</th>
     </tr>";
 
 
     while($row = mysqli_fetch_assoc($result))
-                    {
-                        $webseries_data = $Webseries->get_webseries_by_id_admin($row['webseries_id']);
-                        $webseries_data = mysqli_fetch_assoc($webseries_data);
+        {
+            $webseries_data = $Webseries->get_webseries_by_id_admin($row['webseries_id']);
+            $webseries_data = mysqli_fetch_assoc($webseries_data);
 
-                        $output.="
-                        <tr class='text-center'>
-                        <td>{$count}</td>";
+            $output.="
+            <tr class='text-center'>
+            <td>{$count}</td>";
 
-                        $output.="<td>{$webseries_data['title']}</td>
-                        <td>{$row['title']}</td>
-                        <td>";
-                        $all_categories = explode(',',$webseries_data['category']);
-                        foreach ($all_categories as $key => $category) {
-                            $output.="<span class='badge badge-info mx-1 py-1 px-2'>{$category}</span>";
-                        }
-                        $output.="</td>
-                        <td><span class='badge badge-danger py-1 px-2'>{$row['season_number']}</span></td>
-                        <td><span class='badge badge-warning py-1 px-2'>{$row['episode_number']}</span></td>
-                        <td>{$row['status']}</td>
-                        <td>{$webseries_data['language']}</td>
-                        <td>{$row['duration']} minutes</td>
-                        <td>{$row['release_year']}</td>
-                        <td class='d-flex justify-content-around'>
-                            <button class='btn btn-info ml-2 make-webseries-episode-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
-                            <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
-                            <button class='btn btn-success make-episode-active'";
-                            if($row['watchable'] == 'active') $output.='disabled';
-                            $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
-                            <button class='btn btn-danger mx-2 make-episode-blocked'";
-                            if($row['watchable'] == 'blocked') $output.='disabled';
-                            $output.=" data-id='{$row['id']}'><i class='fa fa-ban text-white'></i></button>
-                        </td>
-                        </tr>";
-                        $count++;
-                    }
-
-
+            $output.="<td>{$webseries_data['title']}</td>
+            <td>{$row['title']}</td>
+            <td>";
+            $all_categories = explode(',',$webseries_data['category']);
+            foreach ($all_categories as $key => $category) {
+                $output.="<span class='badge badge-info mx-1 py-1 px-2'>{$category}</span>";
+            }
+            $output.="</td>
+            <td><span class='badge badge-danger py-1 px-2'>{$row['season_number']}</span></td>
+            <td><span class='badge badge-warning py-1 px-2'>{$row['episode_number']}</span></td>
+            <td>{$row['status']}</td>
+            <td>{$webseries_data['language']}</td>
+            <td>{$row['duration']} minutes</td>
+            <td>{$row['release_year']}</td>
+            <td><a href='admin-advertisement.php?advertisement=add-ads&type=episode&id={$row['id']}&name={$row['title']}'><div class='btn btn-primary'>Add ads</div></a></td>
+            <td class='d-flex justify-content-around'>
+                <button class='btn btn-info ml-2 make-webseries-episode-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
+                <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
+                <button class='btn btn-success make-episode-active'";
+                if($row['watchable'] == 'active') $output.='disabled';
+                $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
+                <button class='btn btn-danger mx-2 make-episode-blocked'";
+                if($row['watchable'] == 'blocked') $output.='disabled';
+                $output.=" data-id='{$row['id']}'><i class='fa fa-ban text-white'></i></button>
+            </td>
+            </tr>";
+            $count++;
+        }
     $output.="</thead>
 </table>
 </div>";

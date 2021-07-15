@@ -23,7 +23,7 @@ $check_free_or_not = $Dashboard->check_free_or_not('movies',$id);
             {
                echo $Movie->get_movie_by_id_and_search('iframe',$id);
             }else{
-               echo "<video type='video/webm' style='width:100%;height:100%;' autoplay controls src='{$Movie->get_movie_by_id_and_search('link',$id)}'></video>";
+               echo "<video type='video/webm' id='video-tag' style='width:100%;height:100%;' autoplay controls src='{$Movie->get_movie_by_id_and_search('link',$id)}'></video>";
             }
       }else{
          echo "not-paid";
