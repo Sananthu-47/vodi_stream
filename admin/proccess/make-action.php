@@ -2,6 +2,8 @@
 include_once "../includes/db.php";
 include_once "../../Classes/Category.php";
 $Category = new Category($connection);
+include_once "../../Classes/Advertisement.php";
+$Advertisement = new Advertisement($connection);
 $id = $_POST['id'];
 $action = $_POST['action'];
 
@@ -73,7 +75,9 @@ switch ($action) {
         $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['half_yearly']}' WHERE package = 'half-yearly'");
         $result = mysqli_query($connection,"UPDATE package SET price = '{$_POST['annually']}' WHERE package = 'annually'");
         break;
-
+        case 'delete-advertisement':
+            $result = $Advertisement->delete_advertisement($id);
+            break;
     default:
         echo false;
         break;

@@ -56,7 +56,7 @@ if(isset($_GET['id']) && isset($_GET['type'])){
             <br>
             <label for="" class='badge badge-dark'>Advertisement link</label>
             <div class="d-flex">
-                <input type="text" class='form-control' id='link' placeholder="Add link for advertisement of .mp4 format" value=''>
+                <input type="text" class='form-control' id='link' placeholder="Add link for advertisement" value=''>
                 <div class="btn btn-success mx-2 cursor-pointer" id='add-advertisement'>Add</div>
             </div>
             <div id='added-advertisements' class='input-selected-tags' style='display:none'>

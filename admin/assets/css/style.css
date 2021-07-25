@@ -196,7 +196,6 @@ button:disabled {
     background: #696969;
     color: white;
     align-items: center;
-    text-transform: capitalize;
 }
 .delete-category , .delete-episode , .delete-new-episode{
     margin-left: 10px;

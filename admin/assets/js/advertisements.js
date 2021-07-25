@@ -32,6 +32,18 @@ function checkCurrentTabAds(search){
     return data;
 }
 
+// Edit toogle button
+$(".edit").click(function() {
+    let id = $(this).data('id');
+    if($("#"+id).hasClass("hide")) {
+        $("#"+id).addClass("show");
+        $("#"+id).removeClass("hide");
+    } else {
+        $("#"+id).addClass("hide");
+        $("#"+id).removeClass("show");
+    }
+});
+
 // SELECT the part of the movie
 $(document).on('change','#video-type',function(){
     let part = 1;
@@ -178,7 +190,7 @@ function show_all_added_ads(new_ads_array){
     if(new_ads_array.length > 0){
         $("#added-advertisements").show();
         new_ads_array.forEach((ele,index)=>{
-            $("#all-advertisements").append(`<div class='category-tags justify-content-between'><span> <span class='badge badge-light badge-pill'>${index+1}</span> ${ele.link}</span><i class='fa fa-times delete-advertisement btn btn-info cursor-pointer' data-id='${ele.id}'></i></div>`);
+            $("#all-advertisements").append(`<div class='category-tags justify-content-between'><span style='word-break:break-all;'> <span class='badge badge-light badge-pill'>${index+1}</span> ${ele.link}</span><i class='fa fa-times delete-advertisement btn btn-info cursor-pointer' data-id='${ele.id}'></i></div>`);
         });
     }else{
         $("#added-advertisements").hide();
@@ -206,6 +218,7 @@ $('#add-advertisement').on('click',function(){
         alert("Please choose a video to which you want to add an ad");
         $("#video-type").focus();
     }
+    $("#link").val('');
 });
 
 // Delete adevertisement from array
@@ -255,3 +268,28 @@ function clearFiled() {
         $('#search-part-title').val('');
         $('#language').val('0');
 }
+
+// Delete the advertisement from backend
+$(".admin-delete-advertisement").on('click',function(e){
+    let action = "delete-advertisement";
+    let id = $(this).data('id');
+    let count = $(this).data('count');
+    let curr_ele = $(this);
+    $.ajax({
+        url : "../proccess/make-action.php",
+        type : "POST",
+        data : {id,action},
+        success : function(data)
+        {
+            if(curr_ele.parent().parent().children().length <= 1){
+                $(".tr-"+count).remove();
+                $("#collapse-"+count).remove();
+                alert("This video is now Ad free");
+            }
+            curr_ele.parent().remove();
+            let tot_add = Number($("#tot-ad-"+count).text()) - 1;
+            $("#tot-ad-"+count).text(tot_add);
+        }
+    });
+            
+});

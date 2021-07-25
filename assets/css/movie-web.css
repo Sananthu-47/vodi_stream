@@ -1,4 +1,4 @@
-#movie-single-banner{
+#movie-single-banner , #advertisement-wrapper{
     max-width: 100%;
     height: calc(100vh - 58vh);
     background-position: top;
@@ -10,6 +10,11 @@
     width: 100% !important;
     height: 100% !important;
     cursor: pointer;
+}
+
+#advertisement-wrapper video{
+    width: 100%;
+    height: 100%;
 }
 
 video{

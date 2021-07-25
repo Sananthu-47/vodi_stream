@@ -1,11 +1,48 @@
+<style>
+    .plyr , .plyr__video-embed{
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .js-player-ad {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: white;
+        border-radius: 50%;
+        top: 7px;
+    }
+    #ad-skip-wrapper{
+        position: absolute;
+        display: flex;
+        right: 2%;
+        bottom: 2%;
+        background-color: rgba(255,255,255,0.6);
+        border: 2px solid white;
+        text-align: center;
+        color: black;
+        padding: 5px 2px;
+        max-width: 100px;
+    }
+    #ad-text{
+        cursor: pointer;
+        font-size: 12px;
+    }
+    #ad-timer{
+        font-size: 12px;
+    }
+</style>
+
 <?php
 include_once "Classes/User.php";
 $User = new User($connection);
 include_once "Classes/Webseries.php";
 $Webseries = new Webseries($connection);
-
 include_once "Classes/Rating.php";
 $Rating = new Rating($connection);
+include_once "Classes/Advertisement.php";
+$Advertisement = new Advertisement($connection);
+include_once "Classes/Dashboard.php";
+$Dashboard = new Dashboard($connection);
 if($Rating->checkUserRated($episode_id,$USER_LOGIN_ID,'episode')){
     $rating_row = false;
 }else{
@@ -13,12 +50,225 @@ if($Rating->checkUserRated($episode_id,$USER_LOGIN_ID,'episode')){
     $rating_row = mysqli_fetch_assoc($rating_row);
 }
 $ratings = $Rating->calculateTotRating($episode_id,'episode');
+$movie_name = $Webseries->get_webseries_episode_by_id_and_search('title',$episode_id);
+$poster = $Webseries->get_webseries_episode_by_id_and_search('thumbnail',$episode_id);;
 ?>
     <div class="web-navigation d-flex"><span><a href='index.php'>Home</a> <i class='fa fa-angle-right'></i><a href='all-webseries.php'>Webseries</a> <i class='fa fa-angle-right'></i> <a href='webseries.php?<?php echo "webseries_id=$webseries_id"; ?>'><?php echo $Webseries->get_webseries_by_id_and_search('title',$webseries_id); ?></a> <i class='fa fa-angle-right'></i> Episode <?php echo $Webseries->get_webseries_episode_by_id_and_search('episode_number',$episode_id); ?> </span></div>
 
-    <div id="movie-single-banner" class='m-0 row'>
-        <img src='<?php echo $Webseries->get_webseries_episode_by_id_and_search('thumbnail',$episode_id); ?>'>
-    </div><!--image-banner--->
+<div id="movie-single-banner" class='m-0 row'>
+
+    <video controls poster='<?php echo $poster; ?>' id='player'>
+        <source id='video-source' preload='none' src='' type='video/webm' >
+    </video>
+
+    <?php 
+    $src = '';
+    $video_type = '';
+    $user_type = '';
+    $ads_array = [];
+    if($USER_LOGIN_ID != '')
+    {
+        $user_type = $User->check_account_is_premium($USER_LOGIN_ID);
+        $check_free_or_not = $Dashboard->check_free_or_not('webseries_seasons',$episode_id);
+       if($check_free_or_not == 'free' || $user_type === false)
+       {
+          if($Webseries->get_webseries_episode_by_id_and_search('iframe',$episode_id) != '')
+             {
+                $src = $Webseries->get_webseries_episode_by_id_and_search('iframe',$episode_id);
+                $video_type = 'iframe';
+             }else{
+                $src =  $Webseries->get_webseries_episode_by_id_and_search('link',$episode_id);
+                $video_type = 'link';
+             }
+             $advertisement = $Advertisement->get_advertisement_to_video($episode_id,'episode');
+             while($row = mysqli_fetch_assoc($advertisement)){
+                 array_push($ads_array,$row);
+             }
+       }else{
+          $src = "not-paid";
+       }
+    }else{
+        $src = "not-loggedin";
+    }
+    ?>
+</div><!--image-banner--->
+
+<div id='advertisement-wrapper' style='display : none;position: relative;'>
+    <span class="badge badge-warning" id="ad-badge" style="
+        position: absolute;
+        top: 2%;
+        right: 5%;
+        padding: 5px 10px;
+        z-index: 2;
+    ">Ad</span>
+    <video autoplay src='' id='player-ad'></video>
+    <div id="ad-skip-wrapper">
+        <div id="ad-timer"></div>
+        <div id="ad-text"></div>
+    </div>
+</div>
+
+<script>
+    const player = new Plyr('#player');
+    let src = '<?php  echo $src ?>'; // Get the video sorce or playable or non playable
+    let user_type = '<?php  echo $user_type ?>'; // User pro or not
+    let ads_array = <?php echo json_encode($ads_array); ?>; // Get all the ads from the backend to show it in frontend
+    let timeInterval = null; // Interval to check whether to play ad or not
+    let total_ads = ads_array.length; // Check how many ads are associated with the video
+    let ad_count = 0; // Check which ad was played previously
+    let adTimer; // Timer to skip ad
+    let adsPlayedEvery = 15 * 60; // Ads are played every 15 mins
+
+    $(document).on('click','#watch-movie',function(){
+        $('.full-size').scrollTop(0);
+        if(player.duration > 1){
+            player.play();
+        }
+    });
+    
+    // Check the user is logged in and pro account or not
+    player.on('play',function(){
+        if(src == 'not-paid')
+        {
+            $('.planings').click();
+        }else if(src == 'not-loggedin')
+        {
+            $('#modal-register').show();
+        }
+    });
+
+    // If the user is loogged in and check the video is youtube or video link
+    if(src != '' && src != 'not-paid' && src != 'not-loggedin'){
+        if('<?php echo $video_type; ?>' == 'link'){
+            player.source = {
+            type: 'video',
+            title: '<?php echo $movie_name; ?>',
+            sources: [
+                {
+                src: '<?php echo $src; ?>',
+                type: 'video/mp4'
+                }
+            ],
+            poster: '<?php echo $poster; ?>'
+            };
+        }else if('<?php echo $video_type; ?>' == 'iframe'){
+            player.source = {
+            type: 'video',
+            title: '<?php echo $movie_name; ?>',
+            sources: [
+                {
+                src: src,
+                provider: 'youtube',
+                }
+            ],
+            poster: '<?php echo $poster; ?>'
+            };
+        }
+    }
+
+    // Check the ad is ended or not
+    $('#player-ad').on('ended',function(){
+        player.play();
+        $('#movie-single-banner').toggle();
+        $("#advertisement-wrapper").toggle();
+        if(ad_count == total_ads - 1){
+            ad_count = 0;
+        }else{
+            ad_count++;
+        }
+        $("#ad-text").removeClass('ad-skip');
+        clearInterval(adTimer);
+        setTimeout(() => {
+            intervalManager(true);
+        }, 1000);
+    });
+
+    // Play the ad makes sure to check whether to skip is placed or not
+    $('#player-ad').on('play',function(){
+        let total_ad_timer = Math.floor(document.getElementById("player-ad").duration);
+        let count = 15;
+        let fast_forward = "<i class='fa fa-fast-forward'></i>";
+        if(total_ad_timer >= 15){
+            $("#ad-timer").text('');
+            $("#ad-text").text('');
+            $("#ad-timer").show();
+            adTimer = setInterval(() => {
+                if(count < 1){
+                    clearInterval(adTimer);
+                    $("#ad-text").html('Skip '+ fast_forward);
+                    $("#ad-text").addClass('ad-skip');
+                    $("#ad-timer").hide();
+                }
+                $("#ad-timer").text('Skip in '+ count-- +' sec');
+            }, 1000);
+        }else{
+            $("#ad-text").text('Video will be played after Ad');
+        }
+    });
+
+    // If skip add is pressed the video is skipped
+    $("#ad-text").on('click',function(){
+        if($(this).hasClass('ad-skip')){
+            document.getElementById("player-ad").currentTime = document.getElementById("player-ad").duration;
+        }
+    });
+
+    // Get all the make an array to show all the ads in video
+    function getPoints(totalAdsCue){
+        let temp = [];
+        for(let i = 1; i <= totalAdsCue; i++){
+            temp.push(i * adsPlayedEvery);
+        }
+        return temp;
+    }
+
+    // Show an indicator for ads in player control
+    function adCueForAds(adCuePointsArray,totalAdsCue){
+        for (i = 0; i < totalAdsCue; i++) {
+            let elem = document.createElement("div");
+            elem.className = "js-player-ad";
+            elem.style.left = adCuePointsArray[i] / player.duration * 100 + "%";
+            document.querySelector('.plyr__progress').appendChild(elem);
+        }
+    }
+
+    // Check the video whether has ad or not to show
+    player.once('play',()=>{
+        if(total_ads > 0 && user_type != false){
+            let totalAdsCue = Math.floor(player.duration / adsPlayedEvery);
+            let adCuePointsArray = getPoints(totalAdsCue);
+            adCueForAds(adCuePointsArray,totalAdsCue);
+            player.pause();
+            $('#movie-single-banner').toggle();
+            $("#advertisement-wrapper").toggle();
+            $("#player-ad").attr('src',ads_array[ad_count].link);
+        }
+    });
+
+    // This function shows the ads every 15mins interval
+    function intervalManager(flag){
+        if(flag){
+            timeInterval = setInterval(() => {
+                // Convert minute to seconds to add the advertisements 
+                // example: If the duration of ad is being played for every 10mins
+                // Then 15 min * 60 sec = 900 seconds
+                if(Math.round(player.currentTime) % adsPlayedEvery === 0 && Math.round(player.currentTime) != 0)
+                {
+                    if(total_ads > 0 && user_type != false){
+                        player.pause();
+                        $('#movie-single-banner').toggle();
+                        $("#advertisement-wrapper").toggle();
+                        $("#player-ad").attr('src',ads_array[ad_count].link);
+                        intervalManager(false);
+                    }
+                }
+            }, 1000);
+        }else{
+            clearInterval(timeInterval);
+        }
+    }
+            
+</script>
 
     <!-- deatails of web show -->
     <div class="web-details">

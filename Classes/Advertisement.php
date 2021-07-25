@@ -24,4 +24,9 @@ class Advertisement{
         }
         return true;
     }
+
+    function get_videos_with_ads(){
+        $result = mysqli_query($this->connection,"SELECT video_id,video_type, COUNT(video_id) FROM advertisements GROUP BY video_id , video_type ORDER BY id");
+        return $result;
+    }
 }

@@ -502,63 +502,6 @@ function addWebseriesCards(data,type=''){
             }
         }
 }
-// Click on watch movie to take to the movie if he is logged in else take to login page
-$('#watch-movie').on('click',function(){
-    let id = $(this).data('movie-id');
-    let episode_id = 0;
-    if($(this).data('episode'))
-        episode_id = $(this).data('episode');
-    let type = $(this).data('type');
-    $.ajax({
-        url : "process/get-video.php",
-        type : "POST",
-        data : {id,type,episode_id},
-        success : function(data)
-        {
-            if(data == 'not-paid')
-            {
-                $('#plans').css('display','flex');
-                get_pricing();
-            }else if(data === 'not-loggedin')
-            {
-                $('#modal-register').fadeIn();
-            }else{
-                $('#movie-single-banner').html(data);
-                setInterval(adManager,20000);
-            }
-        },
-        error : function(){
-            $('#movie-single-banner').html("We are facing some issues resolve it soon");
-        }
-    });
-
-});
-
-
-function adManager() {
-    var vid = document.getElementById("video-tag"),
-        adSrc = "http://techslides.com/demos/sample-videos/small.mp4",
-        src;
-        src = vid.src;
-        vid.src = adSrc;
-        vid.pause();
-        vid.load();
-        vid.controls=false;
-        vid.addEventListener("ended", function(){
-            adEnded(vid,src);
-        }, false);
-        
-}
-
-function adEnded(vid,src) {
-    vid.removeEventListener("ended", adEnded, false);
-    vid.src = src;
-    vid.controls=true;
-    vid.load();
-    vid.play();
-};
-
-
 // Add rating
 $('#add-rating').on('change',function(){
     let video_id = $(this).data('video-id');
@@ -623,4 +566,4 @@ $('.collapsible').on("click", function() {
     } else {
       content.style.display = "block";
     }
-});
+});    
