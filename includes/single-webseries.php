@@ -29,7 +29,14 @@ $ratings = $Rating->calculateTotRating($webseries_id,'webseries');
             <div class="left-part-web">
                 <span class='movie-name'><?php echo $Webseries->get_webseries_by_id_and_search('title',$webseries_id); ?></span>
                 <div class="short-details d-flex">
-                    <span><?php echo $Webseries->get_webseries_by_id_and_search('release_year',$webseries_id); ?></span>
+                    <span><?php 
+                        echo $Webseries->get_webseries_by_id_and_search('release_year',$webseries_id)." - "; 
+                        if($Webseries->get_webseries_by_id_and_search('end_year',$webseries_id) != 0){
+                            echo $Webseries->get_webseries_by_id_and_search('end_year',$webseries_id);
+                        }else{
+                            echo "<span class='badge badge-success'>Ongoing</span>";
+                        }
+                    ?></span>
                         <span>|</span>
                     <span>Season <?php echo $Webseries->get_webseries_by_id_and_search('season_number',$webseries_id); ?></span>
                         <span>|</span>

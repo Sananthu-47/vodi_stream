@@ -32,6 +32,9 @@
     {
         $webseries_id = $_GET['webseries-id'];
         include_once "../proccess/update/update-webseries.php";
+    }else if(isset($_GET['episode-id'])){
+        $episode_id = $_GET['episode-id'];
+        include_once "../proccess/update/update-episode.php";
     }
 ?>
                 </div>

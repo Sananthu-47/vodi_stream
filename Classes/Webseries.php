@@ -10,6 +10,7 @@ class Webseries
         $this->connection = $connection;
     }
 
+    // Add new webseries to db
     function add_webseries($title,$season_number,$part_1,$age,$thumbnail,$description,$status,$year,$language,$categories){
         $description = mysqli_real_escape_string($this->connection,$description);
         $category = '';
@@ -30,6 +31,7 @@ class Webseries
         }
     }
 
+    // Update the webseries details
     function update_webseries($id,$title,$season,$part_1,$age,$thumbnail,$description,$status,$year,$language,$categories,$end_year){
         $description = mysqli_real_escape_string($this->connection,$description);
         $category = '';
@@ -54,6 +56,7 @@ class Webseries
         }
     }
 
+    // Add new episodes to webseries
     function add_webseries_season($webseries_id,$episodes,$status){
         $episode_data = json_decode($episodes);
         $language = $this->get_webseries_by_id_and_search('language',$webseries_id);
@@ -66,16 +69,31 @@ class Webseries
         }
     }
 
+    // Update the particular episode of the webseires
+    function update_webseries_episode($id,$title,$link,$iframe,$thumbnail,$episode_part,$description,$status,$year,$duration){
+        $description = mysqli_real_escape_string($this->connection,$description);
+        $iframe = mysqli_real_escape_string($this->connection,$iframe);
+        $result = mysqli_query($this->connection,"UPDATE webseries_seasons SET  title ='$title' , thumbnail ='$thumbnail' , description ='$description' , status ='$status' , release_year ='$year' , episode_number ='$episode_part' , link ='$link' , iframe ='$iframe' , duration ='$duration' WHERE id = '$id'");
+        
+        if($result)
+        {
+            return true;
+        }
+    }
+
+    // Get all webseries episodes which are currently active to users
     function get_all_webseries_seasons(){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable = 'active'");
         return $result;
     }
 
+    // Get all episodes to admin
     function get_all_webseries_seasons_admin(){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable != 'deleted'");
         return $result;
     }
 
+    // Get the data to user to frontend
     function get_all_webseries_seasons_by_seriesid($id){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries_seasons WHERE watchable = 'active' AND webseries_id = '$id'");
         return $result;
@@ -86,6 +104,7 @@ class Webseries
         return $result;
     }
 
+    // Get the data to user to frontend
     function get_first_episode_of_webseries($id){
         $result = mysqli_query($this->connection,"SELECT id FROM webseries_seasons WHERE watchable = 'active' AND webseries_id = '$id'");
         return $result;
@@ -96,6 +115,7 @@ class Webseries
         return $result;
     }
 
+    // Used fro users in frontend
     function get_all_webseries_users(){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active'");
         return $result;
@@ -111,11 +131,13 @@ class Webseries
         return $result;
     }
 
+    // Get the data to user to frontend
     function get_webseries_by_part_1_id($id){
         $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active' AND part_1_id = '$id'");
         return $result;
     }
 
+    // Get the data to user to frontend
     function get_webseries_by_id_and_search($get_value,$id)
     {
         $result = mysqli_query($this->connection,"SELECT $get_value FROM webseries WHERE watchable = 'active' AND id = '$id'");
@@ -123,6 +145,7 @@ class Webseries
         return $row[0];
     }
 
+    // Gets the data to user to frontend
     function get_webseries_episode_by_id_and_search($get_value,$id)
     {
         $result = mysqli_query($this->connection,"SELECT $get_value FROM webseries_seasons WHERE watchable = 'active' AND id = '$id'");

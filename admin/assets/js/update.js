@@ -101,7 +101,8 @@ $(document).on('click','#update-movie',function(e){
         {
             if(data=="success")
             {
-                window.location.href='./../pages/admin-managevideos.php?videos=live-movies';
+                location.reload();
+                // window.location.href='./../pages/admin-managevideos.php?videos=live-movies';
             }else{
                 check_add_movies(data);
             }
@@ -122,7 +123,6 @@ function check_add_movies(data){
         element_array[ele].css('border','1px solid red');
     });
 }
-
 
 // Add webseries to db
 $(document).on('click','#update-webseries',function(e){
@@ -149,7 +149,8 @@ $(document).on('click','#update-webseries',function(e){
         {
             if(data=="success")
             {
-                window.location.href='./../pages/admin-managevideos.php?videos=live-webseries';
+                location.reload();
+                // window.location.href='./../pages/admin-managevideos.php?videos=live-webseries';
             }else{
                 check_add_webseries(data);
             }
@@ -169,4 +170,78 @@ function check_add_webseries(data){
     data_array.forEach((ele)=>{
         element_array[ele].css('border','1px solid red');
     });
+}
+
+// Add webseries to db
+$(document).on('click','#update-episode',function(e){
+    e.preventDefault();
+    let title = $('#episode-title').val();
+    let id = $(this).data('id');
+    let thumbnail = $('#episode-thumbnail').val();
+    let link = $('#episode-link').val();
+    let iframe = $('#episode-iframe').val();
+    let description = $('#episode-description').val();
+    let duration = $('#episode-duration').val();
+    let status = $('#episode-status').val();
+    let year = $('#episode-year').val();
+    let episode_part = $('#episode-part').val();
+    let action = 'update';
+    
+    if(check_before_episode_update(link,iframe,title,description,thumbnail,year,duration)){
+        $.ajax({
+            url : "../proccess/publish-new-episodes.php",
+            type : "POST",
+            data : {id,link,iframe,title,description,thumbnail,year,duration,status,episode_part,action},
+            success : function(data)
+            {
+                if(data=="success")
+                {
+                    location.reload();
+                }else{
+                    alert("Something went wrong!!!");
+                }
+            }
+        });
+    }
+});
+
+// Validate the data to check any empty form fields
+function check_before_episode_update(link,iframe,title,description,thumbnail,year,duration) {
+    const element_array = [$('#episode-link'),$('#episode-iframe'),$('#episode-title'),$('#episode-description'),$('#episode-thumbnail'),$('#episode-year'),$('#episode-duration')];
+    let count = 0;
+
+    element_array.forEach(ele=>{
+        ele.css('border-color','#b9b9b9');
+    });
+
+    if(link=='' && iframe=='')
+    {
+        element_array[0].css('border-color','red');
+        element_array[1].css('border-color','red');
+        count++;
+    }
+    if(title==''){
+        element_array[2].css('border-color','red');
+        count++;
+    }
+    if(description==''){
+        element_array[3].css('border-color','red');
+        count++;
+    }
+    if(thumbnail==''){
+        element_array[4].css('border-color','red');
+        count++;
+    }
+    if(year==''){
+        element_array[5].css('border-color','red');
+        count++;
+    }
+    if(duration==''){
+        element_array[6].css('border-color','red');
+        count++;
+    }
+    if(count<1)
+    {
+        return true;
+    }
 }

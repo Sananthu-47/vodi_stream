@@ -53,7 +53,7 @@ $output.="<div class='content-table-wrapper'>
             <td><a href='admin-advertisement.php?advertisement=add-ads&type=episode&id={$row['id']}&name={$row['title']}'><div class='btn btn-primary'>Add ads</div></a></td>
             <td class='d-flex justify-content-around'>
                 <button class='btn btn-info ml-2 make-webseries-episode-delete' data-id='{$row['id']}'><i class='fa fa-trash text-white'></i></button>
-                <button class='btn btn-primary mx-2' data-id='{$row['id']}'><i class='fa fa-pencil-square-o text-white'></i></button>
+                <a href='admin-update.php?episode-id={$row['id']}'><button class='btn btn-primary mx-2'><i class='fa fa-pencil-square-o text-white'></i></button></a>
                 <button class='btn btn-success make-episode-active'";
                 if($row['watchable'] == 'active') $output.='disabled';
                 $output.=" data-id='{$row['id']}'><i class='fa fa-check text-white'></i></button>
