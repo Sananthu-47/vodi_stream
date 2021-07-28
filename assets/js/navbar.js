@@ -24,8 +24,61 @@ $('#hamburger-menu').on('click',()=>{
 $('#sidenav').on('click',()=>{
     $('#sidenav').fadeOut('fast');
 });
-$('#search-icon-mobile').on('click',function(){
-    $('.search-in-mobile-mode').toggle();
+$('#search-icon').on('click',function(){
+    $('.search-mode').toggle();
+});
+
+$("#search-box").on('input',function(e){
+    if($(this).val().length > 1){
+        let search = $(this).val();
+        $(".suggestions").show();
+
+        $.ajax({
+            url : "process/search.php",
+            type : "POST",
+            data : {search},
+            success : function(data)
+            {
+                let response = JSON.parse(data);
+                let output = '';
+                if(response.length > 0){
+                    response.forEach((ele,i)=>{
+                        let type = ele[0];
+                        if(i < 5){
+                            output+=`
+                            <a class='item' href='`;
+                            if(type == 'Movie'){
+                                output+=`movie.php?movie_id=${ele[1]}`;
+                            }else{
+                                output+=`webseries.php?webseries_id=${ele[1]}`;
+                            }
+                            output+=`'>
+                                <div class='poster'>
+                                    <img src='${ele[4]}'>
+                                </div>
+                                <div class='info'>
+                                    <div class='title'>${ele[2]}`;
+                                    if(type == 'Webseries'){
+                                        output+=`<span class='season-badge-light mx-2'>Season ${ele[6]}</span>`;
+                                    }
+                                    output+=`</div>
+                                    <div class='meta'>
+                                    ${ele[3]}<i class='dot'></i>${ele[5]}<i class='dot'></i>${ele[0]}
+                                    </div>
+                                </div>
+                            </a>
+                            `;
+                        }
+                    });
+                $(".suggestions").html(output);
+                }else{
+                    $(".suggestions").html('<a class="more">Not found <i class="fa fa-frown-o"></i></a>');
+                }
+            }
+        });
+    }else{
+        $(".suggestions").hide();
+    }
 });
 
 $('#register').on('click',function(e){
@@ -56,7 +109,6 @@ $('#register').on('click',function(e){
         }
     });
 });
-
 
 function get_pricing()
 {
@@ -156,6 +208,6 @@ $('#plans').css('display','none');
 });
 
 $(document).on('click','#skip-plan',()=>{
-$('#plans').css('display','none');
+    $('#plans').css('display','none');
 });
 
