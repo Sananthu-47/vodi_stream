@@ -49,8 +49,12 @@ class Movie
         return $result;
     }
 
-    function get_all_movies_users(){
-        $result = mysqli_query($this->connection,"SELECT * FROM movies WHERE watchable = 'active' ORDER BY title");
+    function get_all_movies_users($limit=0){
+        $query = '';
+        $query.="SELECT * FROM movies WHERE watchable = 'active' ORDER BY title ";
+        if($limit > 0)
+            $query.="LIMIT $limit";
+        $result = mysqli_query($this->connection,$query);
         return $result;
     }
 

@@ -150,10 +150,10 @@ $poster = $Movie->get_movie_by_id_and_search('thumbnail',$movie_id);
         if('<?php echo $video_type; ?>' == 'link'){
             player.source = {
             type: 'video',
-            title: '<?php echo $movie_name; ?>',
+            title: `<?php echo $movie_name; ?>`,
             sources: [
                 {
-                src: '<?php echo $src; ?>',
+                src: "<?php echo $src; ?>",
                 type: 'video/mp4'
                 }
             ],
@@ -162,7 +162,7 @@ $poster = $Movie->get_movie_by_id_and_search('thumbnail',$movie_id);
         }else if('<?php echo $video_type; ?>' == 'iframe'){
             player.source = {
             type: 'video',
-            title: '<?php echo $movie_name; ?>',
+            title: `<?php echo $movie_name; ?>`,
             sources: [
                 {
                 src: src,

@@ -1,6 +1,6 @@
 #movie-single-banner , #advertisement-wrapper{
     max-width: 100%;
-    height: calc(100vh - 58vh);
+    height: calc(100vh - 60vh);
     background-position: top;
     background-size: cover;
     padding: 0;
@@ -337,13 +337,19 @@ video:focus{
 .movie-card{
     min-width: 250px;
     max-width: 280px;
-    height: max-content;
+    height: 320px;
     margin: 10px;
     background-size: 100% 100%;
+    box-shadow: 1px 1px 8px #04011b, -1px -1px 8px #04011b;
+}
+
+.movie-card:hover{
+    box-shadow: 1px 1px 8px #24baef, 
+                -1px -1px 8px #24baef;
 }
 
 .movie-image {
-    height: calc(100% - 60px);
+    height: calc(100% - 80px);
 }
 
 .movie-image img{
@@ -355,7 +361,7 @@ video:focus{
 .movie-info{
     display: flex;
     flex-direction: column;
-    min-height: 60px;
+    height: 80px;
     padding: 0 5px;
     word-break: break-all;
 }
@@ -429,6 +435,19 @@ video:focus{
     overflow: hidden;
     background-color: #282f40;
   }
+
+@media only screen and (min-width: 768px){
+    #movie-single-banner , #advertisement-wrapper{
+        height: calc(100% - 45vh);
+    }
+}
+
+@media only screen and (min-width: 1200px){
+    #movie-single-banner , #advertisement-wrapper{
+        height: calc(100% - 40vh);
+    }
+}
+
 
 @media only screen and (max-width: 1200px) {
 

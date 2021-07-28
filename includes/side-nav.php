@@ -11,7 +11,7 @@
                     }
                     if($User->check_admin_or_not($USER_LOGIN_ID))
                     {
-                    echo "<a href='admin/pages/index.php'><li class='nav-item admin-login'>Admin</li></a>";
+                    echo "<a href='admin/pages/index.php' target='_blank'><li class='nav-item admin-login'>Admin</li></a>";
                     }
                 ?>
         </ul>

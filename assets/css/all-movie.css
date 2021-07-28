@@ -254,8 +254,13 @@
     margin: 10px;
     overflow: hidden;
     background-size: contain;
-    box-shadow: 1px 1px 12px #000000, 
-                -1px -1px 12px #181717;
+    box-shadow: 1px 1px 8px #04011b, 
+                -1px -1px 8px #04011b;
+}
+
+.movie-card:hover{
+    box-shadow: 1px 1px 8px #24baef, 
+                -1px -1px 8px #24baef;
 }
 
 .movie-image {

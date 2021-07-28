@@ -116,8 +116,12 @@ class Webseries
     }
 
     // Used fro users in frontend
-    function get_all_webseries_users(){
-        $result = mysqli_query($this->connection,"SELECT * FROM webseries WHERE watchable = 'active'");
+    function get_all_webseries_users($limit = 0){
+        $query = '';
+        $query.="SELECT * FROM webseries WHERE watchable = 'active' ";
+        if($limit > 0)
+            $query.="LIMIT $limit";
+        $result = mysqli_query($this->connection,$query);
         return $result;
     }
 

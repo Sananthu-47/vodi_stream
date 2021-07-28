@@ -116,22 +116,22 @@
     position: relative;
     width: 100%;
     padding: 1rem 0;
-    overflow-x: scroll;
     display: flex;
+    flex-wrap: wrap;
 }
 
-.home-videos-glider::-webkit-scrollbar {
-    display: none;
-  }
-
 .image-card{
-    min-width: 260px;
-    max-width: 300px;
+    width: 300px;
     height: 360px;
     margin: 10px;
     background-size: 100% 100%;
-    box-shadow: 1px 1px 5px #000000, 
-                -1px -1px 5px #181717;
+    box-shadow: 1px 1px 8px #04011b, 
+                -1px -1px 8px #04011b;
+}
+
+.image-card:hover{
+    box-shadow: 1px 1px 8px #24baef, 
+                -1px -1px 8px #24baef;
 }
 
 .image-wrapper{
@@ -164,6 +164,7 @@
     color: #ffffff;
     font-size: 22px;
     font-weight: 600;
+    margin: 10px 0;
 }
 
 .banner-label{
@@ -180,7 +181,7 @@
     margin: 5px 0;
 }
 
-.season-badge{
+.season-badge , .season-badge-light{
     padding: 0.2em;
     background: #2d3549;
     color: #24BAEF;
@@ -192,20 +193,28 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 1440px) {
-.banner-label{
-    padding: 1px 5px;
-    font-size: 14px;
-    margin: 3px 0;
+.season-badge-light{
+    background-color: #ececec;
 }
-.image-card-movies{
-    min-width: 100px;
-    height: 150px;
-    margin: 0px 5px;
-}
+
+@media only screen and (max-width: 768px) {
+    .home-videos-glider{
+        display: flex;
+        justify-content: center;
+    }
 }
 
 @media only screen and (max-width: 1440px) {
+    .banner-label{
+        padding: 1px 5px;
+        font-size: 14px;
+        margin: 3px 0;
+    }
+    .image-card-movies{
+        min-width: 100px;
+        height: 150px;
+        margin: 0px 5px;
+    }
     #movie-details-home{
         max-width: 80%;
     }

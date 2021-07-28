@@ -142,7 +142,7 @@ $poster = $Webseries->get_webseries_episode_by_id_and_search('thumbnail',$episod
         if('<?php echo $video_type; ?>' == 'link'){
             player.source = {
             type: 'video',
-            title: '<?php echo $movie_name; ?>',
+            title: `<?php echo $movie_name; ?>`,
             sources: [
                 {
                 src: '<?php echo $src; ?>',
@@ -154,7 +154,7 @@ $poster = $Webseries->get_webseries_episode_by_id_and_search('thumbnail',$episod
         }else if('<?php echo $video_type; ?>' == 'iframe'){
             player.source = {
             type: 'video',
-            title: '<?php echo $movie_name; ?>',
+            title: `<?php echo $movie_name; ?>`,
             sources: [
                 {
                 src: src,
