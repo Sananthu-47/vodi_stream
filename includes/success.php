@@ -1,7 +1,5 @@
 <?php
-// session_start();
 include "db.php";
-include "header.php";
 $status = $_POST['status'];
 $productinfo=$_POST["productinfo"];
 $product_info_details =explode('*',$productinfo); // [user_id,productinfo]
@@ -28,6 +26,14 @@ if($package == 1){
 }
 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css"></link>
 </head>
   <body>
 
@@ -64,8 +70,11 @@ if($package == 1){
         $query = "INSERT INTO `payments` (`transaction_id`, `user_id`, `amount`, `start_date`, `expiry_date`, `status` , `pack`) VALUES ('$txnid', '$user', '$amount', '$start_date', '$expiry_date', 'active','$package')";
         $ordered = mysqli_query($connection,$query);
         $last_id = mysqli_insert_id($connection);
-        $query = "UPDATE `users` SET `pricing` = 'paid' , `payment_id` = '$last_id' WHERE `id` = '$user'";
-        $result = mysqli_query($connection,$query);
+        $user_query = "UPDATE users SET pricing = 'paid' , payment_id = '$last_id' WHERE id = '$user'";
+        $result = mysqli_query($connection,$user_query);
+        if($result){
+          echo "Done";
+        }
 
         $subject  = "Order successfully placed";
         $email =$email;
@@ -78,10 +87,6 @@ if($package == 1){
                 'MIME-Version: 1.0' . "\r\n" .
                 'Content-type: text/html; charset=utf-8';
         mail($email, $subject, $body, $sender_email);
-        if(mail($email, $subject, $body, $sender_email)) { 
-
-        } 
-
     }
 
 ?>

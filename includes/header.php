@@ -7,7 +7,18 @@ session_start();
 if(isset($_SESSION['user_id']))
 {
     $USER_LOGIN_ID = $_SESSION['user_id'];
-//if(strtotime(date("Y/m/d")) < strtotime($date2)) echo "Active"; else echo "Expired";
+    $result = mysqli_query($connection,"SELECT payment_id FROM users WHERE id = '$USER_LOGIN_ID'");
+    $row = mysqli_fetch_array($result);
+    $payment_id = $row[0];
+    if($payment_id != 0){
+        $result = mysqli_query($connection,"SELECT `expiry_date` FROM payments WHERE id = '$payment_id'");
+        $expiry_date = mysqli_fetch_assoc($result);
+        $expiry_date = $expiry_date['expiry_date'];
+        if(strtotime(date("Y/m/d")) > strtotime($expiry_date)){
+            $payment_result = mysqli_query($connection,"UPDATE payments SET status = 'expired' WHERE id = '$payment_id'");
+            $payment_result = mysqli_query($connection,"UPDATE users SET pricing = 'free', payment_id = 0 WHERE id = '$USER_LOGIN_ID'");
+        }
+    }
 }else{
     $USER_LOGIN_ID = '';
 }

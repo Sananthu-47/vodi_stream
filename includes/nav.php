@@ -59,7 +59,7 @@ include "side-nav.php";
                                     <?php }else{
                                         $username = $User->get_user_detail_by_id('username',$USER_LOGIN_ID);
                                     ?>
-                                        <a href='profile.php' class='text-dark'><span class='label  py-1'><i class='fa fa-user px-1'></i>$username</span></a>
+                                        <a href='profile.php' class='text-dark'><span class='label  py-1'><i class='fa fa-user px-1'></i><?php  echo $username ?></span></a>
                                         <a href='includes/logout.php'><span class='label  py-1' id='logout'><i class='fa fa-sign-out px-1'></i>Logout</span></a>
                                     <?php } ?>
                             </div> <!-- mini content -->

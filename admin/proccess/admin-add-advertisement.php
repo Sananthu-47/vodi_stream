@@ -44,8 +44,12 @@ if(isset($_GET['id']) && isset($_GET['type'])){
 <form class='form-wrapper'>
     <div class='main-content'>
         <div class='main-content-left form-group'>
-            <label for='' class='badge badge-dark'>Select type:</label>
-            <select name="" id="video-type" class='form-control'>
+            <label for='' class='badge badge-dark <?php if($type != ''){
+                echo 'd-none';
+            } ?>'>Select type:</label>
+            <select name="" id="video-type" class='form-control' <?php if($type != ''){
+                echo 'hidden';
+            } ?>>
                 <option value="0">Select the type</option>
                 <option value="movie" <?php if($type == 'movie') echo "selected"; ?>>Movie</option>
                 <option value="ad-episode" <?php if($type == 'episode') echo "selected"; ?>>Episode</option>

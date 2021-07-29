@@ -1,6 +1,5 @@
 <?php
 include "db.php";
-include "header.php";
 $status=$_POST["status"];
 $name=$_POST["firstname"];
 $amount=$_POST["amount"];
@@ -11,7 +10,18 @@ $productinfo=$_POST["productinfo"];
 $email=$_POST["email"];
 $salt="--Check salt--";
 $_SESSION['user_id'] = $USER_LOGIN_ID;
-
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css"></link>
+</head>
+  <body>
+<?php
 // Salt should be same Post Request 
 
 if(isset($_POST["additionalCharges"])) {
@@ -35,3 +45,6 @@ if(isset($_POST["additionalCharges"])) {
           }, 5000);</script>";
 		 } 
 ?>
+
+</body>
+</html>
