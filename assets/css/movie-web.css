@@ -436,6 +436,21 @@ video:focus{
     background-color: #282f40;
   }
 
+  .review-menu-dropdown{
+      position: relative;
+      left: -100%;
+      background-color: #fff;
+      color: #0d9fd4;
+      font-size: 16px;
+      border-radius: 5px;
+  }
+
+@media only screen and (max-width: 768px){
+    .reviews{
+        display: flex;
+        flex-direction: column;
+    }
+}
 @media only screen and (min-width: 768px){
     #movie-single-banner , #advertisement-wrapper{
         height: calc(100% - 45vh);
@@ -447,7 +462,6 @@ video:focus{
         height: calc(100% - 40vh);
     }
 }
-
 
 @media only screen and (max-width: 1200px) {
 

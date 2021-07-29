@@ -390,16 +390,28 @@ $poster = $Movie->get_movie_by_id_and_search('thumbnail',$movie_id);
                 while($row = mysqli_fetch_assoc($all_rating_review)){
                     $output.="
                     <div class='reviews d-flex'>
-                        <div class='image-wrapper' style='background-color: {$User->get_user_detail_by_id('color',$row['user_id'])}'><i class='fa fa-user fa-2x'></i></div>
-                        <div class='d-flex flex-column mx-4' style='min-width:100px;'>
-                            <span class='add-rating'>{$User->get_user_detail_by_id('username',$row['user_id'])}</span>
-                            <span><i class='fa fa-star add-rating'></i>{$row['star']}/10</span>
+                        <div class='d-flex'>
+                            <div class='image-wrapper' style='background-color: {$User->get_user_detail_by_id('color',$row['user_id'])}'><i class='fa fa-user fa-2x'></i></div>
+                            <div class='d-flex flex-column mx-4' style='min-width:100px;'>
+                                <span class='add-rating'>{$User->get_user_detail_by_id('username',$row['user_id'])}</span>
+                                <span><i class='fa fa-star add-rating'></i>{$row['star']}/10</span>
+                            </div>
                         </div>
-                        <div class='comment-review'>{$row['comment']}</div>";
-                        if($row['user_id'] == $USER_LOGIN_ID){
-                            $output.="<div class='text-white h3 review-menu'><i class='fa fa-ellipsis-v'></i></div>";
-                        }
+                        <div class='d-flex'>
+                            <div class='comment-review mr-3'>{$row['comment']}</div>";
+                            if($row['user_id'] == $USER_LOGIN_ID){
+                                $output.="<div class='text-white h3 review-menu'>
+                                    <i class='fa fa-ellipsis-v review-menu-user-icon'></i>
+                                    <div class='review-menu-dropdown' style='display:none;'>
+                                        <ul class='list-group'>
+                                            <li class='list-group-item delete-review' data-id='{$row['id']}'>Delete</li>
+                                            <li class='list-group-item edit-review'>Edit</li>
+                                        </ul>
+                                    </div>
+                                </div>";
+                            }
                     $output.="</div>
+                    </div>
                     ";
                 }
                 echo $output;
@@ -408,122 +420,3 @@ $poster = $Movie->get_movie_by_id_and_search('thumbnail',$movie_id);
 
     </div>
 </div><!---description-reviews-->
-
-
-
-<!-- Trailers -->
-<!-- <div class="stars-wrapper">
-    <div class="col-3 side-extra"></div>
-        <div class="stars">
-            <span>Trailers</span>
-            <div class="stars-glider">
-                    <div class='stars-image-card'>
-                        <img src="images/star-1.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>13 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/star-2.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>1 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h1-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>55 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h2-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>22 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/star-2.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>1222 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h1-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>1222 views</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h2-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>12 views</span>
-                            </div>
-                    </div>
-            </div>
-        </div>
-</div> -->
-<!-- The stars representing -->
-<!-- <div class="stars-wrapper">
-    <div class="col-3 side-extra"></div>
-        <div class="stars">
-            <span>Stars</span>
-            <div class="stars-glider">
-                    <div class='stars-image-card'>
-                        <img src="images/star-1.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/star-2.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h1-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h2-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/star-2.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h1-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-                    <div class='stars-image-card'>
-                        <img src="images/h2-slider.jpg" alt="">
-                            <div class="star-detail">
-                                <span class='star-name'>Amannn</span>
-                                <span class='star-role'>Hero</span>
-                            </div>
-                    </div>
-            </div>
-        </div>
-</div> -->

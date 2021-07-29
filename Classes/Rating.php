@@ -68,4 +68,8 @@ class Rating
         }
         return [$avg_rating,$total_no_of_users_rated];
     }
+
+    function deleteReview($id){
+        $result = mysqli_query($this->connection,"DELETE FROM rating_review WHERE id = '$id'");
+    }
 }

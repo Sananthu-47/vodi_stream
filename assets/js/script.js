@@ -567,3 +567,32 @@ $('.collapsible').on("click", function() {
       content.style.display = "block";
     }
 });    
+
+// Add toggle for menu
+$(".review-menu-user-icon").on('click',()=>{
+    $(".review-menu-dropdown").toggle();
+});
+
+// Make toggle the review section for edit
+$(".edit-review").on('click',()=>{
+    $(".review-menu-dropdown").hide();
+    $(".content").show();
+});
+
+// delete the review
+$(".delete-review").on('click',function(){
+    let review_id = $(this).data('id');
+    $.ajax({
+        url : "process/rating.php",
+        type : "POST",
+        data : {review_id},
+        success : function(data)
+        {
+            if(data == 1)
+                location.reload();
+        },
+        error : function(){
+            $('#movie-single-banner').html("We are facing some issues resolve it soon");
+        }
+    });
+});
